@@ -4,7 +4,7 @@ useUserSettingsProvider();
 colorMode.preference = 'dark';
 
 useHead({
-  title: 'Not Duelyst (but kinda)',
+  title: 'Darialyst',
   style: [
     {
       // this solve a weird issue in dev mode where the components and base layers are inverted, probably due to dynamic style blocks insertion order
