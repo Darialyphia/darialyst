@@ -26,7 +26,7 @@ const { triggers } = defineProps<{
 const action = defineModel<Action>('modelValue', { required: true });
 
 const isComponent = (x: unknown): x is Component => {
-  return isObject(x) && 'render' in x;
+  return isObject(x) && ('render' in x || '__name' in x);
 };
 
 const triggerOverridesDict = {
@@ -629,6 +629,7 @@ const actionDict: ActionDictionary = {
     }
   }
 };
+
 const actionOptions = computed(
   () =>
     Object.entries(actionDict)
