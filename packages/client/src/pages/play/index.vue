@@ -100,7 +100,7 @@ section {
     display: inline;
   }
 
-  :deep(a) {
+  :deep(a[href]) {
     text-decoration: underline;
   }
   @screen lg {
