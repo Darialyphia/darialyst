@@ -24,6 +24,7 @@ const {
 const sprite = defineModel<Nullable<AnimatedSprite>>('sprite', { required: false });
 
 const attrs = useAttrs();
+
 const { isEnabled, diffuseRef, normalRef, normalFilter } =
   useIllumination<AnimatedSprite>(el => {
     sprite.value = el;
