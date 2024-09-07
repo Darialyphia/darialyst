@@ -247,7 +247,6 @@ header {
   text-align: center;
 
   transition: transform 0.3s ease-in;
-
   > .kind {
     font-size: var(--font-size-00);
     color: var(--gray-5);
@@ -257,6 +256,7 @@ header {
     margin-top: var(--size-2);
     font-size: var(--font-size-3);
     font-weight: var(--font-weight-7);
+    text-shadow: 0 2px 0 black;
   }
 }
 
@@ -297,12 +297,11 @@ footer {
 .description {
   transform: translateZ(var(--z-translate));
 
-  /* align-self: start; */
   justify-self: center;
-
+  padding-inline: var(--size-1);
   width: 100%;
   max-width: calc(var(--size-12) + var(--size-7));
-
+  text-shadow: 0 2px 0 black;
   @screen lt-lg {
     max-width: calc(var(--size-12) + var(--size-3));
   }

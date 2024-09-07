@@ -48,7 +48,7 @@ const filteredCards = computed(() =>
 
 <template>
   <div class="format-cards">
-    <section class="sidebar">
+    <section class="sidebar fancy-scrollbar">
       <h3>Custom Cards</h3>
       <p>These are your brand new cards.</p>
       <p v-if="!customCards.length" class="my-2 italic">
@@ -203,15 +203,14 @@ section {
 }
 
 .sidebar {
-  padding-bottom: var(--size-10);
+  padding-bottom: var(--size-11);
+  overflow-y: auto;
 }
 
 .card-list {
-  overflow-y: auto;
   display: grid;
   gap: var(--size-2);
 
-  max-height: var(--size-xs);
   padding: var(--size-2);
 
   .selected {
