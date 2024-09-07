@@ -14,6 +14,7 @@ const format = defineModel<{
   config: GameSessionConfig;
 }>('format', { required: true });
 
+console.log(format.value.cards);
 const customCards = computed(() =>
   Object.values(format.value.cards).filter(card => !CARDS[card.id])
 );
@@ -47,14 +48,14 @@ const filteredCards = computed(() =>
 
 <template>
   <div class="format-cards">
-    <section>
+    <section class="sidebar">
       <h3>Custom Cards</h3>
       <p>These are your brand new cards.</p>
       <p v-if="!customCards.length" class="my-2 italic">
         This format doesn't have any custom card
       </p>
       <ul v-else class="card-list fancy-scrollbar">
-        <li v-for="card in customCards" :key="card.id">
+        <li v-for="card in customCards" :key="card.id" class="flex gap-3">
           <UiButton
             type="button"
             class="ghost-button"
@@ -64,6 +65,11 @@ const filteredCards = computed(() =>
             <CardSprite :sprite-id="card.spriteId" class="sprite" />
             {{ card.name }}
           </UiButton>
+          <UiIconButton
+            name="material-symbols:delete-outline"
+            class="ghost-error-button shrink-0"
+            @click="delete format.cards[card.id]"
+          />
         </li>
       </ul>
       <div class="flex items-center gap-2">
@@ -194,6 +200,10 @@ section {
   overflow: hidden;
   height: 100%;
   padding-inline: var(--size-2);
+}
+
+.sidebar {
+  padding-bottom: var(--size-10);
 }
 
 .card-list {
