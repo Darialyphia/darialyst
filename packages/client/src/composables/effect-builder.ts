@@ -62,7 +62,8 @@ export const [useUnitConditionsProvider, _useUnitConditions] = createInjectionSt
       is_same_column: { label: 'A unit on the same column', params: ['cell', 'not'] },
       is_same_row: { label: 'A unit on the same row', params: ['cell', 'not'] },
       has_lowest_attack: { label: 'A unit with the lowest attack', params: ['not'] },
-      has_highest_attack: { label: 'A unit with the highest attack', params: ['not'] }
+      has_highest_attack: { label: 'A unit with the highest attack', params: ['not'] },
+      is_on_cell: { label: 'A unit on a specific cell', params: ['cell', 'not'] }
     };
 
     return computed(() => ({ ...baseDict, ...extrasDict.value }));

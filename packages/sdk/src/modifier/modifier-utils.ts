@@ -361,6 +361,7 @@ export const structure = (source: Card) => {
       {
         keywords: [KEYWORDS.STRUCTURE],
         onApplied(session, attachedTo) {
+          session.logger('applying structure modifier');
           attachedTo.addInterceptor(
             'canAttack',
             () => false,
@@ -373,6 +374,9 @@ export const structure = (source: Card) => {
             INTERCEPTOR_PRIORITIES.FINAL
           );
           attachedTo.addInterceptor('attack', () => 0, INTERCEPTOR_PRIORITIES.FINAL);
+        },
+        onRemoved(session) {
+          session.logger('removing structure modifier');
         }
       }
     ]

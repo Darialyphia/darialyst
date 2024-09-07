@@ -79,7 +79,8 @@ export type UnitConditionBase =
       type: 'has_highest_attack';
       params: { not: false };
     }
-  | { type: 'is_exhausted'; params: { not: boolean } };
+  | { type: 'is_exhausted'; params: { not: boolean } }
+  | { type: 'is_on_cell'; params: { cell: Filter<CellCondition>; not: boolean } };
 
 export type UnitConditionExtras =
   | { type: 'attack_target'; params: { not: boolean } }
@@ -444,6 +445,20 @@ export const getUnits = ({
               }
             });
             return entities;
+          })
+          .with({ type: 'is_on_cell' }, condition => {
+            const elligibleCells = getCells({
+              conditions: condition.params.cell,
+              targets,
+              session,
+              entity,
+              card,
+              event,
+              eventName,
+              playedPoint
+            });
+
+            return elligibleCells.some(cell => cell.entity?.equals(e));
           })
           .exhaustive();
 

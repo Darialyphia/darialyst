@@ -1,4 +1,10 @@
 <script setup lang="ts">
+import type { Action, WidenedGenericCardEffect } from '@game/sdk';
+import { isObject } from '@game/shared';
+import { match } from 'ts-pattern';
+import { intersection } from 'lodash-es';
+import FrequencyNode from './FrequencyNode.vue';
+import KeywordNode from './KeywordNode.vue';
 import {
   AmountNode,
   ArtifactNode,
@@ -9,15 +15,9 @@ import {
   GlobalConditionNode,
   PlayerNode,
   TargetsNode,
-  UnitNode,
-  TileNode
+  TileNode,
+  UnitNode
 } from '#components';
-import type { Action, WidenedGenericCardEffect } from '@game/sdk';
-import { isObject } from '@game/shared';
-import { match } from 'ts-pattern';
-import { intersection } from 'lodash-es';
-import FrequencyNode from './FrequencyNode.vue';
-import KeywordNode from './KeywordNode.vue';
 
 const { triggers } = defineProps<{
   triggers?: WidenedGenericCardEffect['config']['triggers'];

@@ -1,5 +1,6 @@
 import { KEYWORDS } from '../../../utils/keywords';
 import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineCardEffect } from '../../card-effect';
 import { CARD_KINDS, RARITIES } from '../../card-enums';
 
 export const f3EtherealObelysk = defineSerializedBlueprint({
@@ -18,7 +19,18 @@ export const f3EtherealObelysk = defineSerializedBlueprint({
   maxHp: 6,
   faction: 'f3',
   effects: [
-    { text: '@Structure@.', config: { executionContext: 'while_on_board', actions: [] } },
+    defineCardEffect({
+      text: '@Structure@.',
+      config: {
+        executionContext: 'while_on_board',
+        actions: [
+          {
+            type: 'structure',
+            params: {}
+          }
+        ]
+      }
+    }),
     {
       text: '@Spawn@: @Wind Dervish@',
       config: {

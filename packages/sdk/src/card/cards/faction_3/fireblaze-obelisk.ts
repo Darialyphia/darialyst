@@ -1,5 +1,6 @@
 import { KEYWORDS } from '../../../utils/keywords';
 import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineCardEffect } from '../../card-effect';
 import { CARD_KINDS, RARITIES } from '../../card-enums';
 import { f3WindDervish } from './wind-dervish';
 
@@ -12,6 +13,18 @@ export const f3FireblazeObelisk = defineSerializedBlueprint({
   kind: CARD_KINDS.MINION,
   rarity: RARITIES.RARE,
   effects: [
+    defineCardEffect({
+      text: '@Structure@.',
+      config: {
+        executionContext: 'while_on_board',
+        actions: [
+          {
+            type: 'structure',
+            params: {}
+          }
+        ]
+      }
+    }),
     {
       text: '@Spawn@: @Wind Dervish@.',
       config: {

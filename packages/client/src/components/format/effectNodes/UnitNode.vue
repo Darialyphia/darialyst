@@ -148,6 +148,12 @@ const id = useId();
                 condition.params = { not: false };
               }
             )
+            .with({ type: 'is_on_cell' }, condition => {
+              condition.params = {
+                cell: { candidates: [[{ type: 'any_cell' }]] },
+                not: false
+              };
+            })
             .exhaustive();
         }
       "
