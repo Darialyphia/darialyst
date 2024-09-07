@@ -9,7 +9,7 @@ const schema = defaultActionSchema.extend({
 export class MulliganAction extends GameAction<typeof schema> {
   readonly name = 'mulligan';
   readonly phase = GAME_PHASES.MULLIGAN;
-  protected allowDuringEnemyTurn = true;
+  protected override allowDuringEnemyTurn = true;
 
   protected payloadSchema = schema;
 
