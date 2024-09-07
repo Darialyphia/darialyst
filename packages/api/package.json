@@ -1,0 +1,28 @@
+{
+  "name": "@game/api",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "scripts": {
+    "dev": "convex dev",
+    "codegen": "convex codegen",
+    "deploy": "convex deploy",
+    "convex": "convex",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@game/tsconfig": "*",
+    "eslint-config-daria": "*"
+  },
+  "dependencies": {
+    "@casl/ability": "^6.5.0",
+    "@game/sdk": "*",
+    "@game/shared": "*",
+    "@hathora/cloud-sdk-typescript": "^2.2.4",
+    "convex": "^1.13.2",
+    "convex-helpers": "^0.1.48",
+    "lucia": "^2.7.6",
+    "resend": "^4.0.0",
+    "ts-pattern": "^5.1.1",
+    "zipson": "^0.2.12"
+  }
+}
