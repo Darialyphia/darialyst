@@ -45,7 +45,7 @@ const formatToDelete = ref<Nullable<GameFormatDto>>(null);
 
       <AccordionRoot v-else type="single" collapsible>
         <AccordionItem v-for="format in formats" :key="format._id" :value="format._id">
-          <AccordionHeader as="h2" class="flex gap-3">
+          <AccordionHeader as="h2" class="flex gap-3 mt-4">
             <AccordionTrigger>
               {{ format.name }}
               <Icon name="mdi:chevron-down" class="chevron" />

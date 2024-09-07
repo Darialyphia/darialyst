@@ -10,7 +10,7 @@ export const f3OrbWeaver = defineSerializedBlueprint({
   collectable: true,
   keywords: [KEYWORDS.OPENING_GAMBIT.id],
   relatedBlueprintIds: [],
-  tags: [],
+  tags: ['dervish'],
   kind: CARD_KINDS.MINION,
   rarity: RARITIES.COMMON,
   cellHighlights: [],
