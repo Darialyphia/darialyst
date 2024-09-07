@@ -59,7 +59,7 @@ export const useCollection = () => {
           _id: collectionItem?._id,
           cardId: card.id,
           card: parseSerializeBlueprint(card),
-          pedestalId: collectionItem?.pedestalId ?? 'default',
+          pedestalId: collectionItem?.pedestalId ?? 'pedestal-default',
           cardBackId: collectionItem?.cardBackId ?? 'default'
         };
       });

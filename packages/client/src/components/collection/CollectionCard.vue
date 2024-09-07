@@ -104,7 +104,7 @@ const { isMobile } = useResponsive();
           faction: card.card.faction,
           tags: card.card.tags ?? [],
           cardbackId: card.cardBackId,
-          pedestalId: card.pedestalId
+          pedestalId: card.pedestalId ?? 'default'
         }"
         @mousemove="onMousemove"
         @click="emit('click')"

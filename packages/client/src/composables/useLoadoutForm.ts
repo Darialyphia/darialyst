@@ -1,5 +1,5 @@
 import { api } from '@game/api';
-import { isDefined, type Nullable } from '@game/shared';
+import { isDefined } from '@game/shared';
 import type { Id } from '@game/api/src/convex/_generated/dataModel';
 import type { LoadoutDto } from '@game/api/src/convex/loadout/loadout.mapper';
 import { CARD_KINDS, CARDS, type CardBlueprint } from '@game/sdk';
@@ -55,6 +55,10 @@ export const useLoadoutFormProvider = ({
     cards: Array<{ id: string; pedestalId: string; cardBackId: string }>;
   }>({ name: '', cards: [] });
 
+  const formatCards = computed(() => {
+    return { ...CARDS, ...format.value.cards };
+  });
+
   watch(format, newFormat => {
     const cards = { ...CARDS, ...newFormat.cards };
     formValues.value.cards = formValues.value.cards.filter(card => {
@@ -64,11 +68,11 @@ export const useLoadoutFormProvider = ({
 
   const general = computed(() => {
     const card = formValues.value?.cards.find(c => {
-      const card = CARDS[c.id];
+      const card = formatCards.value[c.id];
       return card.kind === CARD_KINDS.GENERAL;
     });
     if (!card) return null;
-    return parseSerializeBlueprint(CARDS[card.id]);
+    return parseSerializeBlueprint(formatCards.value[card.id]);
   });
 
   const initEmpty = () => {
@@ -118,7 +122,7 @@ export const useLoadoutFormProvider = ({
   );
 
   const canAddCard = (cardId: CardBlueprintId) => {
-    const card = CARDS[cardId];
+    const card = formatCards.value[cardId];
 
     if (!formValues.value) return false;
     if (loadoutIsFull.value) return false;
@@ -149,7 +153,7 @@ export const useLoadoutFormProvider = ({
     cardBackId: string;
   }) => {
     if (!formValues.value) return;
-    const card = CARDS[id];
+    const card = formatCards.value[id];
     if (card.kind === CARD_KINDS.GENERAL && general.value) {
       formValues.value.cards.find(c => c.id === id)!.id = id;
       return;
