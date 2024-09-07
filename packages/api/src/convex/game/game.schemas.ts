@@ -16,30 +16,7 @@ export const gameSchemas = {
     roomId: v.string(),
     formatId: v.optional(v.id('formats')),
     lobbyId: v.optional(v.id('lobbies')),
-    winnerId: v.optional(v.id('users')),
-    cachedPlayers: v.optional(
-      v.array(
-        v.object({
-          id: v.id('users'),
-          name: v.string(),
-          isPlayer1: v.boolean(),
-          deck: v.array(
-            v.object({
-              blueprintId: v.string(),
-              pedestalId: v.string(),
-              cardBackId: v.string()
-            })
-          )
-        })
-      )
-    ),
-    cachedFormat: v.optional(
-      v.object({
-        config: v.any() as Validator<GameSessionConfig>,
-        cards: v.string(),
-        map: v.string()
-      })
-    )
+    winnerId: v.optional(v.id('users'))
   })
     .index('by_status', ['status'])
     .index('by_roomId', ['roomId']),
