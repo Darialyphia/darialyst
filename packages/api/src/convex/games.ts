@@ -30,25 +30,3 @@ export const latestGamesWithReplays = getLatestGamesWithReplaysUsecase;
 export const createReplay = createGameReplayUsecase;
 export const replayByGameId = getGameReplayUsecase;
 export const byRoomId = getGameByRoomIdUsecase;
-
-export const internalMigrateGameDetails = internalMutation({
-  async handler(ctx, args) {
-    const games = await ctx.db.query('games').collect();
-    await Promise.all(
-      games.map(async game => {
-        if (game.cachedFormat && game.cachedPlayers) {
-          await ctx.db.insert('gameDetails', {
-            gameId: game._id,
-            cachedFormat: game.cachedFormat,
-            cachedPlayers: game.cachedPlayers
-          });
-
-          await ctx.db.patch(game._id, {
-            cachedFormat: undefined,
-            cachedPlayers: undefined
-          });
-        }
-      })
-    );
-  }
-});
