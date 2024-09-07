@@ -16,8 +16,14 @@ export const getGameReplayUsecase = query({
     const game = await getGameById(ctx, replay.gameId);
     if (!game) throw new Error('Game not found.');
 
+    const details = await ctx.db
+      .query('gameDetails')
+      .withIndex('by_game_id', q => q.eq('gameId', game._id))
+      .unique();
+    if (!details) throw new Error('game details not found');
+
     return {
-      game: toGameDetailsDto(game),
+      game: toGameDetailsDto({ ...game, details }),
       replay: replay.replay,
       initialState: replay.initialState
     };

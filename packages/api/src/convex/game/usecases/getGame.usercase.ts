@@ -11,6 +11,12 @@ export const getGameUsecase = query({
     const game = await getGameById(ctx, args.gameId);
     if (!game) return null;
 
-    return toGameDetailsDto(game);
+    const details = await ctx.db
+      .query('gameDetails')
+      .withIndex('by_game_id', q => q.eq('gameId', game._id))
+      .unique();
+    if (!details) return null;
+
+    return toGameDetailsDto({ ...game, details });
   }
 });

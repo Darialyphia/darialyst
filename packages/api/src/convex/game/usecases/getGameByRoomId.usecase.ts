@@ -1,5 +1,5 @@
 import { v } from 'convex/values';
-import { toGameDetailsDto } from '../game.mapper';
+import { toGameDetailsDto, toGameDto } from '../game.mapper';
 import { getGameByRoomId } from '../game.utils';
 import { authedQuery } from '../../auth/auth.utils';
 
@@ -11,6 +11,6 @@ export const getGameByRoomIdUsecase = authedQuery({
     const game = await getGameByRoomId(ctx, args.roomId);
     if (!game) return null;
 
-    return toGameDetailsDto(game);
+    return toGameDto(game);
   }
 });

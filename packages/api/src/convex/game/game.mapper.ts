@@ -3,7 +3,7 @@ import type { Id } from '../_generated/dataModel';
 import type { GameStatus } from './game.constants';
 import { toGameLoadoutDto, type GameLoadoutDto } from '../loadout/loadout.mapper';
 import { toUserDto, type UserDto } from '../users/user.mapper';
-import type { Game } from './game.entity';
+import type { Game, GameDetails } from './game.entity';
 import type { User } from '../users/user.entity';
 import type { Loadout } from '../loadout/loadout.entity';
 import { type SimpleGameFormatDto } from '../formats/format.mapper';
@@ -60,7 +60,7 @@ export type GameDetailsDto = {
 };
 
 type GameDetailsMapperInput = Game & {
-  players: Array<User & { loadout: Loadout; gamePlayerId: Id<'gamePlayers'> }>;
+  details: GameDetails;
 };
 export const toGameDetailsDto = (game: GameDetailsMapperInput): GameDetailsDto => {
   return {
@@ -71,10 +71,10 @@ export const toGameDetailsDto = (game: GameDetailsMapperInput): GameDetailsDto =
     roomId: game.roomId,
     status: game.status,
     format: {
-      config: game.cachedFormat.config,
-      cards: parse(game.cachedFormat.cards),
-      map: parse(game.cachedFormat.map)
+      config: game.details.cachedFormat.config,
+      cards: parse(game.details.cachedFormat.cards),
+      map: parse(game.details.cachedFormat.map)
     },
-    players: game.cachedPlayers
+    players: game.details.cachedPlayers
   };
 };

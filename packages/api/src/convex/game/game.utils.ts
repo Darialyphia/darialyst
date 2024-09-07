@@ -91,11 +91,20 @@ export const getGamePlayers = async ({ db }: { db: QueryCtx['db'] }, game: Game)
   );
 };
 
-export const getReplayInitialState = async (game: Game): Promise<SerializedGameState> => {
+export const getReplayInitialState = async (
+  ctx: { db: QueryCtx['db'] },
+  game: Game
+): Promise<SerializedGameState> => {
+  const details = await ctx.db
+    .query('gameDetails')
+    .withIndex('by_game_id', q => q.eq('gameId', game._id))
+    .unique();
+  if (!details) throw new Error('Could not find game details.');
+
   return {
     history: [],
     entities: [],
-    players: game.cachedPlayers.map(p => ({
+    players: details.cachedPlayers.map(p => ({
       id: p.id,
       isPlayer1: p.isPlayer1,
       name: p.name,
@@ -129,7 +138,11 @@ export const createGame = async (
     seed,
     private: arg.private,
     roomId: arg.roomId,
-    formatId: arg.formatId,
+    formatId: arg.formatId
+  });
+
+  await ctx.db.insert('gameDetails', {
+    gameId: gameId,
     cachedFormat: {
       config: format!.config,
       map: format!.map ?? defaultFormat.map,

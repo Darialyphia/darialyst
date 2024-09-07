@@ -13,7 +13,7 @@ import { type Socket } from 'socket.io-client';
 const route = useRoute();
 
 const { data: game, isLoading: isGameLoading } = useConvexAuthedQuery(
-  api.games.getCurrent,
+  api.games.getCurrentWithDetails,
   {}
 );
 
