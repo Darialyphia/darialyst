@@ -481,7 +481,7 @@ const actionDict: ActionDictionary = {
     }
   },
   change_can_attack: {
-    label: 'Prevent the attacks of a unit',
+    label: 'Prevent a unit from attacking',
     params: {
       unit: UnitNode,
       target: UnitNode,
@@ -624,6 +624,15 @@ const actionDict: ActionDictionary = {
     params: {
       player: PlayerNode,
       card: CardNode,
+      execute: null,
+      filter: GlobalConditionNode
+    }
+  },
+  root: {
+    label: 'Prevent a unit from moving',
+    params: {
+      duration: null,
+      activeWhen: GlobalConditionNode,
       execute: null,
       filter: GlobalConditionNode
     }
@@ -1017,6 +1026,12 @@ watch(
         params.execute ??= 'now';
         params.card ??= { candidates: [[{ type: 'any_card' }]] };
         params.player ??= { candidates: [[{ type: 'any_player' }]] };
+      })
+      .with({ type: 'root' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+        params.activeWhen ??= { candidates: [], random: false };
+        params.duration ??= 'always';
       })
       .exhaustive();
   },

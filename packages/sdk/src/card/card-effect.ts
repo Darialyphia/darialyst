@@ -594,6 +594,15 @@ export type Action<
       };
     }
   | {
+      type: 'root';
+      params: {
+        activeWhen?: Filter<GlobalCondition<T>>;
+        filter?: Filter<GlobalCondition<T>>;
+        duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+      };
+    }
+  | {
       type: 'rebirth';
       params: {
         activeWhen?: Filter<GlobalCondition<T>>;
