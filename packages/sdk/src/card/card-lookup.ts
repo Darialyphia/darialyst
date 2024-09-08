@@ -217,6 +217,8 @@ import { f5TwinFangs } from './cards/faction_5/twin-fangs';
 import { f5BoundedLifeforce } from './cards/faction_5/bounded-lifeforce';
 import { f5Magma } from './cards/faction_5/magma';
 import { f5Metamorphosis } from './cards/faction_5/metamorphosis';
+import { f5Tremors } from './cards/faction_5/tremors';
+import { f5DampeningWave } from './cards/faction_5/dampening-wave';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -390,6 +392,8 @@ const allCards: SerializedBlueprint<any>[] = [
   f5BoundedLifeforce,
   f5Magma,
   f5Metamorphosis,
+  f5Tremors,
+  f5DampeningWave,
 
   f6General,
   f6General2,

@@ -958,8 +958,8 @@ watch(
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
         params.activeWhen ??= { candidates: [], random: false };
-        params.unit ??= { candidates: [[{ type: undefined as any }]], random: false };
-        params.attacker ??= { candidates: [[{ type: undefined as any }]], random: false };
+        params.unit ??= { candidates: [[{ type: 'any_unit' }]], random: false };
+        params.attacker ??= { candidates: [[{ type: 'any_unit' }]], random: false };
         params.duration ??= 'always';
       })
       .with({ type: 'change_can_be_attacked' }, ({ params }) => {

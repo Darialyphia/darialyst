@@ -30,7 +30,7 @@ body {
   height: 100dvh;
 
   background: url('/assets/backgrounds/obsidian_woods_cliff.webp'),
-    url('/assets/backgrounds/obsidian_woods_pillar.wbp'),
+    url('/assets/backgrounds/obsidian_woods_pillar.webp'),
     url('/assets/backgrounds/obsidian_woods_background.jpg');
   background-repeat: no-repeat, no-repeat;
   background-attachment: fixed;

@@ -138,7 +138,7 @@ export const KEYWORDS = {
   },
   STUNNED: {
     id: 'stunned',
-    name: 'stun',
+    name: 'Stunned',
     description: 'This unit skips it next turn.',
     aliases: ['stun'],
     spriteId: 'stun'

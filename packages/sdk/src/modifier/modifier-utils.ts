@@ -1029,7 +1029,15 @@ export const slay = ({
   });
 };
 
-export const grow = ({ source }: { source: Card }) => {
+export const grow = ({
+  source,
+  attack,
+  hp
+}: {
+  source: Card;
+  attack: number;
+  hp: number;
+}) => {
   return createEntityModifier({
     source,
     id: KEYWORDS.GROW.id,
@@ -1041,14 +1049,14 @@ export const grow = ({ source }: { source: Card }) => {
         keywords: [],
         key: 'attack',
         interceptor(modifier) {
-          return val => val + (modifier.stacks ?? 1);
+          return val => val + attack * (modifier.stacks ?? 1);
         }
       }),
       modifierEntityInterceptorMixin({
         keywords: [],
         key: 'maxHp',
         interceptor(modifier) {
-          return val => val + (modifier.stacks ?? 1);
+          return val => val + hp * (modifier.stacks ?? 1);
         }
       }),
       modifierGameEventMixin({
@@ -1057,7 +1065,7 @@ export const grow = ({ source }: { source: Card }) => {
         listener([player], ctx) {
           if (!player.equals(ctx.attachedTo.player)) return;
           if (!ctx.modifier.stacks) ctx.modifier.stacks = 1;
-          ctx.modifier.stacks++;
+          else ctx.modifier.stacks++;
         }
       })
     ]
