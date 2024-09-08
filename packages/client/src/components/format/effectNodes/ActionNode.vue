@@ -589,6 +589,7 @@ const actionDict: ActionDictionary = {
     params: {
       blueprint: BlueprintNode,
       unit: UnitNode,
+      duration: null,
       execute: null,
       filter: GlobalConditionNode
     }
@@ -988,6 +989,7 @@ watch(
         params.blueprint ??= [];
         params.unit ??= { candidates: [[{ type: 'any_unit' }]] };
         params.execute ??= 'now';
+        params.duration ??= 'always';
         params.filter ??= { candidates: [], random: false };
       })
       .with({ type: 'grow' }, ({ params }) => {

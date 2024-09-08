@@ -137,7 +137,9 @@ export abstract class CardAction<T extends Action['type']> {
         });
       }
       if (this.action.params.duration === 'start_of_next_turn') {
-        cleanup();
+        this.session.playerSystem.activePlayer.once('turn_start', player => {
+          if (player.equals(this.card.player)) cleanup();
+        });
       }
     }
     return cleanup;

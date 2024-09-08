@@ -20,7 +20,7 @@ export type GameSessionConfig = {
   DRAW_AT_END_OF_TURN: boolean;
 };
 
-export const VERSION = '0.1.0';
+export const VERSION = '0.1.1';
 
 export const defaultConfig = {
   MAX_COPIES_PER_CARD: 3,

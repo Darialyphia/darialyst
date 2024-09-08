@@ -580,6 +580,7 @@ export type Action<
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
         filter?: Filter<GlobalCondition<T>>;
         execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
       };
