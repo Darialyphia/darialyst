@@ -58,6 +58,9 @@ import { ToughCardAction } from './actions/tough.card-action';
 import { VulnerableCardAction } from './actions/vulnerable.card-action';
 import { DestroyCardsInDeckCardAction } from './actions/destroy-cards-in-deck.card-action';
 import { RootCardAction } from './actions/root.card-action';
+import { ChangeCanRetaliateCardAction } from './actions/change-can-retaliate.action';
+import { StunCardAction } from './actions/stun.card-action';
+import { FreezeCardAction } from './actions/freeze.card-action';
 
 export type ParsedActionResult = (
   ctx: EffectCtx,
@@ -247,6 +250,15 @@ export const parseCardAction = (action: Action): ParsedActionResult => {
       })
       .with({ type: 'root' }, action => {
         return new RootCardAction(action, ctx, event, eventName).execute();
+      })
+      .with({ type: 'change_can_retaliate' }, action => {
+        return new ChangeCanRetaliateCardAction(action, ctx, event, eventName).execute();
+      })
+      .with({ type: 'stun' }, action => {
+        return new StunCardAction(action, ctx, event, eventName).execute();
+      })
+      .with({ type: 'freeze' }, action => {
+        return new FreezeCardAction(action, ctx, event, eventName).execute();
       })
       .exhaustive();
   };

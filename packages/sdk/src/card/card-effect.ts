@@ -488,6 +488,21 @@ export type Action<
       };
     }
   | {
+      type: 'change_can_retaliate';
+      params: {
+        unit: Filter<
+          UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
+        >;
+        attacker: Filter<
+          UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
+        >;
+        duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
+        filter?: Filter<GlobalCondition<T>>;
+        activeWhen?: Filter<GlobalCondition<T>>;
+        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+      };
+    }
+  | {
       type: 'change_can_be_attacked';
       params: {
         unit: Filter<
@@ -597,7 +612,9 @@ export type Action<
   | {
       type: 'root';
       params: {
-        activeWhen?: Filter<GlobalCondition<T>>;
+        target: Filter<
+          UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
+        >;
         filter?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
         execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
@@ -632,6 +649,28 @@ export type Action<
         player: Filter<PlayerCondition>;
         execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
         filter?: Filter<GlobalCondition<T>>;
+      };
+    }
+  | {
+      type: 'stun';
+      params: {
+        target: Filter<
+          UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
+        >;
+        filter?: Filter<GlobalCondition<T>>;
+        duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+      };
+    }
+  | {
+      type: 'freeze';
+      params: {
+        target: Filter<
+          UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
+        >;
+        filter?: Filter<GlobalCondition<T>>;
+        duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
       };
     };
 

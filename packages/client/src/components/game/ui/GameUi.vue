@@ -116,7 +116,7 @@ onTick(() => {
   pointer-events: none;
   position: absolute;
   z-index: 1;
-  top: 16rem;
+  top: 13rem;
 
   @screen lt-lg {
     top: 0;
@@ -178,13 +178,13 @@ dl {
   display: grid;
   grid-auto-flow: column;
   grid-gap: var(--size-2);
-  grid-template-rows: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
 
   margin-top: var(--size-3);
 }
 dl > div {
   padding: var(--size-3);
-
+  max-width: 35ch;
   font-size: var(--font-size-0);
 
   background-color: rgba(0, 0, 0, 0.75);

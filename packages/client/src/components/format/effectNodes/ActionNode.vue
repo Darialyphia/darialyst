@@ -630,8 +630,37 @@ const actionDict: ActionDictionary = {
     }
   },
   root: {
-    label: 'Prevent a unit from moving',
+    label: 'Root a unit',
     params: {
+      target: UnitNode,
+      duration: null,
+      execute: null,
+      filter: GlobalConditionNode
+    }
+  },
+  freeze: {
+    label: 'Freeze a unit',
+    params: {
+      target: UnitNode,
+      duration: null,
+      execute: null,
+      filter: GlobalConditionNode
+    }
+  },
+  stun: {
+    label: 'Stun a unit',
+    params: {
+      target: UnitNode,
+      duration: null,
+      execute: null,
+      filter: GlobalConditionNode
+    }
+  },
+  change_can_retaliate: {
+    label: 'Prevent a unit from counterattacking',
+    params: {
+      unit: UnitNode,
+      attacker: UnitNode,
       duration: null,
       activeWhen: GlobalConditionNode,
       execute: null,
@@ -925,6 +954,14 @@ watch(
         params.target ??= { candidates: [[{ type: undefined as any }]], random: false };
         params.duration ??= 'always';
       })
+      .with({ type: 'change_can_retaliate' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+        params.activeWhen ??= { candidates: [], random: false };
+        params.unit ??= { candidates: [[{ type: undefined as any }]], random: false };
+        params.attacker ??= { candidates: [[{ type: undefined as any }]], random: false };
+        params.duration ??= 'always';
+      })
       .with({ type: 'change_can_be_attacked' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
@@ -1032,7 +1069,19 @@ watch(
       .with({ type: 'root' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
-        params.activeWhen ??= { candidates: [], random: false };
+        params.target ??= { candidates: [[{ type: 'any_unit' }]], random: false };
+        params.duration ??= 'always';
+      })
+      .with({ type: 'freeze' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+        params.target ??= { candidates: [[{ type: 'any_unit' }]], random: false };
+        params.duration ??= 'always';
+      })
+      .with({ type: 'stun' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+        params.target ??= { candidates: [[{ type: 'any_unit' }]], random: false };
         params.duration ??= 'always';
       })
       .exhaustive();

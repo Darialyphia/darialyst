@@ -29,8 +29,8 @@ body {
 
   height: 100dvh;
 
-  background: url('/assets/backgrounds/obsidian_woods_cliff.png'),
-    url('/assets/backgrounds/obsidian_woods_pillar.png'),
+  background: url('/assets/backgrounds/obsidian_woods_cliff.webp'),
+    url('/assets/backgrounds/obsidian_woods_pillar.wbp'),
     url('/assets/backgrounds/obsidian_woods_background.jpg');
   background-repeat: no-repeat, no-repeat;
   background-attachment: fixed;

@@ -303,6 +303,44 @@ export const frozen = ({
   });
 };
 
+export const stunned = ({
+  source,
+  duration = Infinity
+}: {
+  source: Card;
+  duration?: number;
+}) => {
+  const interceptor = () => false;
+
+  const cleanup = (attachedTo: Entity) => {
+    attachedTo.removeInterceptor('canMove', interceptor);
+    attachedTo.removeInterceptor('canAttack', interceptor);
+  };
+
+  return createEntityModifier({
+    id: KEYWORDS.STUNNED.id,
+    visible: false,
+    stackable: false,
+    source,
+    mixins: [
+      modifierEntityDurationMixin({
+        duration,
+        keywords: [KEYWORDS.STUNNED],
+        onApplied(session, attachedTo) {
+          attachedTo.addInterceptor('canAttack', interceptor);
+          attachedTo.addInterceptor('canMove', interceptor);
+          attachedTo.player.once('turn_start', () => {
+            attachedTo.player.once('turn_end', () => cleanup(attachedTo));
+          });
+        },
+        onRemoved(session, attachedTo) {
+          cleanup(attachedTo);
+        }
+      })
+    ]
+  });
+};
+
 export const rooted = ({
   source,
   duration = Infinity

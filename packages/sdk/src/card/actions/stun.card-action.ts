@@ -1,13 +1,13 @@
-import { blast, rooted } from '../../modifier/modifier-utils';
+import { stunned } from '../../modifier/modifier-utils';
 import { KEYWORDS } from '../../utils/keywords';
 import { CardAction } from './_card-action';
 
-export class RootCardAction extends CardAction<'root'> {
+export class StunCardAction extends CardAction<'stun'> {
   protected async executeImpl() {
     const units = this.getUnits(this.action.params.target);
 
     units.forEach(target => {
-      target.addModifier(rooted({ source: this.card }));
+      target.addModifier(stunned({ source: this.card }));
     });
 
     return () =>

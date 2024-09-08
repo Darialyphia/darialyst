@@ -136,10 +136,17 @@ export const KEYWORDS = {
     aliases: ['frenzy'],
     spriteId: 'fury'
   },
+  STUNNED: {
+    id: 'stunned',
+    name: 'stun',
+    description: 'This unit skips it next turn.',
+    aliases: ['stun'],
+    spriteId: 'stun'
+  },
   FROZEN: {
     id: 'frozen',
     name: 'Frozen',
-    description: 'This unit skips it next turn.',
+    description: 'This unit cannot move or attack. Taking damage breaks the effect.',
     aliases: ['freeze'],
     spriteId: 'frozen'
   },
