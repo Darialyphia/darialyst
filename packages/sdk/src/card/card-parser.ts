@@ -1157,6 +1157,7 @@ export const parseSerializeBlueprint = <T extends GenericCardEffect[]>(
     relatedBlueprintIds: blueprint.relatedBlueprintIds,
     keywords: blueprint.keywords.map(getKeywordById).filter(isDefined),
     tags: blueprint.tags.map(getTagById).filter(isDefined),
+    sounds: blueprint.sounds,
     modifiers: cardModifiers,
     targets: blueprint.targets ? parseTargets(blueprint.targets) : undefined,
     shouldHighlightCell(

@@ -17,6 +17,14 @@ export const neutralHealingMystic = defineSerializedBlueprint({
   relatedBlueprintIds: [],
   spriteId: 'neutral_healing_mystic',
   tags: [],
+  sounds: {
+    play: 'sfx_unit_deploy_3.m4a',
+    walk: 'singe2.m4a',
+    attack: 'sfx_f6_voiceofthewind_attack_swing.m4a',
+    dealDamage: 'sfx_neutral_spelljammer_attack_impact.m4a',
+    takeDamage: 'sfx_neutral_spelljammer_hit.m4a',
+    death: 'sfx_neutral_spelljammer_death.m4a'
+  },
   targets: {
     min: 0,
     targets: [

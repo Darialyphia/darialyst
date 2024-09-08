@@ -50,6 +50,14 @@ type CardBlueprintUnit = {
   maxHp: number;
   range: number;
   speed: number;
+  sounds?: {
+    play?: string;
+    walk?: string;
+    attack?: string;
+    dealDamage?: string;
+    takeDamage?: string;
+    death?: string;
+  };
   targets?: {
     minTargetCount: number;
     maxTargetCount: number;
@@ -84,6 +92,9 @@ type CardBlueprintSpell = {
   maxHp?: never;
   speed?: never;
   range?: never;
+  sounds?: {
+    play?: string;
+  };
   onPlay?: (options: {
     session: GameSession;
     card: Card;
@@ -116,6 +127,9 @@ type CardBlueprintArtifact = {
   maxHp?: never;
   speed?: never;
   range?: never;
+  sounds?: {
+    play?: string;
+  };
   onPlay?: (options: {
     session: GameSession;
     card: Card;
@@ -168,14 +182,28 @@ type SerializedBlueprintUnit = {
   kind: Extract<CardKind, 'MINION' | 'GENERAL'>;
   attack: number;
   maxHp: number;
+  sounds?: {
+    play?: string;
+    walk?: string;
+    attack?: string;
+    dealDamage?: string;
+    takeDamage?: string;
+    death?: string;
+  };
 };
 
 type SerializedBlueprintSpell = {
   kind: Extract<CardKind, 'SPELL'>;
+  sounds?: {
+    play?: string;
+  };
 };
 
 type SerializedBlueprintArtifact = {
   kind: Extract<CardKind, 'ARTIFACT'>;
+  sounds?: {
+    play?: string;
+  };
 };
 
 export type SerializedBlueprint<T extends GenericCardEffect[]> =

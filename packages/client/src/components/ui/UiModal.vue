@@ -27,9 +27,9 @@ watch(
     if (!isDefined(oldVal) && !newVal) return;
 
     if (newVal) {
-      openSound.play();
+      openSound.value?.play();
     } else {
-      closeSound.play();
+      closeSound.value?.play();
     }
   },
   { immediate: true }

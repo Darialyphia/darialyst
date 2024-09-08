@@ -43,7 +43,7 @@ const isValid = computed(() => {
 const validSound = useSoundEffect('tab_in.m4a');
 watch(isValid, valid => {
   if (valid) {
-    validSound.play();
+    validSound.value?.play();
   }
 });
 

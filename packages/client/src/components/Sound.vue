@@ -30,13 +30,13 @@ onMounted(async () => {
 
 const eventNames = triggers.filter(t => isString(t));
 useEventListener(el, eventNames as string[], () => {
-  howl.play();
+  howl.value?.play();
 });
 
 watchEffect(() => {
   triggers.forEach(t => {
     if (isFunction(t) && t()) {
-      howl.play();
+      howl.value?.play();
     }
   });
 });

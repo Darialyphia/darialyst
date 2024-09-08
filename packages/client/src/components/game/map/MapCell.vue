@@ -28,7 +28,7 @@ const pointerupSound = useSoundEffect(`board-click.m4a`);
 
 const move = () => {
   if (pathfinding.canMoveTo(ui.selectedEntity.value!, cell.position)) {
-    pointerupSound.play();
+    pointerupSound.value?.play();
     dispatch('move', {
       entityId: ui.selectedEntity.value!.id,
       position: cell.position
@@ -42,7 +42,7 @@ const attack = () => {
   const entity = cell.getCell().entity;
   if (!entity) return;
 
-  pointerupSound.play();
+  pointerupSound.value?.play();
   if (entity.belongsToActivePlayer) {
     ui.selectEntity(entity.id);
   } else if (ui.selectedEntity.value!.canAttack(entity)) {
@@ -65,7 +65,7 @@ const summon = () => {
   }
 
   ui.summonTarget.value = cell.position;
-  pointerupSound.play();
+  pointerupSound.value?.play();
   if (ui.selectedCard.value.meta.adapt) {
     ui.switchTargetingMode(TARGETING_MODES.CARD_CHOICE);
   } else if (ui.selectedCard.value.targets) {
@@ -85,7 +85,7 @@ const selectEntity = () => {
   const entity = cell.getCell().entity;
   if (entity?.belongsToActivePlayer) {
     ui.selectEntity(entity.id);
-    pointerupSound.play();
+    pointerupSound.value?.play();
   }
 };
 
@@ -136,7 +136,7 @@ const onPointerup = (event: FederatedPointerEvent) => {
       if (!ui.selectedCard.value) return;
       if (isTargetable()) {
         ui.cardTargets.value.push(cell.position);
-        pointerupSound.play();
+        pointerupSound.value?.play();
       } else if (ui.selectedCard.value.targets?.maxTargetCount === 1) {
         ui.unselectCard();
       }
@@ -173,7 +173,7 @@ const hasCellAbove = computed(
         ui.hoverAt(cell.position);
         const entity = cell.getCell().entity;
         if (entity || cell.tile) {
-          pointerenterSound.play();
+          pointerenterSound?.play();
         }
         if (!isActivePlayer) return;
         match(ui.targetingMode.value)

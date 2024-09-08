@@ -93,12 +93,12 @@ const durations = [p1Sound, versusSound, p2Sound].map(
   sound =>
     new Promise<number>(resolve => {
       // load even doesnt fire after your first game since it was already loaded !
-      const duration = sound.duration();
-      if (duration !== 0) return resolve(duration);
+      const duration = sound.value?.duration();
+      if (duration !== 0) return resolve(duration ?? 0);
 
-      sound.once('load', () => {
+      sound.value?.once('load', () => {
         // duration is only available once 'load' fires
-        resolve(sound.duration());
+        resolve(sound.value?.duration() ?? 0);
       });
     })
 );
@@ -112,11 +112,11 @@ const playSoundSequence = () => {
   return new Promise<void>(async resolve => {
     bgm.next(loaderBgms[loaderIndex], { loop: false, fade: false });
     const [p1Duration, versusDuration, p2Duration] = await Promise.all(durations);
-    p1Sound.play();
+    p1Sound.value?.play();
     await wait(p1Duration * 333);
-    versusSound.play();
+    versusSound.value?.play();
     await wait(versusDuration * 333);
-    p2Sound.play();
+    p2Sound.value?.play();
     await wait(p2Duration * 500);
     resolve();
   });

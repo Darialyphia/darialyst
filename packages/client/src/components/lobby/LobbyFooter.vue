@@ -40,7 +40,7 @@ const readySound = useSoundEffect('tab_in.m4a');
 watchEffect(() => {
   if (!isOwner.value) return;
   if (isReady.value) {
-    readySound.play();
+    readySound.value?.play();
   }
 });
 </script>
