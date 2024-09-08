@@ -71,7 +71,17 @@ const availableLoadouts = computed(() => {
     />
     <section v-else class="container mt-2 px-5 lg:mt-10">
       <header>
-        <BackButton class="inline-flex" :to="{ name: 'SelectGameMode' }" />
+        <div class="flex">
+          <NuxtLink :to="{ name: 'ClientHome' }" custom v-slot="{ href, navigate }">
+            <UiIconButton
+              name="material-symbols:home"
+              class="ghost-button"
+              :href
+              @click="navigate"
+            />
+          </NuxtLink>
+          <BackButton class="inline-flex" :to="{ name: 'SelectGameMode' }" />
+        </div>
         <h1 class="text-5 mb-6">Create sandbox game</h1>
       </header>
 

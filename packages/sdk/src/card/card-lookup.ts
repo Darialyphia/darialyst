@@ -213,6 +213,8 @@ import { neutralAstralCrusader } from './cards/neutral/astral-crusader';
 import { f5PrimordialGazer } from './cards/faction_5/primordial-gazer';
 import { f5AdamantiteClaws } from './cards/faction_5/adamantite-claws';
 import { f5KineticEquilibrium } from './cards/faction_5/kinetic-equilibrium';
+import { f5TwinFangs } from './cards/faction_5/twin-fangs';
+import { f5BoundedLifeforce } from './cards/faction_5/bounded-lifeforce';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -382,6 +384,8 @@ const allCards: SerializedBlueprint<any>[] = [
   f5PrimordialGazer,
   f5AdamantiteClaws,
   f5KineticEquilibrium,
+  f5TwinFangs,
+  f5BoundedLifeforce,
 
   f6General,
   f6General2,

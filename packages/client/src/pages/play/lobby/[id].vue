@@ -84,7 +84,17 @@ const isFormatDetailsOpened = ref(false);
 
     <template v-else-if="lobby">
       <header>
-        <BackButton class="inline-flex" :to="{ name: 'Lobbies' }" />
+        <div class="flex">
+          <NuxtLink :to="{ name: 'ClientHome' }" custom v-slot="{ href, navigate }">
+            <UiIconButton
+              name="material-symbols:home"
+              class="ghost-button"
+              :href
+              @click="navigate"
+            />
+          </NuxtLink>
+          <BackButton class="inline-flex" :to="{ name: 'Lobbies' }" />
+        </div>
         <h1 class="text-5">{{ lobby.name }}</h1>
       </header>
 

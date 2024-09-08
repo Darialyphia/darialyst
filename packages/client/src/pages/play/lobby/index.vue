@@ -16,7 +16,17 @@ const { data: me } = useConvexAuthedQuery(api.users.me, {});
 <template>
   <div class="page container">
     <header>
-      <BackButton class="inline-flex" :to="{ name: 'SelectGameMode' }" />
+      <div class="flex">
+        <NuxtLink :to="{ name: 'ClientHome' }" custom v-slot="{ href, navigate }">
+          <UiIconButton
+            name="material-symbols:home"
+            class="ghost-button"
+            :href
+            @click="navigate"
+          />
+        </NuxtLink>
+        <BackButton class="inline-flex" :to="{ name: 'SelectGameMode' }" />
+      </div>
       <h1 class="text-5">Casual Mode</h1>
     </header>
 
