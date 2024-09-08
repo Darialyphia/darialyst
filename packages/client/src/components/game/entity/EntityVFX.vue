@@ -80,6 +80,7 @@ useVFX(
   <DispelVFX :entity-id="entityId" />
   <PlayedCardVFX :entity-id="entityId" />
   <BlastVFX :entity-id="entityId" />
+  <ReplaceVFX :entity-id="entityId" />
   <animated-sprite
     v-for="element in VFXSprites"
     :key="element.id"
