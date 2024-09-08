@@ -219,6 +219,7 @@ import { f5Magma } from './cards/faction_5/magma';
 import { f5Metamorphosis } from './cards/faction_5/metamorphosis';
 import { f5Tremors } from './cards/faction_5/tremors';
 import { f5DampeningWave } from './cards/faction_5/dampening-wave';
+import { f5IridiumScale } from './cards/faction_5/iridium-scale';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -394,6 +395,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f5Metamorphosis,
   f5Tremors,
   f5DampeningWave,
+  f5IridiumScale,
 
   f6General,
   f6General2,

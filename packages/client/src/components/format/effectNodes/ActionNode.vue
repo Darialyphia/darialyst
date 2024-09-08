@@ -461,7 +461,7 @@ const actionDict: ActionDictionary = {
     }
   },
   tough: {
-    label: 'Blast',
+    label: 'Tough',
     params: {
       stacks: AmountNode,
       activeWhen: GlobalConditionNode,

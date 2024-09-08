@@ -1,21 +1,17 @@
 import { defineSerializedBlueprint } from '../../card-blueprint';
 
-export const f2CycloneMask = defineSerializedBlueprint({
-  id: 'f2_cyclone_mask',
+export const f5IridiumScale = defineSerializedBlueprint({
+  id: 'f5_iridium_scale',
+  name: 'Iridium Scale',
   collectable: true,
-  keywords: [],
+  keywords: ['tough'],
   relatedBlueprintIds: [],
   tags: [],
   kind: 'ARTIFACT',
   rarity: 'rare',
-  cellHighlights: [],
-  spriteId: 'icon_f2_artifact_blood_rage_mask',
-  name: 'Cyclone Mask',
-  cost: 3,
-  faction: 'f2',
   effects: [
     {
-      text: 'Your general has ranged.',
+      text: 'Your general has @Tough(1)@.',
       config: {
         executionContext: 'while_equiped',
         actions: [
@@ -35,12 +31,13 @@ export const f2CycloneMask = defineSerializedBlueprint({
                 executionContext: 'while_on_board',
                 actions: [
                   {
-                    type: 'ranged',
+                    type: 'tough',
                     params: {
                       filter: { candidates: [], random: false },
-                      activeWhen: { candidates: [], random: false },
                       execute: 'now',
-                      duration: 'always'
+                      activeWhen: { candidates: [], random: false },
+                      duration: 'always',
+                      stacks: { type: 'fixed', params: { value: 1 } }
                     }
                   }
                 ]
@@ -65,7 +62,7 @@ export const f2CycloneMask = defineSerializedBlueprint({
     }
   ],
   targets: {
-    min: 1,
+    min: 0,
     targets: [
       [
         [
@@ -86,5 +83,9 @@ export const f2CycloneMask = defineSerializedBlueprint({
         ]
       ]
     ]
-  }
+  },
+  cellHighlights: [],
+  spriteId: 'icon_f5_artifact_irridiumscale',
+  cost: 3,
+  faction: 'f5'
 });
