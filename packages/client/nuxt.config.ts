@@ -40,6 +40,11 @@ export default defineNuxtConfig({
   routeRules: {
     '/play/**': {
       ssr: false
+    },
+    '/assets/**/*.png': {
+      headers: {
+        'Cache-Control': 'public,max-age=14400,stale-while-revalidate'
+      }
     }
   },
 
