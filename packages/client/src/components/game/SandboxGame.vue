@@ -73,7 +73,7 @@ const computeAiAction = (action: SerializedAction) => {
         serverSession.dispatch(nextAction);
       }
     },
-    clientSession.phase === GAME_PHASES.MULLIGAN ? 0 : 1000
+    clientSession.phase === GAME_PHASES.MULLIGAN ? 0 : 500
   );
 };
 

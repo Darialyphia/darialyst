@@ -2,7 +2,7 @@ import { randomInt, type Nullable } from '@game/shared';
 import type { SerializedAction } from '../action/action';
 import { GAME_PHASES } from '../game-session';
 import type { ServerSession } from '../server-session';
-import type { Entity } from '../entity/entity';
+import { Entity } from '../entity/entity';
 
 export class GameAI {
   constructor(
@@ -21,18 +21,13 @@ export class GameAI {
   }
 
   async onUpdate(action: SerializedAction) {
-    console.group('AI: compute next action');
-    console.log('AI: process action', action.type);
     await this.session.dispatch(action);
 
     if (this.player.isActive || this.session.phase === GAME_PHASES.MULLIGAN) {
+      const now = Date.now();
       const nextAction = await this.evaluateNextAction();
-      console.log('AI: next action is', nextAction.type);
-      console.groupEnd();
+      console.log(`AI action computed in ${Date.now() - now}`);
       return nextAction;
-    } else {
-      console.log('AI: is not the active player. Do nothing');
-      console.groupEnd();
     }
   }
 
@@ -89,49 +84,101 @@ export class GameAI {
   }
 
   getEntityAction(entity: Entity) {
-    if (entity.canAttack(this.player.opponent.general)) {
-      return this.attackGeneral(entity);
+    const distanceMap = this.session.boardSystem.getDistanceMap(
+      entity.position,
+      entity.speed * (entity.maxMovements - entity.movementsTaken)
+    )!;
+
+    const [bestTarget] = this.player.opponent.entities
+      .filter(enemy => {
+        if (entity.canAttackAt(enemy.position)) return true;
+
+        const neighbors = this.session.boardSystem.getNeighborsDestinations(
+          enemy.position
+        );
+        return neighbors.some(neighbor => {
+          return (
+            entity.canMove(distanceMap.get(neighbor), { countAllMovements: true }) &&
+            entity.canAttackAt(enemy.position, neighbor)
+          );
+        });
+      })
+      .sort((a, b) => {
+        if (a.isGeneral && !b.isGeneral) return -1;
+        if (b.isGeneral && !a.isGeneral) return 1;
+        const aIsKillingBlow =
+          a.getTakenDamage(entity.getDealtDamage(entity.attack), entity.card) >= a.hp;
+
+        const bIsKillingBlow =
+          b.getTakenDamage(entity.getDealtDamage(entity.attack), entity.card) >= b.hp;
+
+        if (aIsKillingBlow && !bIsKillingBlow) return -1;
+        if (!aIsKillingBlow && bIsKillingBlow) return -1;
+
+        const aRetaliationIsKillingBlow =
+          entity.getTakenDamage(a.getDealtDamage(a.attack), a.card) >= entity.hp;
+        const bRetaliationIsKillingBlow =
+          entity.getTakenDamage(b.getDealtDamage(b.attack), b.card) >= entity.hp;
+
+        if (aRetaliationIsKillingBlow && !bRetaliationIsKillingBlow) return 1;
+        if (!aRetaliationIsKillingBlow && bRetaliationIsKillingBlow) return 1;
+
+        return 0;
+      });
+
+    if (bestTarget) {
+      if (entity.canAttack(bestTarget)) {
+        return this.attack(entity, bestTarget);
+      } else {
+        return this.tryToWalkTowardsEntity(entity, bestTarget);
+      }
     } else {
-      return this.tryToWalkTowardsGeneral(entity);
+      return this.tryToWalkTowardsEntity(entity, this.player.opponent.general);
     }
   }
 
-  attackGeneral(entity: Entity) {
+  attack(attacker: Entity, target: Entity) {
     return {
       type: 'attack',
       payload: {
         playerId: this.playerId,
-        entityId: entity.id,
-        targetId: this.player.opponent.general.id
+        entityId: attacker.id,
+        targetId: target.id
       }
     };
   }
 
   tryToPlayCardAtIndex(index: number) {
     const card = this.player.hand[index];
-    console.log('try to play', card.blueprintId);
     const canPlay = this.player.canPlayCardAtIndex(index);
-    if (!canPlay) {
-      console.log('too expensive');
-      return;
-    }
+    if (!canPlay) return;
 
     const needsTarget = card.blueprint.targets?.minTargetCount;
     if (needsTarget) return;
 
-    const elligiblePostions = this.session.boardSystem.cells.filter(cell =>
-      card.canPlayAt(cell, true)
-    );
+    const [cell] = this.session.boardSystem.cells
+      .filter(cell => card.canPlayAt(cell, true))
+      .sort((a, b) => {
+        const aHasGoldCoin = a.tile?.blueprintId === 'gold_coin';
+        const bHasGoldCoin = b.tile?.blueprintId === 'gold_coin';
 
-    if (!elligiblePostions.length) return;
-    const targetIndex = randomInt(elligiblePostions.length - 1);
+        if (aHasGoldCoin && !bHasGoldCoin) return -1;
+        if (!aHasGoldCoin && bHasGoldCoin) return -1;
+
+        return (
+          a.position.dist(this.player.general.position) -
+          b.position.dist(this.player.general.position)
+        );
+      });
+
+    if (!cell) return;
 
     return {
       type: 'playCard',
       payload: {
         playerId: this.player.id,
         cardIndex: index,
-        position: elligiblePostions[targetIndex].position.serialize(),
+        position: cell.position.serialize(),
         targets: [],
         choice: 0
       }
@@ -155,9 +202,9 @@ export class GameAI {
     return destination.path.path;
   }
 
-  tryToWalkTowardsGeneral(entity: Entity) {
+  tryToWalkTowardsEntity(entity: Entity, target: Entity) {
     if (!entity.canMove(entity.speed)) return;
-    const path = this.getShortestPathToEntity(entity, this.player.opponent.general);
+    const path = this.getShortestPathToEntity(entity, target);
     if (!path) return null;
 
     const index = Math.min(path.length - 1, entity.speed - 1);

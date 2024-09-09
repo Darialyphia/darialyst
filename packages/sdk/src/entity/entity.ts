@@ -434,6 +434,13 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
     });
   }
 
+  getDealtDamage(power: number) {
+    return this.interceptors.damageDealt.getValue(power, {
+      entity: this,
+      amount: power
+    });
+  }
+
   getHealReceived(amount: number) {
     const clamped = Math.min(amount, this.maxHp - this.hp);
     return this.interceptors.healReceived.getValue(clamped, {
@@ -445,10 +452,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
   async dealDamage(power: number, target: Entity, isBattleDamage = false) {
     const payload = {
       entity: this,
-      amount: this.interceptors.damageDealt.getValue(power, {
-        entity: this,
-        amount: power
-      }),
+      amount: this.getDealtDamage(power),
       target,
       isBattleDamage
     };
