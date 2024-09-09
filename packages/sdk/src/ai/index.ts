@@ -163,7 +163,7 @@ export class GameAI {
         const bHasGoldCoin = b.tile?.blueprintId === 'gold_coin';
 
         if (aHasGoldCoin && !bHasGoldCoin) return -1;
-        if (!aHasGoldCoin && bHasGoldCoin) return -1;
+        if (!aHasGoldCoin && bHasGoldCoin) return 1;
 
         return (
           a.position.dist(this.player.general.position) -
