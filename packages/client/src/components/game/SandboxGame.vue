@@ -3,6 +3,7 @@ import type { GameFormatDto } from '@game/api/src/convex/formats/format.mapper';
 import type { LoadoutDto } from '@game/api/src/convex/loadout/loadout.mapper';
 import {
   ClientSession,
+  GameAI,
   ServerSession,
   type SerializedGameState,
   type SimulationResult
@@ -49,15 +50,24 @@ const state: SerializedGameState = {
   ]
 };
 
+const _seed = seed ?? nanoid();
 const serverSession = ServerSession.create(state, {
-  seed: seed ?? nanoid(),
+  seed: _seed,
   format: toRaw(format)
 });
+const ai = new GameAI(
+  ServerSession.create(state, { seed: _seed, format: toRaw(format) }),
+  '2'
+);
 const clientSession = ClientSession.create(serverSession.serialize(), {
   format
 });
-serverSession.onUpdate((action, opts) => {
-  clientSession.dispatch(action, opts);
+serverSession.onUpdate(async (action, opts) => {
+  await clientSession.dispatch(action, opts);
+  // const nextAction = await ai.onUpdate(action);
+  // if (nextAction) {
+  //   serverSession.dispatch(nextAction);
+  // }
 });
 
 const error = ref<Nullable<Error>>(null);

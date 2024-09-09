@@ -78,3 +78,4 @@ export type { Artifact } from './card/artifact';
 export type { Cell, CellId } from './board/cell';
 export type { GameEvent, GameEventPayload } from './game-session';
 export { MissingRngError } from './rng-system';
+export { GameAI } from './ai';
