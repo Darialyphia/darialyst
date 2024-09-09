@@ -20,6 +20,10 @@ const emit = defineEmits<{
 const { format } = defineProps<{ format: Pick<GameFormatDto, 'cards' | 'config'> }>();
 const { formValues, save, isSaving } = useLoadoutForm();
 
+const formatCards = computed(() => {
+  return { ...CARDS, ...format.cards };
+});
+
 const groupedCards = computed(() => {
   const copies: Record<string, number> = {};
   formValues.value.cards.forEach(card => {
@@ -34,7 +38,7 @@ const groupedCards = computed(() => {
     formValues.value.cards
       .map(card => ({
         ...card,
-        card: parseSerializeBlueprint(CARDS[card.id]),
+        card: parseSerializeBlueprint(formatCards.value[card.id]),
         copies: copies[card.id]
       }))
       .sort((a, b) => {
@@ -48,7 +52,7 @@ const groupedCards = computed(() => {
 });
 
 const getCountByKind = (kind: CardKind) => {
-  return formValues.value.cards.filter(c => CARDS[c.id].kind === kind).length;
+  return formValues.value.cards.filter(c => formatCards.value[c.id].kind === kind).length;
 };
 
 const cardsCount = computed(() => {
