@@ -45,9 +45,14 @@ export class PlayCardAction extends GameAction<typeof schema> {
     }
     this.cachedCard = this.card;
 
+    if (!this.cachedCard.canPlayAt(this.payload.position)) {
+      return this.printError(
+        `Not allowed to play ${this.cachedCard.blueprintId} as position ${JSON.stringify(this.payload.position)}`
+      );
+    }
     const areTargetsValid = this.payload.targets.every((target, index) => {
-      return this.card.targets?.isTargetable(target, {
-        card: this.card,
+      return this.cachedCard.targets?.isTargetable(target, {
+        card: this.cachedCard,
         session: this.session,
         playedPoint: this.payload.position,
         targets: this.payload.targets.slice(0, index) // only take targets up to that point, as a target could have different rules depending on its position
@@ -57,7 +62,6 @@ export class PlayCardAction extends GameAction<typeof schema> {
     if (!areTargetsValid) {
       return this.printError('Could not play cards: invalid targets.');
     }
-
     await this.player.playCardAtIndex(this.payload.cardIndex, this.payload);
   }
 }

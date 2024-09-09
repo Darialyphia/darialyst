@@ -8,6 +8,8 @@ import {
   type SerializedGameState,
   type SimulationResult
 } from '@game/sdk';
+import type { SerializedAction } from '@game/sdk/src/action/action';
+import { GAME_PHASES } from '@game/sdk/src/game-session';
 import type { Nullable } from '@game/shared';
 import { nanoid } from 'nanoid';
 
@@ -26,7 +28,7 @@ const state: SerializedGameState = {
   },
   players: [
     {
-      id: '1',
+      id: 'p1',
       name: 'Player 1',
       deck: player1Loadout.cards.map(({ id, pedestalId, cardBackId }) => ({
         pedestalId,
@@ -37,7 +39,7 @@ const state: SerializedGameState = {
       graveyard: []
     },
     {
-      id: '2',
+      id: 'p2',
       name: 'Player 2',
       deck: player2Loadout.cards.map(({ id, pedestalId, cardBackId }) => ({
         pedestalId,
@@ -57,17 +59,27 @@ const serverSession = ServerSession.create(state, {
 });
 const ai = new GameAI(
   ServerSession.create(state, { seed: _seed, format: toRaw(format) }),
-  '2'
+  'p2'
 );
 const clientSession = ClientSession.create(serverSession.serialize(), {
   format
 });
+
+const computeAiAction = (action: SerializedAction) => {
+  setTimeout(
+    async () => {
+      const nextAction = await ai.onUpdate(action);
+      if (nextAction) {
+        serverSession.dispatch(nextAction);
+      }
+    },
+    clientSession.phase === GAME_PHASES.MULLIGAN ? 0 : 1000
+  );
+};
+
 serverSession.onUpdate(async (action, opts) => {
   await clientSession.dispatch(action, opts);
-  // const nextAction = await ai.onUpdate(action);
-  // if (nextAction) {
-  //   serverSession.dispatch(nextAction);
-  // }
+  // computeAiAction(action);
 });
 
 const error = ref<Nullable<Error>>(null);

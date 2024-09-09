@@ -25,7 +25,7 @@ export class ServerRngSystem implements RngSystem {
   }
 
   nextInt(max: number) {
-    return Math.floor(this.next() * max + 1);
+    return Math.floor(this.next() * (max + 1));
   }
 
   serialize() {

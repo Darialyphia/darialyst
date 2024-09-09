@@ -361,7 +361,6 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
     }: { position: Point3D; targets: Point3D[]; spendGold?: boolean; choice: number }
   ) {
     await this.emitAsync(PLAYER_EVENTS.BEFORE_PLAY_CARD, { player: this, card });
-
     if (spendGold) {
       this.currentGold -= card.cost;
     }
@@ -386,10 +385,11 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
       if (idxInDeck > -1) {
         this.deck.cards.splice(idxInDeck, 0, card);
       }
-      return;
+      throw new Error(`Error while playing card ${card.blueprintId}`);
     }
 
     this.playedCardSinceLastTurn.push(card);
+
     await this.emitAsync(PLAYER_EVENTS.AFTER_PLAY_CARD, { player: this, card });
   }
 

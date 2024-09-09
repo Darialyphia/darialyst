@@ -296,11 +296,12 @@ export const parseSerializedBlueprintEffect = (
           if (effect.vfx) {
             await playVFXSequence(effect.vfx, ctx);
           }
+          let cleanups = [];
           for (const action of actions) {
-            await action(ctx, {});
+            cleanups.push(await action(ctx, {}));
           }
           return () => {
-            return;
+            cleanups.forEach(c => c());
           };
         }
       }

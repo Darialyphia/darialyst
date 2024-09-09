@@ -92,7 +92,7 @@ export class ActionSystem implements Serializable {
 
   async handleAction({ type, payload }: SerializedAction) {
     if (!this.isActionType(type)) return;
-    this.session.logger(`%c[ACTION:${type}]`, 'color: blue', payload);
+    // this.session.logger(`%c[ACTION:${type}]`, 'color: blue', payload);
     const ctor = actionMap[type];
     const action = new ctor(payload, this.session);
     this.session.emit('game:action-start', action);

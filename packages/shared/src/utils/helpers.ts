@@ -9,7 +9,7 @@ export const clamp = (num: number, min: number, max: number) =>
 
 export const random = (max: number) => Math.random() * max;
 
-export const randomInt = (max: number) => Math.round(random(max));
+export const randomInt = (max: number) => Math.floor(random(max + 1));
 
 export const indexToPoint = (length: number, idx: number): Point => ({
   x: idx % length,
