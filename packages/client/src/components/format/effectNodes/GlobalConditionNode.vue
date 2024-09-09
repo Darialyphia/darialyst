@@ -21,7 +21,7 @@ const getParams = (groupIndex: number, conditionIndex: number) =>
     | undefined;
 
 const isComponent = (x: unknown): x is Component => {
-  return isObject(x) && 'render' in x;
+  return isObject(x) && '__name' in x;
 };
 
 watchEffect(() => {
