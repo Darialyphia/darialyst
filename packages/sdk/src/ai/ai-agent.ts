@@ -43,7 +43,7 @@ export class AiAgent {
           ) >= b.hp;
 
         if (aIsKillingBlow && !bIsKillingBlow) return -1;
-        if (!aIsKillingBlow && bIsKillingBlow) return -1;
+        if (!aIsKillingBlow && bIsKillingBlow) return 1;
 
         const aRetaliationIsKillingBlow =
           this.entity.getTakenDamage(a.getDealtDamage(a.attack), a.card) >=
@@ -53,7 +53,7 @@ export class AiAgent {
           this.entity.hp;
 
         if (aRetaliationIsKillingBlow && !bRetaliationIsKillingBlow) return 1;
-        if (!aRetaliationIsKillingBlow && bRetaliationIsKillingBlow) return 1;
+        if (!aRetaliationIsKillingBlow && bRetaliationIsKillingBlow) return -1;
 
         return 0;
       });
