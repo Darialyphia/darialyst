@@ -79,7 +79,7 @@ const computeAiAction = (action: SerializedAction) => {
 
 serverSession.onUpdate(async (action, opts) => {
   await clientSession.dispatch(action, opts);
-  // computeAiAction(action);
+  computeAiAction(action);
 });
 
 const error = ref<Nullable<Error>>(null);
