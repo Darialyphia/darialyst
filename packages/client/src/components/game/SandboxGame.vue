@@ -12,6 +12,7 @@ import type { SerializedAction } from '@game/sdk/src/action/action';
 import { GAME_PHASES } from '@game/sdk/src/game-session';
 import type { Nullable } from '@game/shared';
 import { nanoid } from 'nanoid';
+import AIWorker from '@/workers/ai-worker?worker';
 
 const { player1Loadout, player2Loadout, seed, format } = defineProps<{
   player1Loadout: LoadoutDto;
@@ -53,33 +54,40 @@ const state: SerializedGameState = {
 };
 
 const _seed = seed ?? nanoid();
+const wait = (duration: number) =>
+  new Promise(res => {
+    setTimeout(res, duration);
+  });
+
+const aiWorker = new AIWorker();
 const serverSession = ServerSession.create(state, {
   seed: _seed,
   format: toRaw(format)
 });
-const ai = new GameAI(
-  ServerSession.create(state, { seed: _seed, format: toRaw(format) }),
-  'p2'
-);
+
+aiWorker.postMessage({
+  type: 'init',
+  payload: { state, seed: _seed, format: toRaw(format) }
+});
+
+aiWorker.addEventListener('message', async event => {
+  const action = event.data as SerializedAction | undefined;
+  if (action) {
+    await wait(500);
+    serverSession.dispatch(action);
+  }
+});
+
 const clientSession = ClientSession.create(serverSession.serialize(), {
   format
 });
 
-const computeAiAction = (action: SerializedAction) => {
-  setTimeout(
-    async () => {
-      const nextAction = await ai.onUpdate(action);
-      if (nextAction) {
-        serverSession.dispatch(nextAction);
-      }
-    },
-    clientSession.phase === GAME_PHASES.MULLIGAN ? 0 : 500
-  );
-};
-
 serverSession.onUpdate(async (action, opts) => {
   await clientSession.dispatch(action, opts);
-  // computeAiAction(action);
+  // aiWorker.postMessage({
+  //   type: 'compute',
+  //   payload: { action: JSON.parse(JSON.stringify(action)) }
+  // });
 });
 
 const error = ref<Nullable<Error>>(null);

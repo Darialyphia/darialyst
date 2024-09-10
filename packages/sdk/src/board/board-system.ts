@@ -98,18 +98,16 @@ export class BoardSystem {
     return null;
   }
 
-  getDistanceMap(point: Point3D, maxDistance?: number) {
+  getDistanceMap(entity: Entity, maxDistance?: number) {
     const boundaries = maxDistance
       ? ([
-          Vec3.sub(point, { x: maxDistance, y: maxDistance, z: maxDistance }),
-          Vec3.add(point, { x: maxDistance, y: maxDistance, z: maxDistance })
+          Vec3.sub(entity.position, { x: maxDistance, y: maxDistance, z: maxDistance }),
+          Vec3.add(entity.position, { x: maxDistance, y: maxDistance, z: maxDistance })
         ] as [Vec3, Vec3])
       : undefined;
-    const entity = this.session.entitySystem.getEntityAt(point);
-    if (!entity) {
-      return null;
-    }
-    return new Pathfinder(this.session, entity, boundaries).getDistanceMap(point);
+    return new Pathfinder(this.session, entity, boundaries).getDistanceMap(
+      entity.position
+    );
   }
 
   getPathTo(entity: Entity, point: Point3D, maxDistance?: number) {
@@ -134,6 +132,10 @@ export class BoardSystem {
       distance: path.distance,
       path: path.path.map(p => Vec3.fromPoint3D(cellIdToPoint(p)))
     };
+  }
+
+  getManhattanDistance(p1: Point3D, p2: Point3D) {
+    return Math.abs(p2.x - p1.x) + Math.abs(p2.y - p1.y);
   }
 
   getNeighbors(point: Point3D) {

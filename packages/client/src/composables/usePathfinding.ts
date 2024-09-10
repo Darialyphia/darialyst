@@ -49,7 +49,7 @@ export const usePathfindingProvider = (session: GameSession, ui: GameUiContext) 
     canMoveTo(entity, point) {
       if (!entity) return false;
       if (!cache.has(entity.id)) {
-        const dm = session.boardSystem.getDistanceMap(entity.position, entity.speed);
+        const dm = session.boardSystem.getDistanceMap(entity, entity.speed);
         if (!dm) return false;
         cache.set(entity.id, dm);
       }
@@ -60,7 +60,7 @@ export const usePathfindingProvider = (session: GameSession, ui: GameUiContext) 
     canAttackAt(entity, point) {
       if (!cache.has(entity.id)) {
         const dm = session.boardSystem.getDistanceMap(
-          entity.position,
+          entity,
           entity.speed * (entity.maxMovements - entity.movementsTaken)
         );
         if (!dm) return false;

@@ -22,7 +22,10 @@ export class AIEntityAgent implements AIAgent {
   private async runSimulation(action: SerializedAction) {
     const session = this.session.clone();
     await this.session.runSimulation(action, session);
-    const scorer = new AISessionScorer(session, this.entity.player);
+    const scorer = new AISessionScorer(
+      session,
+      session.playerSystem.getPlayerById(this.player.id)!
+    );
 
     return scorer.getScore();
   }
@@ -50,25 +53,24 @@ export class AIEntityAgent implements AIAgent {
 
   private computeMovementScores() {
     return Promise.all(
-      this.session.boardSystem.cells
-        .filter(c => c.isWalkable)
-        .map(async cell => {
-          if (!this.entity.canMove(this.entity.speed)) return;
+      this.session.boardSystem.cells.map(async cell => {
+        if (!cell.isWalkable) return null;
+        if (!this.entity.canMove(this.entity.speed)) return;
 
-          const path = this.session.boardSystem.getPathTo(this.entity, cell);
-          if (!path) return;
-          const index = Math.min(path.path.length - 1, this.entity.speed - 1);
-          const targetCell = path.path[index]!;
+        const path = this.session.boardSystem.getPathTo(this.entity, cell);
+        if (!path) return;
+        const index = Math.min(path.path.length - 1, this.entity.speed - 1);
+        const targetCell = path.path[index]!;
 
-          return this.evaluateAction({
-            type: 'move',
-            payload: {
-              playerId: this.entity.player.id,
-              entityId: this.entity.id,
-              position: targetCell.serialize()
-            }
-          });
-        })
+        return this.evaluateAction({
+          type: 'move',
+          payload: {
+            playerId: this.entity.player.id,
+            entityId: this.entity.id,
+            position: targetCell.serialize()
+          }
+        });
+      })
     );
   }
 

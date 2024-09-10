@@ -71,6 +71,7 @@ export class Unit extends Card implements Serializable {
   canPlayAt(point: Point3D, forcePlayedFromHand = false): boolean {
     const cell = this.session.boardSystem.getCellAt(point);
     if (!cell) return false;
+
     if (!cell.canSummonAt) return false;
 
     const predicate =
