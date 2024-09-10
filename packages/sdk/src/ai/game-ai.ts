@@ -25,6 +25,8 @@ export class GameAI {
   async onUpdate(action: SerializedAction) {
     await this.session.dispatch(action);
 
+    if (this.session.winnerId) return;
+
     if (this.player.isActive || this.session.phase === GAME_PHASES.MULLIGAN) {
       const nextAction = await this.evaluateNextAction();
       return nextAction;
@@ -32,10 +34,6 @@ export class GameAI {
   }
 
   async evaluateNextAction(): Promise<SerializedAction> {
-    if (this.session.phase === GAME_PHASES.MULLIGAN) {
-      return { type: 'mulligan', payload: { playerId: this.playerId, cardIndices: [] } };
-    }
-
     const now = Date.now();
     const agent = new AIPlayerAgent(this.session, this.player);
     const action = await agent.getNextAction();

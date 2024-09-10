@@ -5,6 +5,7 @@ import type { SerializedAction } from '../action/action';
 import { AISessionScorer } from './session-scorer';
 import { AIEntityAgent } from './entity-agent';
 import { isDefined } from '@game/shared';
+import { GAME_PHASES } from '../game-session';
 
 export class AIPlayerAgent implements AIAgent {
   constructor(
@@ -13,24 +14,63 @@ export class AIPlayerAgent implements AIAgent {
   ) {}
 
   async getNextAction() {
-    const [replaceScores, entitiesScores, playCardScore] = await Promise.all([
-      this.computeReplaceScores(),
+    if (this.session.phase === GAME_PHASES.MULLIGAN) {
+      return {
+        action: {
+          type: 'mulligan',
+          payload: { playerId: this.player.id, cardIndices: this.evaluateMulligan() }
+        },
+        score: 1
+      };
+    }
+
+    if (this.player.canReplace()) {
+      return getHighestScoredAction(await this.computeReplaceScores());
+    }
+
+    const [entitiesScores, playCardScore] = await Promise.all([
       this.computeEntitiesScores(),
       this.computePlayCardScores()
     ]);
+
     return getHighestScoredAction(
-      [...replaceScores, ...entitiesScores, ...playCardScore].filter(isDefined)
+      [...entitiesScores, ...playCardScore].filter(isDefined)
     );
+  }
+
+  private evaluateMulligan() {
+    const indices: number[] = [];
+    const hasPlayableTurn1 = this.player.hand.some(
+      c => c.cost <= this.player.currentGold
+    );
+
+    this.player.hand.forEach((card, index) => {
+      if (hasPlayableTurn1) {
+        if (card.cost > this.player.currentGold + 1) indices.push(index);
+      } else {
+        if (card.cost > this.player.currentGold) indices.push(index);
+      }
+    });
+
+    return indices;
   }
 
   private async runSimulation(action: SerializedAction) {
     const session = this.session.clone();
+
+    let invalid = false;
+    session.on('game:error', () => {
+      console.log('invalid action');
+      invalid = true;
+    });
+
     await this.session.runSimulation(action, session);
     const scorer = new AISessionScorer(
       session,
       session.playerSystem.getPlayerById(this.player.id)!
     );
 
+    if (invalid) return Number.NEGATIVE_INFINITY;
     return scorer.getScore();
   }
 
