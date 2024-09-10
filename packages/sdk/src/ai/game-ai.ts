@@ -3,7 +3,8 @@ import type { SerializedAction } from '../action/action';
 import { GAME_PHASES } from '../game-session';
 import type { ServerSession } from '../server-session';
 import { Entity } from '../entity/entity';
-import { AIAgent } from './ai-agent';
+import { AIEntityAgent } from './entity-agent';
+import { AIPlayerAgent } from './player-agent';
 
 export class GameAI {
   constructor(
@@ -37,36 +38,10 @@ export class GameAI {
       return { type: 'mulligan', payload: { playerId: this.playerId, cardIndices: [] } };
     }
 
-    const replaceAction = this.tryToReplace();
-    if (replaceAction) return replaceAction;
+    const agent = new AIPlayerAgent(this.session, this.player);
+    const action = await agent.getNextAction();
 
-    const generalAgent = new AIAgent(this.session, this.general);
-    const generalAction = generalAgent.getNextAction();
-    if (generalAction) return generalAction;
-
-    const [playCardAction] = this.player.hand
-      .map((card, index) => ({ card, action: this.tryToPlayCardAtIndex(index) }))
-      .filter(({ action }) => isDefined(action))
-      .sort((a, b) => {
-        return b.card.cost - a.card.cost;
-      });
-
-    if (playCardAction) return playCardAction.action!;
-
-    const entityActions = (
-      await Promise.all(
-        this.player.entities.map(entity => {
-          const agent = new AIAgent(this.session, entity);
-          return agent.getBestAction();
-        })
-      )
-    ).flat();
-    if (entityActions.length) {
-      const action = entityActions.sort((a, b) => b.score - a.score);
-      return action[0].action;
-    }
-
-    return { type: 'endTurn', payload: { playerId: this.playerId } };
+    return action ?? { type: 'endTurn', payload: { playerId: this.playerId } };
   }
 
   private tryToReplace() {

@@ -7,6 +7,7 @@ import type { PlayerArtifact } from '../player/player-artifact';
 const sum = (arr: number[]) => arr.reduce((total, curr) => total + curr, 0);
 const BASE_SCORES = {
   ENTITY: 10,
+  PLAYABLE_CARD: 2,
   CARD: 1,
   ARTIFACT: 3
 } as const;
@@ -38,6 +39,8 @@ export class AISessionScorer {
   }
 
   private getCardScore(card: Card) {
-    return BASE_SCORES.CARD;
+    return this.player.canPlayCardAtIndex(this.player.hand.indexOf(card))
+      ? BASE_SCORES.PLAYABLE_CARD
+      : BASE_SCORES.CARD;
   }
 }
