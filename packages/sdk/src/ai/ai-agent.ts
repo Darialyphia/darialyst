@@ -1,13 +1,99 @@
+import { isDefined } from '@game/shared';
+import type { SerializedAction } from '../action/action';
 import type { Entity } from '../entity/entity';
+import { GameSession } from '../game-session';
+import { ServerRngSystem } from '../rng-system';
 import type { ServerSession } from '../server-session';
+import { AISessionScorer } from './session-scorer';
 
-export class AiAgent {
+type ScoredAction = {
+  action: SerializedAction;
+  score: number;
+};
+
+export class AIAgent {
   constructor(
     private session: ServerSession,
     private entity: Entity
   ) {}
 
+  get player() {
+    return this.entity.player;
+  }
+
+  get opponent() {
+    return this.player.opponent;
+  }
+
+  private async runSimulation(action: SerializedAction) {
+    const session = this.session.clone();
+    await this.session.runSimulation(action, session);
+    const scorer = new AISessionScorer(session, this.entity.player);
+
+    return scorer.getScore();
+  }
+
+  private async evaluateAction(action: SerializedAction) {
+    const score = await this.runSimulation(action);
+    return { action, score };
+  }
+
+  async getBestAction() {
+    const attackScores = await Promise.all(
+      this.opponent.entities.map(async enemy => {
+        if (!this.entity.canAttack(enemy)) return;
+        return this.evaluateAction({
+          type: 'attack',
+          payload: {
+            playerId: this.entity.player.id,
+            entityId: this.entity.id,
+            targetId: enemy.id
+          }
+        });
+      })
+    );
+
+    const movementScores = await Promise.all(
+      this.session.boardSystem.cells
+        .filter(c => c.isWalkable)
+        .map(async cell => {
+          if (!this.entity.canMove(this.entity.speed)) return;
+
+          const path = this.session.boardSystem.getPathTo(this.entity, cell);
+          if (!path) return;
+          const index = Math.min(path.path.length - 1, this.entity.speed - 1);
+          const targetCell = path.path[index]!;
+
+          return this.evaluateAction({
+            type: 'move',
+            payload: {
+              playerId: this.entity.player.id,
+              entityId: this.entity.id,
+              position: targetCell.serialize()
+            }
+          });
+        })
+    );
+
+    return [...attackScores, ...movementScores]
+      .filter(isDefined)
+      .sort((a, b) => b.score - a.score);
+  }
+
   getNextAction() {
+    const bestTarget = this.getBestTarget();
+    if (bestTarget) {
+      if (this.entity.canAttack(bestTarget)) {
+        return this.attack(bestTarget);
+      } else {
+        return this.tryToWalkTowardsEntity(bestTarget);
+      }
+    } else {
+      return this.tryToWalkTowardsEntity(this.entity.player.opponent.general);
+    }
+  }
+
+  private getBestTarget() {
     const distanceMap = this.session.boardSystem.getDistanceMap(
       this.entity.position,
       this.entity.speed * (this.entity.maxMovements - this.entity.movementsTaken)
@@ -58,15 +144,7 @@ export class AiAgent {
         return 0;
       });
 
-    if (bestTarget) {
-      if (this.entity.canAttack(bestTarget)) {
-        return this.attack(bestTarget);
-      } else {
-        return this.tryToWalkTowardsEntity(bestTarget);
-      }
-    } else {
-      return this.tryToWalkTowardsEntity(this.entity.player.opponent.general);
-    }
+    return bestTarget;
   }
 
   private attack(target: Entity) {

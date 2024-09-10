@@ -3,7 +3,7 @@ import type { SerializedAction } from '../action/action';
 import { GAME_PHASES } from '../game-session';
 import type { ServerSession } from '../server-session';
 import { Entity } from '../entity/entity';
-import { AiAgent } from './ai-agent';
+import { AIAgent } from './ai-agent';
 
 export class GameAI {
   constructor(
@@ -40,7 +40,7 @@ export class GameAI {
     const replaceAction = this.tryToReplace();
     if (replaceAction) return replaceAction;
 
-    const generalAgent = new AiAgent(this.session, this.general);
+    const generalAgent = new AIAgent(this.session, this.general);
     const generalAction = generalAgent.getNextAction();
     if (generalAction) return generalAction;
 
@@ -53,10 +53,17 @@ export class GameAI {
 
     if (playCardAction) return playCardAction.action!;
 
-    for (const entity of this.player.entities) {
-      const agent = new AiAgent(this.session, entity);
-      const action = agent.getNextAction();
-      if (action) return action;
+    const entityActions = (
+      await Promise.all(
+        this.player.entities.map(entity => {
+          const agent = new AIAgent(this.session, entity);
+          return agent.getBestAction();
+        })
+      )
+    ).flat();
+    if (entityActions.length) {
+      const action = entityActions.sort((a, b) => b.score - a.score);
+      return action[0].action;
     }
 
     return { type: 'endTurn', payload: { playerId: this.playerId } };
@@ -65,29 +72,22 @@ export class GameAI {
   private tryToReplace() {
     if (!this.player.canReplace()) return;
 
-    const idx = this.getMostExpensiveCardIndex();
-    if (idx !== -1) {
-      return {
-        type: 'replaceCard',
-        payload: {
-          playerId: this.playerId,
-          cardIndex: idx
-        }
-      };
-    }
-  }
+    const [card] = this.player.hand
+      .filter((card, index) => {
+        if (!this.player.canPlayCardAtIndex(index)) return true;
+        return false;
+      })
+      .sort((a, b) => b.cost - a.cost);
 
-  private getMostExpensiveCardIndex() {
-    let index = -1;
-    let highest = 0;
-    this.player.hand.forEach((card, i) => {
-      if (card.cost >= highest) {
-        index = i;
-        highest = card.cost;
+    if (!card) return null;
+
+    return {
+      type: 'replaceCard',
+      payload: {
+        playerId: this.playerId,
+        cardIndex: this.player.hand.indexOf(card)
       }
-    });
-
-    return index;
+    };
   }
 
   private tryToPlayCardAtIndex(index: number) {

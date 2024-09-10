@@ -8,14 +8,15 @@ export type RngSystem = {
     values: number[];
   };
   values: number[];
+  seed: string;
 };
 
 export class ServerRngSystem implements RngSystem {
   private rng: randoomSeed.PRNG;
   values: number[] = [];
 
-  constructor(seed: string) {
-    this.rng = randoomSeed(seed);
+  constructor(public readonly seed: string) {
+    this.rng = randoomSeed(this.seed);
   }
 
   next() {
@@ -37,6 +38,7 @@ export class MissingRngError extends Error {}
 
 export class ClientRngSystem implements RngSystem {
   values: number[] = [];
+  seed = '';
   private index = 0;
 
   private rng() {

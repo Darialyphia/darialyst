@@ -19,7 +19,7 @@ import {
 } from './player/player';
 import { ActionSystem } from './action/action-system';
 import { type IFxSystem } from './fx-system';
-import type { RngSystem } from './rng-system';
+import { ServerRngSystem, type RngSystem } from './rng-system';
 import {
   CARD_EVENTS,
   type CardBlueprintId,
@@ -148,6 +148,7 @@ export class GameSession extends TypedEventEmitter<GameEventMap> {
   currentTurn = 0;
 
   id: string;
+
   protected constructor(
     protected initialState: SerializedGameState,
     public rngSystem: RngSystem,
@@ -232,6 +233,19 @@ export class GameSession extends TypedEventEmitter<GameEventMap> {
       rng: this.rngSystem.serialize(),
       history: this.actionSystem.serialize()
     };
+  }
+
+  clone() {
+    return new GameSession(
+      { ...this.serialize() },
+      new ServerRngSystem(this.rngSystem.seed),
+      this.fxSystem,
+      () => void 0,
+      {
+        format: this.format,
+        parsedBlueprints: this.cardBlueprints
+      }
+    );
   }
 
   runSimulation(action: SerializedAction, session: GameSession) {
