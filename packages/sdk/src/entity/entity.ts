@@ -259,6 +259,10 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
     distance: number,
     { countAllMovements }: { countAllMovements: boolean } = { countAllMovements: false }
   ) {
+    if (!this.session.playerSystem.activePlayer.equals(this.player)) {
+      return false;
+    }
+
     const speed = countAllMovements
       ? this.speed * (this.maxMovements - this.movementsTaken)
       : this.speed;

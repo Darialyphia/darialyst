@@ -3,7 +3,7 @@ import type { SerializedAction } from '../action/action';
 import type { Entity } from '../entity/entity';
 import type { ServerSession } from '../server-session';
 import { AISessionScorer } from './session-scorer';
-import { getHighestScoredAction, type AIAgent } from './agent';
+import { getHighestScoredAction, type AIAgent, type ScoredAction } from './agent';
 import type { Cell } from '../board/cell';
 
 export class AIEntityAgent implements AIAgent {
@@ -22,7 +22,11 @@ export class AIEntityAgent implements AIAgent {
 
   private async runSimulation(action: SerializedAction) {
     const session = this.session.clone();
+
+    const now = Date.now();
     await this.session.runSimulation(action, session);
+    console.log(`Simulation done in ${Date.now() - now}ms`);
+
     const scorer = new AISessionScorer(
       session,
       session.playerSystem.getPlayerById(this.player.id)!
@@ -36,24 +40,30 @@ export class AIEntityAgent implements AIAgent {
     return { action, score };
   }
 
-  private computeAttackScores() {
-    return Promise.all(
-      this.opponent.entities.map(async enemy => {
-        if (!this.entity.canAttack(enemy)) return;
-        return this.evaluateAction({
+  private async computeAttackScores() {
+    const results: ScoredAction[] = [];
+
+    for (const enemy of this.opponent.entities) {
+      if (!this.entity.canAttack(enemy)) continue;
+      results.push(
+        await this.evaluateAction({
           type: 'attack',
           payload: {
             playerId: this.entity.player.id,
             entityId: this.entity.id,
             targetId: enemy.id
           }
-        });
-      })
-    );
+        })
+      );
+    }
+
+    return results;
   }
 
-  private computeMovementScores() {
+  private async computeMovementScores() {
+    const results: ScoredAction[] = [];
     const positions = new Set<Cell>();
+
     this.session.boardSystem.cells.forEach(async cell => {
       if (!cell.isWalkable) return null;
       if (!this.entity.canMove(this.entity.speed)) return;
@@ -66,9 +76,9 @@ export class AIEntityAgent implements AIAgent {
       positions.add(this.session.boardSystem.getCellAt(target)!);
     });
 
-    return Promise.all(
-      Array.from(positions).map(async cell =>
-        this.evaluateAction({
+    for (const cell of positions) {
+      results.push(
+        await this.evaluateAction({
           type: 'move',
           payload: {
             playerId: this.entity.player.id,
@@ -76,15 +86,15 @@ export class AIEntityAgent implements AIAgent {
             position: cell.position.serialize()
           }
         })
-      )
-    );
+      );
+    }
+
+    return results;
   }
 
   async getNextAction() {
-    const [attackScores, movementScores] = await Promise.all([
-      this.computeAttackScores(),
-      this.computeMovementScores()
-    ]);
+    const attackScores = await this.computeAttackScores();
+    const movementScores = await this.computeMovementScores();
 
     return getHighestScoredAction([...attackScores, ...movementScores].filter(isDefined));
   }

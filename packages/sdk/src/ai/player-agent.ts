@@ -1,5 +1,5 @@
 import type { ServerSession } from '../server-session';
-import { getHighestScoredAction, type AIAgent } from './agent';
+import { getHighestScoredAction, type AIAgent, type ScoredAction } from './agent';
 import type { Player } from '../player/player';
 import type { SerializedAction } from '../action/action';
 import { AISessionScorer } from './session-scorer';
@@ -64,7 +64,9 @@ export class AIPlayerAgent implements AIAgent {
       invalid = true;
     });
 
+    const now = Date.now();
     await this.session.runSimulation(action, session);
+    console.log(`Simulation done in ${Date.now() - now}ms`);
     const scorer = new AISessionScorer(
       session,
       session.playerSystem.getPlayerById(this.player.id)!
@@ -96,43 +98,46 @@ export class AIPlayerAgent implements AIAgent {
   }
 
   private async computeEntitiesScores() {
-    return Promise.all(
-      this.player.entities.map(entity => {
-        const agent = new AIEntityAgent(this.session, entity);
-        return agent.getNextAction();
-      })
-    );
+    const results: ScoredAction[] = [];
+
+    for (const entity of this.player.entities) {
+      const agent = new AIEntityAgent(this.session, entity);
+      results.push(await agent.getNextAction());
+    }
+
+    return results;
   }
 
   private async computePlayCardScores() {
-    const actions = await Promise.all(
-      this.player.hand.map(async (card, index) => {
-        const canPlay = this.player.canPlayCardAtIndex(index);
-        if (!canPlay) return;
+    const results: ScoredAction[] = [];
 
-        const needsTarget = card.blueprint.targets?.minTargetCount;
-        if (needsTarget) return;
+    for (const [index, card] of this.player.hand.entries()) {
+      const canPlay = this.player.canPlayCardAtIndex(index);
+      if (!canPlay) continue;
 
-        const cells = this.session.boardSystem.cells.filter(cell => {
-          return card.canPlayAt(cell.position, true);
-        });
+      const needsTarget = card.blueprint.targets?.minTargetCount;
+      if (needsTarget) continue;
 
-        return Promise.all(
-          cells.map(cell => {
-            return this.evaluateAction({
-              type: 'playCard',
-              payload: {
-                playerId: this.player.id,
-                cardIndex: index,
-                position: cell.position.serialize(),
-                targets: [],
-                choice: 0
-              }
-            });
+      const cells = this.session.boardSystem.cells.filter(cell => {
+        return card.canPlayAt(cell.position, true);
+      });
+
+      for (const cell of cells) {
+        results.push(
+          await this.evaluateAction({
+            type: 'playCard',
+            payload: {
+              playerId: this.player.id,
+              cardIndex: index,
+              position: cell.position.serialize(),
+              targets: [],
+              choice: 0
+            }
           })
         );
-      })
-    );
-    return actions.flat().filter(isDefined);
+      }
+    }
+
+    return results.filter(isDefined);
   }
 }

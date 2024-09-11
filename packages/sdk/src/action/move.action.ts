@@ -36,6 +36,12 @@ export class MoveAction extends GameAction<typeof schema> {
       );
     }
 
+    if (!this.session.playerSystem.activePlayer.equals(this.entity.player)) {
+      return this.printError(
+        `Entity ${this.entity.id} doesn't belong to the active player.`
+      );
+    }
+
     if (!this.entity.canMove(this.path.distance)) {
       return this.printError(`Entity ${this.entity.id} cannot move to target cell.`);
     }

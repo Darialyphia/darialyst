@@ -29,6 +29,12 @@ export class AttackAction extends GameAction<typeof schema> {
       return this.printError(`Entity not found: ${this.payload.targetId}`);
     }
 
+    if (!this.session.playerSystem.activePlayer.equals(this.entity.player)) {
+      return this.printError(
+        `Entity ${this.entity.id} doesn't belong to the active player.`
+      );
+    }
+
     if (!this.entity.canAttack(this.target)) {
       return this.printError(
         `Entity ${this.entity.id}(${this.entity.card.blueprintId}) cannot attack Entity ${this.target.id}(${this.target.card.blueprintId})`
