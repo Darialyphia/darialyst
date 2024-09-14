@@ -2,6 +2,7 @@ import { z } from 'zod';
 import { GameAction, defaultActionSchema } from './action';
 import type { Card } from '../card/card';
 import { GAME_PHASES } from '../game-session';
+import { CARD_KINDS } from '../card/card-enums';
 
 const schema = defaultActionSchema.extend({
   cardIndex: z.number().nonnegative(),
@@ -33,6 +34,12 @@ export class PlayCardAction extends GameAction<typeof schema> {
     return this.player.getCardFromHand(this.payload.cardIndex);
   }
 
+  get isUnit() {
+    return (
+      this.cachedCard.kind === CARD_KINDS.MINION ||
+      this.cachedCard.kind === CARD_KINDS.GENERAL
+    );
+  }
   async impl() {
     if (!this.player.canPlayCardAtIndex(this.payload.cardIndex)) {
       return this.printError(
@@ -45,7 +52,7 @@ export class PlayCardAction extends GameAction<typeof schema> {
     }
     this.cachedCard = this.card;
 
-    if (!this.cachedCard.canPlayAt(this.payload.position)) {
+    if (this.isUnit && !this.cachedCard.canPlayAt(this.payload.position)) {
       return this.printError(
         `Not allowed to play ${this.cachedCard.blueprintId} as position ${JSON.stringify(this.payload.position)}`
       );
