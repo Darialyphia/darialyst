@@ -1053,6 +1053,10 @@ export const parseSerializedBlueprintEffect = (
 };
 
 const cache = new Map<string, CardBlueprint>();
+// Needed to reevaluate blueprints after a used edits their custom format
+export const clearParsedBlueprintCache = () => {
+  cache.clear();
+};
 export const parseSerializeBlueprint = <T extends GenericCardEffect[]>(
   blueprint: SerializedBlueprint<T>,
   format: Pick<GameFormat, 'config' | 'cards'> = { config: defaultConfig, cards: CARDS },

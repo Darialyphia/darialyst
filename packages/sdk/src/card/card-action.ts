@@ -61,6 +61,7 @@ import { RootCardAction } from './actions/root.card-action';
 import { ChangeCanRetaliateCardAction } from './actions/change-can-retaliate.action';
 import { StunCardAction } from './actions/stun.card-action';
 import { FreezeCardAction } from './actions/freeze.card-action';
+import { VeilCardAction } from './actions/veil.card-action';
 
 export type ParsedActionResult = (
   ctx: EffectCtx,
@@ -259,6 +260,9 @@ export const parseCardAction = (action: Action): ParsedActionResult => {
       })
       .with({ type: 'freeze' }, action => {
         return new FreezeCardAction(action, ctx, event, eventName).execute();
+      })
+      .with({ type: 'veil' }, action => {
+        return new VeilCardAction(action, ctx, event, eventName).execute();
       })
       .exhaustive();
   };

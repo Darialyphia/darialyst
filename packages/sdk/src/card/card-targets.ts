@@ -36,7 +36,8 @@ export const parseTargets = (
           candidates: config.targets[options.targets.length],
           random: false
         },
-        playedPoint: options.playedPoint
+        playedPoint: options.playedPoint,
+        isCardTargeting: true
       }).some(cell => {
         return cell.position.equals(point);
       });
@@ -59,7 +60,8 @@ export const parseTargets = (
           candidates: config.targets[options.targets.length],
           random: false
         },
-        playedPoint: options.playedPoint
+        playedPoint: options.playedPoint,
+        isCardTargeting: true
       });
     }
   };

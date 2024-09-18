@@ -42,8 +42,9 @@ export const useEntityTexture = (
   const finishAnimationThenUpdate = () => {
     if (!sprite.value) return;
     sprite.value.onLoop = sprite.value.onComplete = () => {
-      sprite.value!.onLoop = undefined;
-      sprite.value!.onComplete = undefined;
+      if (!sprite.value) return;
+      sprite.value.onLoop = undefined;
+      sprite.value.onComplete = undefined;
       updateAnimation();
     };
   };

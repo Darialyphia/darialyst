@@ -66,6 +66,7 @@ export type CellCondition = CellConditionBase | CellConditionExtras;
 export const getCells = ({
   conditions,
   playedPoint,
+  isCardTargeting,
   ...ctx
 }: {
   session: GameSession;
@@ -76,6 +77,7 @@ export const getCells = ({
   event: AnyObject;
   eventName?: string;
   playedPoint?: Point3D;
+  isCardTargeting?: boolean;
 }): Cell[] => {
   const { targets, session, event, eventName } = ctx;
 
@@ -192,7 +194,9 @@ export const getCells = ({
               conditions: condition.params.unit,
               playedPoint,
               ...ctx
-            }).some(unit => cell.entity?.equals(unit));
+            })
+              .filter(unit => (isCardTargeting ? unit.canBeTargeted(ctx.card) : true))
+              .some(unit => cell.entity?.equals(unit));
           })
           .with({ type: 'moved_unit_new_position' }, () => {
             return session.boardSystem.getCellAt(event.entity.position)?.equals(cell);

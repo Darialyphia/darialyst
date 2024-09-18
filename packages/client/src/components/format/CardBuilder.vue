@@ -238,7 +238,7 @@ watchEffect(() => {
                 :key="sprite"
                 v-intersection-observer="[
                   onIntersectionObserver(sprite),
-                  { root: spriteModalRoot, rootMargin: '500px' }
+                  { root: spriteModalRoot, rootMargin: '1000px' }
                 ]"
                 class="sprite"
                 @mouseenter="hoveredSprite = sprite"

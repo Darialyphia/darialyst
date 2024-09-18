@@ -359,6 +359,15 @@ const actionDict: ActionDictionary = {
       filter: GlobalConditionNode
     }
   },
+  veil: {
+    label: 'Veil',
+    params: {
+      activeWhen: GlobalConditionNode,
+      duration: null,
+      execute: null,
+      filter: GlobalConditionNode
+    }
+  },
   play_card: {
     label: 'Play a card',
     params: {
@@ -867,6 +876,12 @@ watch(
         params.filter ??= { candidates: [], random: false };
       })
       .with({ type: 'flying' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+        params.activeWhen ??= { candidates: [], random: false };
+        params.duration ??= 'always';
+      })
+      .with({ type: 'veil' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
         params.activeWhen ??= { candidates: [], random: false };

@@ -149,6 +149,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
     canRetaliate: new Interceptable<boolean, { entity: Entity; source: Entity }>(),
     canMoveThroughCell: new Interceptable<boolean, { entity: Entity; cell: Cell }>(),
     canBeAttackTarget: new Interceptable<boolean, { entity: Entity; source: Entity }>(),
+    canBeCardTarget: new Interceptable<boolean, { entity: Entity; source: Card }>(),
 
     damageDealt: new Interceptable<number, { entity: Entity; amount: number }>(),
     damageTaken: new Interceptable<
@@ -288,6 +289,10 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
         source
       }
     );
+  }
+
+  canBeTargeted(source: Card) {
+    return this.interceptors.canBeCardTarget.getValue(true, { entity: this, source });
   }
 
   canBeAttacked(source: Entity) {

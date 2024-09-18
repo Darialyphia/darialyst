@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { api } from '@game/api';
 import type { Id } from '@game/api/src/convex/_generated/dataModel';
+import { clearParsedBlueprintCache } from '@game/sdk';
 
 definePageMeta({
   name: 'EditFormat',
@@ -18,6 +19,7 @@ const { isLoading, data: format } = useConvexAuthedQuery(api.formats.byId, {
 
 const { mutate: updateFormat } = useConvexAuthedMutation(api.formats.update, {
   onSuccess() {
+    clearParsedBlueprintCache();
     navigateTo({ name: 'FormatList' });
   }
 });

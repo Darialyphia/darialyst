@@ -79,3 +79,4 @@ export type { Cell, CellId } from './board/cell';
 export type { GameEvent, GameEventPayload } from './game-session';
 export { MissingRngError } from './rng-system';
 export { GameAI } from './ai/game-ai';
+export { clearParsedBlueprintCache } from './card/card-parser';

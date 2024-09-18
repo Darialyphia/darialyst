@@ -24,6 +24,7 @@ import {
 import { BlastAttackPattern, type AttackPattern } from '../utils/attack-patterns';
 import type { CardBlueprint } from '../card/card-blueprint';
 import { f5Egg } from '../card/cards/faction_5/egg';
+import { Spell } from '../card/spell';
 
 export const dispelEntity = (entity: Entity) => {
   entity.dispel();
@@ -1211,6 +1212,27 @@ export const vulnerable = ({
         tickOn: 'start',
         duration,
         keywords: [KEYWORDS.VULNERABLE]
+      })
+    ]
+  });
+};
+
+export const veil = ({ duration, source }: { source: Card; duration?: number }) => {
+  return createEntityModifier({
+    id: KEYWORDS.VEIL.id,
+    visible: false,
+    stackable: true,
+    source,
+    mixins: [
+      modifierEntityInterceptorMixin({
+        key: 'canBeCardTarget',
+        interceptor:
+          modifier =>
+          (value, { source }) =>
+            !(source instanceof Spell),
+        tickOn: 'start',
+        duration,
+        keywords: [KEYWORDS.VEIL]
       })
     ]
   });
