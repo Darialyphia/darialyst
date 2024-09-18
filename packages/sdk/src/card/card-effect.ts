@@ -29,6 +29,7 @@ export type ConditionOverrides = {
   card?: CardCondition['type'];
 };
 
+type ExecutionDelay = 'now' | 'end_of_turn' | 'start_of_next_turn' | 'end_of_next_turn';
 export type Action<
   T extends ConditionOverrides = {
     unit: UnitConditionExtras['type'];
@@ -43,7 +44,7 @@ export type Action<
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -54,7 +55,7 @@ export type Action<
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -63,7 +64,7 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         amount: Amount<T>;
         player: Filter<PlayerCondition>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         kind?: Exclude<CardKind, 'GENERAL'>;
       };
     }
@@ -79,7 +80,7 @@ export type Action<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
         stackable: boolean;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
       };
     }
@@ -97,7 +98,7 @@ export type Action<
         >;
         frequency: TriggerFrequency;
         stackable: boolean;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
       };
     }
@@ -112,7 +113,7 @@ export type Action<
         >;
         frequency: TriggerFrequency;
         stackable: boolean;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
       };
     }
@@ -127,7 +128,7 @@ export type Action<
         >;
         frequency: TriggerFrequency;
         stackable: boolean;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
       };
     }
@@ -138,7 +139,7 @@ export type Action<
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -147,7 +148,7 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -156,7 +157,7 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -165,21 +166,21 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
       type: 'airdrop';
       params: {
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
       type: 'rush';
       params: {
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -189,7 +190,7 @@ export type Action<
         activeWhen?: Filter<GlobalCondition<T>>;
         amount: Amount<T>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -197,7 +198,7 @@ export type Action<
       params: {
         filter?: Filter<GlobalCondition<T>>;
         cells: Filter<CellCondition>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -207,7 +208,7 @@ export type Action<
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -217,7 +218,7 @@ export type Action<
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -228,7 +229,7 @@ export type Action<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
         effect: CardEffectConfig<Trigger[]>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         linkToCard?: boolean;
       };
     }
@@ -237,7 +238,7 @@ export type Action<
       params: {
         effect: CardEffectConfig<Trigger[]>;
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -252,7 +253,7 @@ export type Action<
         duration: 'always' | 'end_of_turn' | 'start_of_next_turn';
         activeWhen?: Filter<GlobalCondition<T>>;
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -263,7 +264,7 @@ export type Action<
         blueprint: CardBlueprintId[];
         ephemeral: boolean;
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -274,7 +275,7 @@ export type Action<
         >;
         cell: Filter<CellCondition>;
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -287,7 +288,7 @@ export type Action<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -299,7 +300,7 @@ export type Action<
         player: Filter<PlayerCondition>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
         stackable: boolean;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -308,7 +309,7 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -317,7 +318,7 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -325,7 +326,7 @@ export type Action<
       params: {
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
       };
     }
@@ -334,7 +335,7 @@ export type Action<
       params: {
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -342,7 +343,7 @@ export type Action<
       params: {
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -350,7 +351,7 @@ export type Action<
       params: {
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
       };
     }
@@ -359,7 +360,7 @@ export type Action<
       params: {
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -367,7 +368,7 @@ export type Action<
       params: {
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         blueprint: CardBlueprintId[];
         position: Filter<CellCondition>;
       };
@@ -381,7 +382,7 @@ export type Action<
         >;
         position: Filter<CellCondition>;
         targets: Filter<CellCondition>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -391,7 +392,7 @@ export type Action<
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         keyword: KeywordId;
       };
     }
@@ -399,7 +400,7 @@ export type Action<
       type: 'equip_artifact';
       params: {
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         player: Filter<PlayerCondition>;
         blueprint: CardBlueprintId[];
       };
@@ -408,7 +409,7 @@ export type Action<
       type: 'unequip_artifact';
       params: {
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         artifact: Filter<ArtifactCondition>;
       };
     }
@@ -416,7 +417,7 @@ export type Action<
       type: 'summon_unit';
       params: {
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         player: Filter<PlayerCondition>;
         blueprint: CardBlueprintId[];
         position: Filter<CellCondition>;
@@ -430,7 +431,7 @@ export type Action<
         >;
         player: Filter<PlayerCondition>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         filter?: Filter<GlobalCondition<T>>;
       };
     }
@@ -439,7 +440,7 @@ export type Action<
       params: {
         activeWhen?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         filter?: Filter<GlobalCondition<T>>;
       };
     }
@@ -449,7 +450,7 @@ export type Action<
         stacks: Amount<T>;
         activeWhen?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         filter?: Filter<GlobalCondition<T>>;
       };
     }
@@ -459,7 +460,7 @@ export type Action<
         stacks: Amount<T>;
         activeWhen?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         filter?: Filter<GlobalCondition<T>>;
       };
     }
@@ -468,7 +469,7 @@ export type Action<
       params: {
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
       };
     }
@@ -484,7 +485,7 @@ export type Action<
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -499,7 +500,7 @@ export type Action<
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -514,7 +515,7 @@ export type Action<
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -524,7 +525,7 @@ export type Action<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -534,7 +535,7 @@ export type Action<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -546,7 +547,7 @@ export type Action<
         >;
         activeWhen?: Filter<GlobalCondition<T>>;
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -555,7 +556,7 @@ export type Action<
         effect: CardEffectConfig<Trigger[]>;
         cost: number;
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         targets: CardTargetsConfig;
       };
     }
@@ -566,14 +567,14 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
       type: 'create_tile';
       params: {
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         player: Filter<PlayerCondition>;
         tile: string;
         position: Filter<CellCondition>;
@@ -584,7 +585,7 @@ export type Action<
       params: {
         amount: Amount<T>;
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         player: Filter<PlayerCondition>;
       };
     }
@@ -597,7 +598,7 @@ export type Action<
         >;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -606,7 +607,7 @@ export type Action<
         attack: number;
         hp: number;
         filter?: Filter<GlobalCondition<T>>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -617,7 +618,7 @@ export type Action<
         >;
         filter?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -625,14 +626,14 @@ export type Action<
       params: {
         activeWhen?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         filter?: Filter<GlobalCondition<T>>;
       };
     }
   | {
       type: 'adapt';
       params: {
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         filter?: Filter<GlobalCondition<T>>;
         choices: Array<{
           effect: CardEffectConfig<Trigger[]>;
@@ -647,7 +648,7 @@ export type Action<
           CardConditionBase | Extract<CardConditionExtras, { type: T['unit'] }>
         >;
         player: Filter<PlayerCondition>;
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
         filter?: Filter<GlobalCondition<T>>;
       };
     }
@@ -659,7 +660,7 @@ export type Action<
         >;
         filter?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     }
   | {
@@ -670,7 +671,7 @@ export type Action<
         >;
         filter?: Filter<GlobalCondition<T>>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
-        execute?: 'now' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
       };
     };
 

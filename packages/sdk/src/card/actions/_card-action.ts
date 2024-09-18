@@ -182,6 +182,18 @@ export abstract class CardAction<T extends Action['type']> {
       };
     }
 
+    if (timing === 'end_of_next_turn') {
+      const cleanups: Array<() => void> = [];
+      this.ctx.card.player.once('turn_start', () => {
+        this.ctx.card.player.once('turn_end', async () => {
+          cleanups.push(await this.executeImpl());
+        });
+      });
+
+      return () => {
+        cleanups.forEach(c => c());
+      };
+    }
     return noop;
   }
 }

@@ -471,7 +471,7 @@ const actionDict: ActionDictionary = {
     }
   },
   vulnerable: {
-    label: 'Blast',
+    label: 'Vulnerable',
     params: {
       stacks: AmountNode,
       activeWhen: GlobalConditionNode,
@@ -1174,6 +1174,14 @@ const id = useId();
             value="start_of_next_turn"
           />
           At the start of your next turn
+        </label>
+        <label>
+          <input
+            v-model="(action.params as any)[key]"
+            type="radio"
+            value="end_of_next_turn"
+          />
+          At the end of your next turn
         </label>
         <p class="c-orange-5 text-0">
           <Icon name="material-symbols:warning-outline" />
