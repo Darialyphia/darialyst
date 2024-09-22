@@ -220,6 +220,12 @@ import { f5Metamorphosis } from './cards/faction_5/metamorphosis';
 import { f5Tremors } from './cards/faction_5/tremors';
 import { f5DampeningWave } from './cards/faction_5/dampening-wave';
 import { f5IridiumScale } from './cards/faction_5/iridium-scale';
+import { f6Razorback } from './cards/faction_6/razoback';
+import { f6FlashFreeze } from './cards/faction_6/flash-freeze';
+import { f6FoxRavager } from './cards/faction_6/fox-ravager';
+import { f6AspectOfTheFox } from './cards/faction_6/aspect-of-the-fox';
+import { f6GhostWolf } from './cards/faction_6/ghost-wolf';
+import { f6FenrirWarmaster } from './cards/faction_6/fenrir-warmaster';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -400,6 +406,12 @@ const allCards: SerializedBlueprint<any>[] = [
   f6General,
   f6General2,
   f6General3,
+  f6Razorback,
+  f6FlashFreeze,
+  f6FoxRavager,
+  f6AspectOfTheFox,
+  f6GhostWolf,
+  f6FenrirWarmaster,
 
   neutralHealingMystic,
   neutralRiftWalker,
