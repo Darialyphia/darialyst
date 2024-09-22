@@ -189,4 +189,12 @@ export type Trigger =
   | {
       type: 'on_artifact_destroyed';
       params: { frequency: TriggerFrequency; card: Filter<CardConditionBase> };
+    }
+  | {
+      type: 'on_before_artifact_lose_durability';
+      params: { frequency: TriggerFrequency; card: Filter<CardConditionBase> };
+    }
+  | {
+      type: 'on_after_artifact_lose_durability';
+      params: { frequency: TriggerFrequency; card: Filter<CardConditionBase> };
     };

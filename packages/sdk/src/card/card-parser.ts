@@ -1045,6 +1045,42 @@ export const parseSerializedBlueprintEffect = (
                 }
               });
             })
+            .with({ type: 'on_before_artifact_lose_durability' }, trigger => {
+              return getEffectModifier({
+                actions,
+                vfx: effect.vfx,
+                frequency: trigger.params.frequency,
+                eventName: 'artifact:before_lose_durability',
+                filter(ctx, [event], eventName) {
+                  return trigger.params.card.candidates.length
+                    ? getCards({
+                        ...ctx,
+                        event,
+                        eventName,
+                        conditions: trigger.params.card
+                      }).some(card => card instanceof Artifact && event.card === card)
+                    : true;
+                }
+              });
+            })
+            .with({ type: 'on_after_artifact_lose_durability' }, trigger => {
+              return getEffectModifier({
+                actions,
+                vfx: effect.vfx,
+                frequency: trigger.params.frequency,
+                eventName: 'artifact:after_lose_durability',
+                filter(ctx, [event], eventName) {
+                  return trigger.params.card.candidates.length
+                    ? getCards({
+                        ...ctx,
+                        event,
+                        eventName,
+                        conditions: trigger.params.card
+                      }).some(card => card instanceof Artifact && event.card === card)
+                    : true;
+                }
+              });
+            })
             .exhaustive()
         );
       }

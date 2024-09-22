@@ -226,6 +226,7 @@ import { f6FoxRavager } from './cards/faction_6/fox-ravager';
 import { f6AspectOfTheFox } from './cards/faction_6/aspect-of-the-fox';
 import { f6GhostWolf } from './cards/faction_6/ghost-wolf';
 import { f6FenrirWarmaster } from './cards/faction_6/fenrir-warmaster';
+import { neutralBladeshaker } from './cards/neutral/bladeshaker';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -458,7 +459,8 @@ const allCards: SerializedBlueprint<any>[] = [
   neutralPandoraRed,
   neutralPandoraYellow,
   neutralPaddo,
-  neutralAstralCrusader
+  neutralAstralCrusader,
+  neutralBladeshaker
 ];
 
 export const CARDS = keyBy(allCards, 'id') as Record<

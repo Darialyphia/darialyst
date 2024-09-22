@@ -112,6 +112,16 @@ const triggerDict: Record<Trigger['type'], { label: string; params: string[] }> 
     params: ['card', 'frequency']
   },
 
+  on_before_artifact_lose_durability: {
+    label: 'Before an artifact loses durability',
+    params: ['card', 'frequency']
+  },
+
+  on_after_artifact_lose_durability: {
+    label: 'After an artifact loses durability',
+    params: ['card', 'frequency']
+  },
+
   on_after_card_played: {
     label: 'After a card is played',
     params: ['card', 'frequency']
