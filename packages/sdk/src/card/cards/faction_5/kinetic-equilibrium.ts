@@ -11,7 +11,7 @@ export const f5KineticEquilibrium = defineSerializedBlueprint({
   rarity: 'rare',
   effects: [
     {
-      text: 'Your effect Text',
+      text: 'Deal 2 damage to minions in a 3x3 area and give allied minions in that area +2/+0.',
       config: {
         executionContext: 'immediate',
         actions: [
