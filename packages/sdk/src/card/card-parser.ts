@@ -1022,7 +1022,9 @@ export const parseSerializedBlueprintEffect = (
                         event,
                         eventName,
                         conditions: trigger.params.card
-                      }).some(card => card instanceof Artifact && event.card)
+                      }).some(card => {
+                        return card instanceof Artifact && event.card.equals(card);
+                      })
                     : true;
                 }
               });
@@ -1040,7 +1042,7 @@ export const parseSerializedBlueprintEffect = (
                         event,
                         eventName,
                         conditions: trigger.params.card
-                      }).some(card => card instanceof Artifact && event.card === card)
+                      }).some(card => card instanceof Artifact && event.card.equals(card))
                     : true;
                 }
               });
@@ -1058,7 +1060,7 @@ export const parseSerializedBlueprintEffect = (
                         event,
                         eventName,
                         conditions: trigger.params.card
-                      }).some(card => card instanceof Artifact && event.card === card)
+                      }).some(card => card instanceof Artifact && event.card.equals(card))
                     : true;
                 }
               });
@@ -1076,7 +1078,7 @@ export const parseSerializedBlueprintEffect = (
                         event,
                         eventName,
                         conditions: trigger.params.card
-                      }).some(card => card instanceof Artifact && event.card === card)
+                      }).some(card => card instanceof Artifact && event.card.equals(card))
                     : true;
                 }
               });
