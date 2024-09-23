@@ -108,7 +108,15 @@ watch(
 
 const { copy } = useClipboard();
 
+// There seems to be a big with vueuse's useIntersectionObserver where the root is not reactive
+// So we display the sprite list just after opening the modal, so that the list parent is in the DOM and can be use aas an interseciotn observer root
 const isSpriteModalOpened = ref(false);
+const isSpriteListDisplayed = ref(false);
+watch(isSpriteModalOpened, opened => {
+  setTimeout(() => {
+    isSpriteListDisplayed.value = opened;
+  });
+});
 
 const unitSprites = import.meta.glob('@/assets/units{m}/*.png', {
   eager: true,
@@ -233,30 +241,32 @@ watchEffect(() => {
               Hide used sprites
             </label>
             <div ref="spriteModalRoot" class="sprite-modal fancy-scrollbar">
-              <div
-                v-for="sprite in spriteOptions"
-                :key="sprite"
-                v-intersection-observer="[
-                  onIntersectionObserver(sprite),
-                  { root: spriteModalRoot, rootMargin: '1000px' }
-                ]"
-                class="sprite"
-                @mouseenter="hoveredSprite = sprite"
-                @mouseleave="hoveredSprite = null"
-                @click="
-                  () => {
-                    blueprint.spriteId = sprite;
-                    isSpriteModalOpened = false;
-                    hoveredSprite = null;
-                  }
-                "
-              >
-                <CardSprite
-                  v-if="visibleSprites.has(sprite)"
-                  :sprite-id="sprite"
-                  :animation="getAnimation(sprite)"
-                />
-              </div>
+              <template v-if="isSpriteListDisplayed">
+                <div
+                  v-for="sprite in spriteOptions"
+                  :key="sprite"
+                  v-intersection-observer="[
+                    onIntersectionObserver(sprite),
+                    { root: spriteModalRoot, rootMargin: '300px 0px 300px 0px' }
+                  ]"
+                  class="sprite"
+                  @mouseenter="hoveredSprite = sprite"
+                  @mouseleave="hoveredSprite = null"
+                  @click="
+                    () => {
+                      blueprint.spriteId = sprite;
+                      isSpriteModalOpened = false;
+                      hoveredSprite = null;
+                    }
+                  "
+                >
+                  <CardSprite
+                    v-if="visibleSprites.has(sprite)"
+                    :sprite-id="sprite"
+                    :animation="getAnimation(sprite)"
+                  />
+                </div>
+              </template>
             </div>
           </UiModal>
         </div>
@@ -616,7 +626,7 @@ h3 {
   gap: var(--size-4);
   justify-items: center;
 
-  height: 500px;
+  height: 550px;
 
   .sprite {
     width: 96px;

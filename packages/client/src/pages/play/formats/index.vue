@@ -142,7 +142,6 @@ const formatToDelete = ref<Nullable<GameFormatDto>>(null);
 section {
   overflow-y: auto;
   margin-block: var(--size-6);
-  padding-top: var(--size-8);
 }
 
 .create-button {
