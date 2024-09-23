@@ -5,7 +5,7 @@ import { CARD_KINDS, FACTION_IDS, RARITIES } from '../../card-enums';
 export const f3ZenuiTheBlghtspawned = defineSerializedBlueprint({
   id: 'f3_zenrui_the_blightspawned',
   spriteId: 'f3_zenrui_the_blightspawned',
-  name: "Zen'rui, the Blghtspawned",
+  name: "Zen'rui, the Blightspawned",
   collectable: true,
   keywords: [KEYWORDS.OPENING_GAMBIT.id],
   relatedBlueprintIds: [],

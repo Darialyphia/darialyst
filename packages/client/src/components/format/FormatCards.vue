@@ -14,7 +14,6 @@ const format = defineModel<{
   config: GameSessionConfig;
 }>('format', { required: true });
 
-console.log(format.value.cards);
 const customCards = computed(() =>
   Object.values(format.value.cards).filter(card => !CARDS[card.id])
 );
@@ -44,6 +43,8 @@ const filteredCards = computed(() =>
     c.name.toLowerCase().includes(search.value.toLocaleLowerCase())
   )
 );
+
+const existingCardsList = useVirtualList(filteredCards, { itemHeight: 82, overscan: 5 });
 </script>
 
 <template>
@@ -144,24 +145,31 @@ const filteredCards = computed(() =>
           left-icon="material-symbols:search"
           class="mb-4"
         />
-        <ul class="card-list fancy-scrollbar">
-          <li v-for="card in filteredCards" :key="card.id">
-            <UiButton
-              type="button"
-              class="ghost-button"
-              :disabled="isEdited(card)"
-              @click="
-                () => {
-                  addCard(card);
-                  isCardsModalOpened = false;
-                }
-              "
-            >
-              <CardSprite :sprite-id="card.spriteId" class="sprite" />
-              {{ card.name }}
-            </UiButton>
-          </li>
-        </ul>
+        <div class="owerflow-hidden">
+          <div
+            class="existing-cards fancy-scrollbar"
+            v-bind="existingCardsList.containerProps"
+          >
+            <ul v-bind="existingCardsList.wrapperProps.value">
+              <li v-for="card in existingCardsList.list.value" :key="card.index">
+                <UiButton
+                  type="button"
+                  class="ghost-button"
+                  :disabled="isEdited(card.data)"
+                  @click="
+                    () => {
+                      addCard(card.data);
+                      isCardsModalOpened = false;
+                    }
+                  "
+                >
+                  <CardSprite :sprite-id="card.data.spriteId" class="sprite" />
+                  {{ card.data.name }}
+                </UiButton>
+              </li>
+            </ul>
+          </div>
+        </div>
         <footer class="flex justify-end">
           <UiButton class="error-button" @click="isCardsModalOpened = false">
             Cancel
@@ -203,14 +211,13 @@ section {
 }
 
 .sidebar {
-  padding-bottom: var(--size-11);
   overflow-y: auto;
+  padding-bottom: var(--size-11);
 }
 
 .card-list {
   display: grid;
   gap: var(--size-2);
-
   padding: var(--size-2);
 
   .selected {
@@ -223,5 +230,8 @@ section {
 .sprite {
   aspect-ratio: 1;
   width: 64px;
+}
+.existing-cards {
+  height: 60dvh;
 }
 </style>
