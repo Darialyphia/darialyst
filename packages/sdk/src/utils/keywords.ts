@@ -101,7 +101,7 @@ export const KEYWORDS = {
   FEARSOME: {
     id: 'fearsome',
     name: 'Fearsome',
-    description: "When this is unit attacks a minion, the target doesn't counterattack.",
+    description: "When this unit attacks a minion, the target doesn't counterattack.",
     aliases: [],
     spriteId: 'fearsome'
   },
@@ -119,7 +119,7 @@ export const KEYWORDS = {
     id: 'elusive',
     name: 'Elusive',
     description:
-      'When this gets attacked, this teleports behnd the attacker if possible instead of counterattacking. If it does, this unit takes no damage from the attack.',
+      'When this gets attacked, this teleports behind the attacker if possible instead of counterattacking. If it does, this unit takes no damage from the attack.',
     aliases: []
   },
   FLYING: {

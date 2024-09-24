@@ -233,6 +233,11 @@ import { f6BonechillBarrier } from './cards/faction_6/bonechill-barrier';
 import { f6FrostWell } from './cards/faction_6/frost-well';
 import { f6GravityWell } from './cards/faction_6/gravity-well';
 import { f6ArcticDisplacer } from './cards/faction_6/arctic-displacer';
+import { f6ChromaticCold } from './cards/faction_6/chromatic-cold';
+import { f6BlazingSpines } from './cards/faction_6/blazing-spines';
+import { f6Mesmerize } from './cards/faction_6/mesmerize';
+import { f6Snowpiercer } from './cards/faction_6/snowpiercer';
+import { f6GlacialElemental } from './cards/faction_6/glacial-elemental';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -420,11 +425,16 @@ const allCards: SerializedBlueprint<any>[] = [
   f6GhostWolf,
   f6FenrirWarmaster,
   f6FrigidSpines,
+  f6BlazingSpines,
   f6IceBarrier,
   f6BonechillBarrier,
   f6FrostWell,
   f6GravityWell,
   f6ArcticDisplacer,
+  f6ChromaticCold,
+  f6Mesmerize,
+  f6Snowpiercer,
+  f6GlacialElemental,
 
   neutralHealingMystic,
   neutralRiftWalker,

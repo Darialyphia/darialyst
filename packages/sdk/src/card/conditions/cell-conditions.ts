@@ -32,6 +32,8 @@ export type CellConditionBase =
   | { type: 'is_in_front'; params: { unit: Filter<UnitCondition> } }
   | { type: 'is_behind'; params: { unit: Filter<UnitCondition> } }
   | { type: 'is_above'; params: { unit: Filter<UnitCondition> } }
+  | { type: 'is_same_row'; params: { cell: Filter<CellCondition> } }
+  | { type: 'is_same_column'; params: { cell: Filter<CellCondition> } }
   | { type: 'is_below'; params: { unit: Filter<UnitCondition> } }
   | { type: 'is_manual_target'; params: { index: number } }
   | { type: 'is_top_right_corner' }
@@ -164,6 +166,24 @@ export const getCells = ({
             return candidates.some(candidate =>
               getCellBelow(session, candidate)?.equals(cell)
             );
+          })
+          .with({ type: 'is_same_row' }, condition => {
+            const cells = getCells({
+              conditions: condition.params.cell,
+              playedPoint,
+              ...ctx
+            });
+
+            return cells.some(c => c.y === cell.y);
+          })
+          .with({ type: 'is_same_column' }, condition => {
+            const cells = getCells({
+              conditions: condition.params.cell,
+              playedPoint,
+              ...ctx
+            });
+
+            return cells.some(c => c.x === cell.x);
           })
           .with({ type: 'is_at' }, condition => cell.position.equals(condition.params))
           .with(

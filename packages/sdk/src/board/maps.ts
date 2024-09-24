@@ -7,34 +7,40 @@ const dirtTile = (
   x: number,
   y: number,
   z: number,
-  tileBlueprintId: string | undefined
+  tileBlueprintId: string | undefined,
+  playerIndex?: number
 ) => ({
   position: { x, y, z },
   terrain: TERRAINS.GROUND,
   spriteId: z === 0 ? 'dirt-edge' : 'dirt',
-  tileBlueprintId: tileBlueprintId ?? null
+  tileBlueprintId: tileBlueprintId ?? null,
+  playerIndex
 });
 const grassTile = (
   x: number,
   y: number,
   z: number,
-  tileBlueprintId: string | undefined
+  tileBlueprintId: string | undefined,
+  playerIndex?: number
 ) => ({
   position: { x, y, z },
   terrain: TERRAINS.GROUND,
   spriteId: z === 0 ? 'grass-edge' : 'grass',
-  tileBlueprintId: tileBlueprintId ?? null
+  tileBlueprintId: tileBlueprintId ?? null,
+  playerIndex
 });
 const waterTile = (
   x: number,
   y: number,
   z: number,
-  tileBlueprintId: string | undefined
+  tileBlueprintId: string | undefined,
+  playerIndex?: number
 ) => ({
   position: { x, y, z },
   terrain: TERRAINS.WATER,
   spriteId: 'water',
-  tileBlueprintId: tileBlueprintId ?? null
+  tileBlueprintId: tileBlueprintId ?? null,
+  playerIndex
 });
 
 const makeRow = (
@@ -59,14 +65,15 @@ const makeColumn = (
   x: number,
   z: number,
   cells: Array<'dirt' | 'grass' | 'water' | null>,
-  tiles?: Record<number, string>
+  tiles: Record<number, string>,
+  playerIndex: 0 | 1 | undefined
 ) => {
   return cells
     .map((tile, index) => {
       return match(tile)
-        .with('dirt', () => dirtTile(x, index, z, tiles?.[index]))
-        .with('grass', () => grassTile(x, index, z, tiles?.[index]))
-        .with('water', () => waterTile(x, index, z, tiles?.[index]))
+        .with('dirt', () => dirtTile(x, index, z, tiles?.[index], playerIndex))
+        .with('grass', () => grassTile(x, index, z, tiles?.[index], playerIndex))
+        .with('water', () => waterTile(x, index, z, tiles?.[index], playerIndex))
         .with(null, () => undefined)
         .exhaustive();
     })
@@ -189,15 +196,15 @@ export const defaultMap: GameFormat['map'] = {
     ...makePlane(9, 5, 0, 'dirt-edge'),
     ...makePlane(9, 5, 1, 'dirt'),
     ...makePlane(9, 5, 2, 'dirt'),
-    ...makeColumn(0, 3, ['grass', 'grass', 'grass', 'grass', 'grass']),
-    ...makeColumn(1, 3, ['grass', 'grass', 'grass', 'grass', 'grass']),
-    ...makeColumn(2, 3, ['grass', 'grass', 'grass', 'grass', 'grass']),
-    ...makeColumn(3, 3, ['grass', 'grass', 'grass', 'grass', 'grass']),
-    ...makeColumn(4, 3, ['dirt', 'grass', 'grass', 'grass', 'dirt']),
-    ...makeColumn(5, 3, ['grass', 'grass', 'dirt', 'grass', 'grass']),
-    ...makeColumn(6, 3, ['grass', 'grass', 'grass', 'grass', 'grass']),
-    ...makeColumn(7, 3, ['grass', 'grass', 'grass', 'grass', 'grass']),
-    ...makeColumn(8, 3, ['grass', 'grass', 'grass', 'grass', 'grass']),
+    ...makeColumn(0, 3, ['grass', 'grass', 'grass', 'grass', 'grass'], {}, 0),
+    ...makeColumn(1, 3, ['grass', 'grass', 'grass', 'grass', 'grass'], {}, 0),
+    ...makeColumn(2, 3, ['grass', 'grass', 'grass', 'grass', 'grass'], {}, 0),
+    ...makeColumn(3, 3, ['grass', 'grass', 'grass', 'grass', 'grass'], {}, 0),
+    ...makeColumn(4, 3, ['dirt', 'grass', 'grass', 'grass', 'dirt'], {}, undefined),
+    ...makeColumn(5, 3, ['grass', 'grass', 'dirt', 'grass', 'grass'], {}, 1),
+    ...makeColumn(6, 3, ['grass', 'grass', 'grass', 'grass', 'grass'], {}, 1),
+    ...makeColumn(7, 3, ['grass', 'grass', 'grass', 'grass', 'grass'], {}, 1),
+    ...makeColumn(8, 3, ['grass', 'grass', 'grass', 'grass', 'grass'], {}, 1),
     {
       position: { x: 4, y: 0, z: 4 },
       spriteId: 'grass',
@@ -214,7 +221,8 @@ export const defaultMap: GameFormat['map'] = {
       position: { x: 5, y: 2, z: 4 },
       spriteId: 'grass',
       terrain: TERRAINS.GROUND,
-      tileBlueprintId: 'gold_coin'
+      tileBlueprintId: 'gold_coin',
+      playerIndex: 1
     }
   ]
 };

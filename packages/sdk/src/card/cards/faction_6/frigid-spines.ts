@@ -3,7 +3,7 @@ import { defineSerializedBlueprint } from '../../card-blueprint';
 export const f6FrigidSpines = defineSerializedBlueprint({
   id: 'f6_frigid_spines',
   name: 'Frigid Spines',
-  collectable: true,
+  collectable: false,
   keywords: ['wall'],
   relatedBlueprintIds: [],
   tags: [],

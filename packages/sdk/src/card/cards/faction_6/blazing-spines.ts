@@ -3,7 +3,7 @@ import { defineSerializedBlueprint } from '../../card-blueprint';
 export const f6BlazingSpines = defineSerializedBlueprint({
   id: 'f6_blazing_spines',
   name: 'Blazing Spines',
-  collectable: false,
+  collectable: true,
   keywords: ['wall'],
   relatedBlueprintIds: [],
   tags: [],

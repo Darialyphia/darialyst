@@ -80,7 +80,9 @@ export type UnitConditionBase =
       params: { not: false };
     }
   | { type: 'is_exhausted'; params: { not: boolean } }
-  | { type: 'is_on_cell'; params: { cell: Filter<CellCondition>; not: boolean } };
+  | { type: 'is_on_cell'; params: { cell: Filter<CellCondition>; not: boolean } }
+  | { type: 'is_on_own_side_of_board'; params: { not: boolean } }
+  | { type: 'is_on_opponent_side_of_board'; params: { not: boolean } };
 
 export type UnitConditionExtras =
   | { type: 'attack_target'; params: { not: boolean } }
@@ -459,6 +461,16 @@ export const getUnits = ({
             });
 
             return elligibleCells.some(cell => cell.entity?.equals(e));
+          })
+          .with({ type: 'is_on_opponent_side_of_board' }, condition => {
+            return session.boardSystem
+              .getCellAt(entity!.position)
+              ?.player?.equals(entity!.player.opponent);
+          })
+          .with({ type: 'is_on_own_side_of_board' }, condition => {
+            return session.boardSystem
+              .getCellAt(entity!.position)
+              ?.player?.equals(entity!.player);
           })
           .exhaustive();
 

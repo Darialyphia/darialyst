@@ -1,4 +1,4 @@
-import { Vec3, type Nullable, type Serializable } from '@game/shared';
+import { isDefined, Vec3, type Nullable, type Serializable } from '@game/shared';
 import type { Point3D } from '../types';
 import { pointToCellId } from '../utils/helpers';
 import type { GameSession } from '../game-session';
@@ -14,6 +14,7 @@ export type SerializedCell = {
   position: Point3D;
   tileBlueprintId: string | null;
   defaultRotation?: 0 | 90 | 180 | 270;
+  playerIndex?: number;
 };
 
 export class Cell implements Serializable {
@@ -22,11 +23,13 @@ export class Cell implements Serializable {
   public tile: Nullable<Tile>;
   public terrain: Terrain;
   public defaultRotation: 0 | 90 | 180 | 270;
+  private playerIndex: number | undefined;
 
   constructor(
     private session: GameSession,
     public options: SerializedCell
   ) {
+    this.playerIndex = options.playerIndex;
     this.terrain = options.terrain;
     this.position = Vec3.fromPoint3D(options.position);
     this.spriteId = options.spriteId;
@@ -42,6 +45,12 @@ export class Cell implements Serializable {
 
   equals(cell: Cell) {
     return cell.id === this.id;
+  }
+
+  get player() {
+    if (!isDefined(this.playerIndex)) return null;
+
+    return this.session.playerSystem.getList()[this.playerIndex] ?? null;
   }
 
   get cellAbove(): Cell | null {

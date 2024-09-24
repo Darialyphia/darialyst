@@ -69,6 +69,11 @@ const id = useId();
                 };
               }
             )
+            .with({ type: 'is_same_row' }, { type: 'is_same_column' }, condition => {
+              condition.params = {
+                cell: { candidates: [[]], random: false }
+              };
+            })
             .with({ type: 'is_nearby' }, condition => {
               condition.params = {
                 unit: { candidates: [], random: false },

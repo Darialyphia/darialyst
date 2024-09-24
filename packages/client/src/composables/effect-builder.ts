@@ -63,7 +63,15 @@ export const [useUnitConditionsProvider, _useUnitConditions] = createInjectionSt
       is_same_row: { label: 'A unit on the same row', params: ['cell', 'not'] },
       has_lowest_attack: { label: 'A unit with the lowest attack', params: ['not'] },
       has_highest_attack: { label: 'A unit with the highest attack', params: ['not'] },
-      is_on_cell: { label: 'A unit on a specific cell', params: ['cell', 'not'] }
+      is_on_cell: { label: 'A unit on a specific cell', params: ['cell', 'not'] },
+      is_on_own_side_of_board: {
+        label: 'A unit on your side of the battlefield',
+        params: ['not']
+      },
+      is_on_opponent_side_of_board: {
+        label: 'A unit on the enemy side of the battlefield',
+        params: ['not']
+      }
     };
 
     return computed(() => ({ ...baseDict, ...extrasDict.value }));
@@ -168,6 +176,8 @@ export const [useCellConditionsProvider, _useCellConditions] = createInjectionSt
       is_nearby: { label: 'Is nearby a unit or cell', params: ['unit', 'cell'] },
       is_in_front: { label: 'Is in front of a unit', params: ['unit'] },
       is_behind: { label: 'Is behind a unit', params: ['unit'] },
+      is_same_column: { label: 'Is on the same column as', params: ['cell', 'not'] },
+      is_same_row: { label: 'Is on the same row as', params: ['cell', 'not'] },
       is_above: { label: 'Is above a unit', params: ['unit'] },
       is_below: { label: 'Is below a unit', params: ['unit'] },
       is_manual_target: { label: 'Is one of this card target', params: ['index'] },

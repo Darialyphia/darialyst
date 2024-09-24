@@ -117,6 +117,8 @@ const id = useId();
               { type: 'destroyed_unit' },
               { type: 'moved_unit' },
               { type: 'played_unit' },
+              { type: 'is_on_own_side_of_board' },
+              { type: 'is_on_opponent_side_of_board' },
               condition => {
                 condition.params = {
                   not: false
