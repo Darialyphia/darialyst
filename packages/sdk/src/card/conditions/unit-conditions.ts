@@ -464,13 +464,11 @@ export const getUnits = ({
           })
           .with({ type: 'is_on_opponent_side_of_board' }, condition => {
             return session.boardSystem
-              .getCellAt(entity!.position)
-              ?.player?.equals(entity!.player.opponent);
+              .getCellAt(e!.position)
+              ?.player?.equals(card.player.opponent);
           })
           .with({ type: 'is_on_own_side_of_board' }, condition => {
-            return session.boardSystem
-              .getCellAt(entity!.position)
-              ?.player?.equals(entity!.player);
+            return session.boardSystem.getCellAt(e.position)?.player?.equals(card.player);
           })
           .exhaustive();
 
