@@ -33,7 +33,7 @@ const selectedCard = computed(() => {
   return format.value.cards[selectedCardId.value];
 });
 const addCard = (card: GenericSerializedBlueprint) => {
-  format.value.cards[card.id] = structuredClone(card);
+  format.value.cards[card.id] = JSON.parse(JSON.stringify(card));
   if (format.value.cards[card.id].sounds) {
     format.value.cards[card.id].sounds = {};
   }

@@ -10,7 +10,6 @@ const { initialValues } = defineProps<{
     cards: Record<string, GenericSerializedBlueprint>;
   };
 }>();
-
 const form = reactive(initialValues);
 const tab = useRouteQuery('tab', 'config');
 </script>

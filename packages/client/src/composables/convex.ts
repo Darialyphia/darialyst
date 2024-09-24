@@ -35,7 +35,10 @@ export const useConvexQuery = <Query extends QueryReference>(
   const nuxt = useNuxtApp();
   const queryName = getFunctionName(query);
 
-  const data = useState<FunctionReturnType<Query>>(queryName, undefined);
+  const data = useState<FunctionReturnType<Query>>(
+    `${queryName}:${JSON.stringify(toValue(args))}`,
+    undefined
+  );
 
   const error = ref<Nullable<Error>>();
   let unsub: () => void;
