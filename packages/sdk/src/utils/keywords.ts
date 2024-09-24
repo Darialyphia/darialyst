@@ -267,6 +267,12 @@ export const KEYWORDS = {
     description:
       'Can attack any enemy in front, behind, above of below it. If it does, it attacks all enemies in that direction',
     aliases: []
+  },
+  WALL: {
+    id: 'wall',
+    name: 'Wall',
+    description: 'Cannot move. Disappear when dispelled.',
+    aliases: []
   }
 } as const satisfies Record<string, Keyword>;
 

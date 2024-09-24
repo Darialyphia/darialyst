@@ -170,6 +170,14 @@ export type Action<
       };
     }
   | {
+      type: 'wall';
+      params: {
+        filter?: Filter<GlobalCondition<T>>;
+        duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
+      };
+    }
+  | {
       type: 'airdrop';
       params: {
         filter?: Filter<GlobalCondition<T>>;

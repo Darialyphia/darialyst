@@ -165,28 +165,29 @@ const spriteOptions = computed(() => {
 const spriteModalRoot = ref<HTMLElement>();
 
 const visibleSprites = ref(new Set<string>());
+const spriteTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
 const onIntersectionObserver =
   (sprite: string) => (entries: IntersectionObserverEntry[]) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        visibleSprites.value.add(sprite);
+        if (!spriteTimeouts.has(sprite)) {
+          spriteTimeouts.set(
+            sprite,
+            setTimeout(() => {
+              visibleSprites.value.add(sprite);
+              spriteTimeouts.delete(sprite);
+            }, 500)
+          );
+        }
       } else {
         visibleSprites.value.delete(sprite);
+        const timeout = spriteTimeouts.get(sprite);
+        if (timeout) clearTimeout(timeout);
+        spriteTimeouts.delete(sprite);
       }
     });
   };
 const hoveredSprite = ref<string | null>(null);
-
-const getAnimation = (spriteId: string) => {
-  return match(blueprint.value.kind)
-    .with(CARD_KINDS.GENERAL, CARD_KINDS.MINION, () =>
-      hoveredSprite.value === spriteId ? 'attack' : 'breathing'
-    )
-    .with(CARD_KINDS.SPELL, CARD_KINDS.ARTIFACT, () =>
-      hoveredSprite.value === spriteId ? 'active' : 'default'
-    )
-    .exhaustive();
-};
 
 const copyCode = () => {
   const content = `import { defineSerializedBlueprint } from '../../card-blueprint';
@@ -260,11 +261,7 @@ watchEffect(() => {
                     }
                   "
                 >
-                  <CardSprite
-                    v-if="visibleSprites.has(sprite)"
-                    :sprite-id="sprite"
-                    :animation="getAnimation(sprite)"
-                  />
+                  <CardSprite v-if="visibleSprites.has(sprite)" :sprite-id="sprite" />
                 </div>
               </template>
             </div>
@@ -622,30 +619,33 @@ h3 {
   overflow-x: hidden;
   overflow-y: auto;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(164px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: var(--size-4);
   justify-items: center;
 
   height: 550px;
 
   .sprite {
-    width: 96px;
-    height: 96px;
+    width: 100%;
+    aspect-ratio: 1;
 
-    &:hover > .card-sprite {
-      filter: brightness(1.5);
+    &:hover {
+      cursor: pointer;
+
+      > .card-sprite {
+        filter: brightness(1.5) drop-shadow(2px 2px 0 var(--cyan-5))
+          drop-shadow(-2px -2px 0 var(--orange-5));
+      }
     }
 
     .card-sprite {
       pointer-events: none;
 
-      transform: scale(2);
+      transform: translateY(-50%) scale(2);
 
       aspect-ratio: 1;
       width: 100%;
       height: 100%;
-
-      transition: filter 0.3s;
     }
   }
 }

@@ -400,7 +400,6 @@ export const structure = (source: Card) => {
       {
         keywords: [KEYWORDS.STRUCTURE],
         onApplied(session, attachedTo) {
-          session.logger('applying structure modifier');
           attachedTo.addInterceptor(
             'canAttack',
             () => false,
@@ -413,9 +412,26 @@ export const structure = (source: Card) => {
             INTERCEPTOR_PRIORITIES.FINAL
           );
           attachedTo.addInterceptor('attack', () => 0, INTERCEPTOR_PRIORITIES.FINAL);
+        }
+      }
+    ]
+  });
+};
+
+export const wall = ({ source }: { source: Card }) => {
+  return createEntityModifier({
+    source,
+    id: KEYWORDS.WALL.id,
+    visible: false,
+    stackable: false,
+    mixins: [
+      {
+        keywords: [KEYWORDS.WALL],
+        onApplied(session, attachedTo) {
+          attachedTo.addInterceptor('canMove', () => false, INTERCEPTOR_PRIORITIES.FINAL);
         },
-        onRemoved(session) {
-          session.logger('removing structure modifier');
+        onRemoved(session, attachedTo, modifier) {
+          attachedTo.remove();
         }
       }
     ]

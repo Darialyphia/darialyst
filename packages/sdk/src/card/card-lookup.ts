@@ -227,6 +227,12 @@ import { f6AspectOfTheFox } from './cards/faction_6/aspect-of-the-fox';
 import { f6GhostWolf } from './cards/faction_6/ghost-wolf';
 import { f6FenrirWarmaster } from './cards/faction_6/fenrir-warmaster';
 import { neutralBladeshaker } from './cards/neutral/bladeshaker';
+import { f6FrigidSpines } from './cards/faction_6/frigid-spines';
+import { f6IceBarrier } from './cards/faction_6/ice-barrier';
+import { f6BonechillBarrier } from './cards/faction_6/bonechill-barrier';
+import { f6FrostWell } from './cards/faction_6/frost-well';
+import { f6GravityWell } from './cards/faction_6/gravity-well';
+import { f6ArcticDisplacer } from './cards/faction_6/arctic-displacer';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -413,6 +419,12 @@ const allCards: SerializedBlueprint<any>[] = [
   f6AspectOfTheFox,
   f6GhostWolf,
   f6FenrirWarmaster,
+  f6FrigidSpines,
+  f6IceBarrier,
+  f6BonechillBarrier,
+  f6FrostWell,
+  f6GravityWell,
+  f6ArcticDisplacer,
 
   neutralHealingMystic,
   neutralRiftWalker,

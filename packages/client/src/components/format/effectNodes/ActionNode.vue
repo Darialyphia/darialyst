@@ -564,6 +564,14 @@ const actionDict: ActionDictionary = {
       filter: GlobalConditionNode
     }
   },
+  wall: {
+    label: 'Wall',
+    params: {
+      execute: null,
+      duration: null,
+      filter: GlobalConditionNode
+    }
+  },
   create_tile: {
     label: 'Create a special tile',
     params: {
@@ -1097,6 +1105,11 @@ watch(
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
         params.target ??= { candidates: [[{ type: 'any_unit' }]], random: false };
+        params.duration ??= 'always';
+      })
+      .with({ type: 'wall' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
         params.duration ??= 'always';
       })
       .exhaustive();
