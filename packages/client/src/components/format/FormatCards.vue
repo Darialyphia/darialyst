@@ -34,6 +34,9 @@ const selectedCard = computed(() => {
 });
 const addCard = (card: GenericSerializedBlueprint) => {
   format.value.cards[card.id] = structuredClone(card);
+  if (format.value.cards[card.id].sounds) {
+    format.value.cards[card.id].sounds = {};
+  }
   selectedCardId.value = card.id;
 };
 
@@ -93,7 +96,8 @@ const existingCardsList = useVirtualList(filteredCards, { itemHeight: 82, oversc
                 rarity: RARITIES.COMMON,
                 effects: [],
                 targets: { min: 0, targets: [] },
-                cellHighlights: []
+                cellHighlights: [],
+                sounds: {}
               } as any;
               selectedCardId = id;
             }
@@ -145,7 +149,7 @@ const existingCardsList = useVirtualList(filteredCards, { itemHeight: 82, oversc
           left-icon="material-symbols:search"
           class="mb-4"
         />
-        <div class="owerflow-hidden">
+        <div class="overflow-hidden">
           <div
             class="existing-cards fancy-scrollbar"
             v-bind="existingCardsList.containerProps"

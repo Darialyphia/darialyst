@@ -3,7 +3,11 @@ import type { ButtonProps, ButtonStyleVariables } from './UiButton.vue';
 
 type IconButtonStyleVariables = '--ui-icon-button-size' | '--ui-icon-button-radius';
 
-const { name, style = {} } = defineProps<
+const {
+  name,
+  style = {},
+  ...props
+} = defineProps<
   ButtonProps & {
     name: string;
     style?: StyleProp<ButtonStyleVariables | IconButtonStyleVariables>;
@@ -12,7 +16,7 @@ const { name, style = {} } = defineProps<
 </script>
 
 <template>
-  <UiButton class="ui-icon-button" :style="style">
+  <UiButton class="ui-icon-button" :style="style" v-bind="props">
     <Icon :name="name" />
   </UiButton>
 </template>

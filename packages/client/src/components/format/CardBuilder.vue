@@ -15,6 +15,7 @@ import {
 } from '@game/sdk';
 import { isDefined } from '@game/shared';
 import dedent from 'dedent';
+import { Howl } from 'howler';
 
 import { parseSerializeBlueprint } from '@game/sdk/src/card/card-parser';
 import { getKeywordById, type Keyword } from '@game/sdk/src/utils/keywords';
@@ -128,6 +129,11 @@ const iconSprites = import.meta.glob('@/assets/icons{m}/*.png', {
   query: '?url',
   import: 'default'
 });
+const sounds = import.meta.glob('@/assets/sfx{m}/*.m4a', {
+  eager: true,
+  query: '?url',
+  import: 'default'
+});
 
 const hideUsedSprites = ref(true);
 const spriteOptions = computed(() => {
@@ -162,6 +168,13 @@ const spriteOptions = computed(() => {
     .otherwise(() => []);
 });
 
+const soundOptions = computed(() => {
+  return Object.keys(sounds).map(k => {
+    const filename = k.replace('/assets/sfx{m}/', '');
+
+    return { value: filename, label: filename.split('.')[0] };
+  });
+});
 const spriteModalRoot = ref<HTMLElement>();
 
 const visibleSprites = ref(new Set<string>());
@@ -205,7 +218,41 @@ watchEffect(() => {
       targets: []
     };
   }
+  if (!blueprint.value.sounds) {
+    blueprint.value.sounds = {};
+  }
 });
+
+const currentSoundPath = ref<string>();
+const sound = useSoundEffect(currentSoundPath);
+const playSound = (path: string) => {
+  currentSoundPath.value = path;
+  nextTick(() => {
+    if (sound.value?.state() === 'loaded') {
+      sound.value?.play();
+    } else {
+      sound.value?.once('load', () => {
+        sound.value?.play();
+      });
+    }
+  });
+};
+
+const soundKeys = computed(() =>
+  isUnit(blueprint.value.kind)
+    ? [
+        { key: 'play', label: 'When played' },
+        { key: 'walk', label: 'While moving' },
+        { key: 'attack', label: 'When attacking' },
+        { key: 'dealDamage', label: 'When dealing damage' },
+        { key: 'takeDamage', label: 'When taking damage' },
+        { key: 'death', label: 'When destroyed' }
+      ]
+    : [{ key: 'play', label: 'When played' }]
+);
+const soundDrawerOpened = ref<string | null>(null);
+
+const soundsList = useVirtualList(soundOptions, { itemHeight: 32, overscan: 5 });
 </script>
 
 <template>
@@ -354,6 +401,69 @@ watchEffect(() => {
           </label>
         </div>
       </fieldset>
+
+      <h3 class="mt-6">Sounds</h3>
+      <div
+        class="flex gap-2 my-3 items-center"
+        v-for="soundKey in soundKeys"
+        :key="soundKey.key"
+      >
+        <UiButton
+          class="ghost-button"
+          left-icon="material-symbols:play-arrow-rounded"
+          :disabled="!(blueprint.sounds as any)[soundKey.key]"
+          @click="playSound((blueprint.sounds as any)[soundKey.key])"
+        >
+          {{ soundKey.label }}
+        </UiButton>
+        <UiButton class="subtle-button" @click="soundDrawerOpened = soundKey.key">
+          Edit
+        </UiButton>
+        <UiIconButton
+          name="material-symbols:delete-outline"
+          class="error-button"
+          type="button"
+          @click="(blueprint.sounds as any)[soundKey.key] = undefined"
+        />
+      </div>
+      <UiDrawer
+        direction="right"
+        size="sm"
+        :is-opened="!!soundDrawerOpened"
+        @update:is-opened="soundDrawerOpened = null"
+      >
+        <div class="overflow-hidden">
+          <div
+            class="sounds-list fancy-scrollbar"
+            v-bind="soundsList.containerProps"
+            :ref="soundsList.containerProps.ref"
+          >
+            <ul v-bind="soundsList.wrapperProps.value">
+              <li v-for="sound in soundsList.list.value" :key="sound.index">
+                <UiButton
+                  is-inline
+                  class="ghost-button"
+                  @click="
+                    () => {
+                      (blueprint.sounds as any)[soundDrawerOpened as any] =
+                        sound.data.value;
+                      soundDrawerOpened = null;
+                    }
+                  "
+                >
+                  {{ sound.data.label }}
+                </UiButton>
+                <UiIconButton
+                  is-inline
+                  class="subtle-button"
+                  name="material-symbols:play-arrow-rounded"
+                  @click="playSound(sound.data.value)"
+                />
+              </li>
+            </ul>
+          </div>
+        </div>
+      </UiDrawer>
 
       <label for="keywords">Keywords</label>
       <div v-auto-animate class="flex gap-2 wrap mb-3">
@@ -648,5 +758,9 @@ h3 {
       height: 100%;
     }
   }
+}
+
+.sounds-list {
+  height: 90dvh;
 }
 </style>
