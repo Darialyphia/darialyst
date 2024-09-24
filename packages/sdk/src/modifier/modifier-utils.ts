@@ -711,6 +711,61 @@ export const provoke = ({ source, provoker }: { source: Card; provoker?: Entity 
   });
 };
 
+export const infiltrate = ({
+  source,
+  onApplied,
+  onRemoved
+}: {
+  source: Card;
+  onApplied: (entity: Entity, session: GameSession) => void;
+  onRemoved: (entity: Entity, session: GameSession) => void;
+}) => {
+  let isInfiltrated = false;
+  const apply = (entity: Entity, session: GameSession) => {
+    if (isInfiltrated) return;
+    isInfiltrated = true;
+    return onApplied(entity, session);
+  };
+  const remove = (entity: Entity, session: GameSession) => {
+    if (!isInfiltrated) return;
+    isInfiltrated = false;
+    return onRemoved(entity, session);
+  };
+  const listener = (entity: Entity, session: GameSession) => {
+    const cell = session.boardSystem.getCellAt(entity.position)!;
+    if (cell.player?.equals(entity.player.opponent)) {
+      apply(entity, session);
+    } else {
+      remove(entity, session);
+    }
+  };
+
+  return createEntityModifier({
+    source,
+    stackable: false,
+    visible: false,
+    mixins: [
+      modifierSelfEventMixin({
+        eventName: 'created',
+        listener(_, ctx) {
+          listener(ctx.attachedTo, ctx.session);
+        }
+      }),
+      modifierSelfEventMixin({
+        eventName: 'after_move',
+        listener(_, ctx) {
+          listener(ctx.attachedTo, ctx.session);
+        }
+      }),
+      modifierSelfEventMixin({
+        eventName: 'after_teleport',
+        listener(_, ctx) {
+          listener(ctx.attachedTo, ctx.session);
+        }
+      })
+    ]
+  });
+};
 export const whileOnBoard = ({
   source,
   entity,
