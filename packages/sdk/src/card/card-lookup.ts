@@ -239,6 +239,8 @@ import { f6Mesmerize } from './cards/faction_6/mesmerize';
 import { f6Snowpiercer } from './cards/faction_6/snowpiercer';
 import { f6GlacialElemental } from './cards/faction_6/glacial-elemental';
 import { f6Avalanche } from './cards/faction_6/avalanche';
+import { f6CrystalCloaker } from './cards/faction_6/crystal-cloaker';
+import { f6Snowchaser } from './cards/faction_6/snowchaser';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -437,6 +439,8 @@ const allCards: SerializedBlueprint<any>[] = [
   f6Snowpiercer,
   f6GlacialElemental,
   f6Avalanche,
+  f6CrystalCloaker,
+  f6Snowchaser,
 
   neutralHealingMystic,
   neutralRiftWalker,

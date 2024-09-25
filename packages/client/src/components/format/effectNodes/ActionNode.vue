@@ -255,6 +255,10 @@ const actionDict: ActionDictionary = {
     label: 'Zeal',
     params: { effect: EffectNode, execute: null, filter: GlobalConditionNode }
   },
+  infiltrate: {
+    label: 'Infiltrate',
+    params: { effect: EffectNode, execute: null, filter: GlobalConditionNode }
+  },
   dispel_cell: {
     label: 'Dispel a cell',
     params: { cells: CellNode, execute: null, filter: GlobalConditionNode }
@@ -647,7 +651,7 @@ const actionDict: ActionDictionary = {
     }
   },
   root: {
-    label: 'Root a unit',
+    label: 'Root',
     params: {
       target: UnitNode,
       duration: null,
@@ -656,7 +660,7 @@ const actionDict: ActionDictionary = {
     }
   },
   freeze: {
-    label: 'Freeze a unit',
+    label: 'Freeze',
     params: {
       target: UnitNode,
       duration: null,
@@ -815,6 +819,12 @@ watch(
         params.duration ??= 'always';
       })
       .with({ type: 'zeal' }, ({ params }) => {
+        // @ts-expect-error
+        params.effect ??= { executionContext: undefined, actions: [] };
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+      })
+      .with({ type: 'infiltrate' }, ({ params }) => {
         // @ts-expect-error
         params.effect ??= { executionContext: undefined, actions: [] };
         params.filter ??= { candidates: [], random: false };

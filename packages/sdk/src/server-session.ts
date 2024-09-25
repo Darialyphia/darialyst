@@ -2,14 +2,12 @@ import {
   GameSession,
   type GameFormat,
   type SerializedGameState,
-  type SessionLogger,
-  type SimulationResult
+  type SessionLogger
 } from './game-session';
 import type { GameAction, SerializedAction } from './action/action';
 import { ServerRngSystem, type RngSystem } from './rng-system';
 import { CARDS } from './card/card-lookup';
-import type { EntityId } from './entity/entity';
-import type { Nullable, Point3D } from '@game/shared';
+import type { Nullable } from '@game/shared';
 import { ServerFxSystem, type IFxSystem } from './fx-system';
 
 const serverLogger: SessionLogger = console.log;

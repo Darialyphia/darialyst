@@ -250,6 +250,14 @@ export type Action<
       };
     }
   | {
+      type: 'infiltrate';
+      params: {
+        effect: CardEffectConfig<Trigger[]>;
+        filter?: Filter<GlobalCondition<T>>;
+        execute?: ExecutionDelay;
+      };
+    }
+  | {
       type: 'change_card_cost';
       params: {
         player: Filter<PlayerCondition>;

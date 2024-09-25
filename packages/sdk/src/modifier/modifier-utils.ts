@@ -745,6 +745,14 @@ export const infiltrate = ({
     stackable: false,
     visible: false,
     mixins: [
+      {
+        onApplied(session, attachedTo) {
+          listener(attachedTo, session);
+        },
+        onRemoved(session, attachedTo) {
+          remove(attachedTo, session);
+        }
+      },
       modifierSelfEventMixin({
         eventName: 'created',
         listener(_, ctx) {

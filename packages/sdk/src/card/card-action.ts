@@ -63,6 +63,7 @@ import { StunCardAction } from './actions/stun.card-action';
 import { FreezeCardAction } from './actions/freeze.card-action';
 import { VeilCardAction } from './actions/veil.card-action';
 import { WallCardAction } from './actions/wall.card-action';
+import { InfiltrateCardAction } from './actions/infiltrate.card-action';
 
 export type ParsedActionResult = (
   ctx: EffectCtx,
@@ -267,6 +268,9 @@ export const parseCardAction = (action: Action): ParsedActionResult => {
       })
       .with({ type: 'wall' }, action => {
         return new WallCardAction(action, ctx, event, eventName).execute();
+      })
+      .with({ type: 'infiltrate' }, action => {
+        return new InfiltrateCardAction(action, ctx, event, eventName).execute();
       })
       .exhaustive();
   };
