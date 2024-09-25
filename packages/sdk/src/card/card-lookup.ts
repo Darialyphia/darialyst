@@ -241,6 +241,7 @@ import { f6GlacialElemental } from './cards/faction_6/glacial-elemental';
 import { f6Avalanche } from './cards/faction_6/avalanche';
 import { f6CrystalCloaker } from './cards/faction_6/crystal-cloaker';
 import { f6Snowchaser } from './cards/faction_6/snowchaser';
+import { f6FrosthornRhyno } from './cards/faction_6/frosthorn-rhyno';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -441,6 +442,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f6Avalanche,
   f6CrystalCloaker,
   f6Snowchaser,
+  f6FrosthornRhyno,
 
   neutralHealingMystic,
   neutralRiftWalker,
