@@ -242,6 +242,7 @@ import { f6Avalanche } from './cards/faction_6/avalanche';
 import { f6CrystalCloaker } from './cards/faction_6/crystal-cloaker';
 import { f6Snowchaser } from './cards/faction_6/snowchaser';
 import { f6FrosthornRhyno } from './cards/faction_6/frosthorn-rhyno';
+import { f2BattlePanddo } from './cards/faction_2/battle_panddo';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -313,6 +314,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f2OnyxBearSeal,
   f2CycloneMask,
   f2MistWalking,
+  f2BattlePanddo,
 
   f3General,
   f3General2,
