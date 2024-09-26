@@ -31,11 +31,7 @@ export const dispelEntity = (entity: Entity) => {
 };
 
 export const cleanseEntity = (entity: Entity) => {
-  entity.modifiers.forEach(modifier => {
-    if (!modifier.source.player.equals(entity.player)) {
-      entity.removeModifier(modifier.id);
-    }
-  });
+  entity.cleanse();
 };
 
 export const purgeEntity = (entity: Entity) => {

@@ -12,6 +12,7 @@ type ModifierBase = {
   source: Card;
   keywords: Keyword[];
   onApplied(session: GameSession, attachedTo: Entity, modifier: EntityModifier): void;
+  onClone(): void;
   onRemoved(session: GameSession, attachedTo: Entity, modifier: EntityModifier): void;
 };
 
@@ -61,6 +62,7 @@ export const createEntityModifier = ({
           .filter(isDefined)
       )
     ],
+    onClone() {},
     onApplied(session, attachedTo) {
       for (const mixin of mixins) {
         mixin.onApplied?.(session, attachedTo, this);

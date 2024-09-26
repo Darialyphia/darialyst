@@ -17,6 +17,11 @@ export default defineNuxtConfig({
     port: 3000
   },
 
+  sourcemap: {
+    server: true,
+    client: true
+  },
+
   modules: [
     '@vee-validate/nuxt',
     'radix-vue/nuxt',
