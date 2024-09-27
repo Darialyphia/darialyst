@@ -45,7 +45,11 @@ export const f3WindShrike = defineSerializedBlueprint({
             params: {
               filter: { candidates: [] },
               execute: 'now',
-              blueprint: ['f3_staff_of_ykir'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f3_staff_of_ykir'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]] }
             }
           }

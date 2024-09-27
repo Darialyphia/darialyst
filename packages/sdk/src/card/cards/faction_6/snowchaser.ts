@@ -29,7 +29,11 @@ export const f6Snowchaser = defineSerializedBlueprint({
                       ephemeral: false,
                       location: 'hand',
                       player: { candidates: [[{ type: 'ally_player' }]], random: false },
-                      blueprint: ['f6_snowchaser']
+                      blueprint: {
+                        candidates: [
+                          [{ type: 'static', params: { blueprints: ['f6_snowchaser'] } }]
+                        ]
+                      }
                     }
                   }
                 ],

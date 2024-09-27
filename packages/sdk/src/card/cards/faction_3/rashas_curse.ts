@@ -18,7 +18,7 @@ export const f3RashasCurse = defineSerializedBlueprint({
             type: 'unequip_artifact',
             params: {
               artifact: {
-                candidates: [[{ type: 'equiped_by_enemy', params: {} }]],
+                candidates: [[{ type: 'equiped_by_enemy' }]],
                 random: true
               },
               execute: 'now',
@@ -30,7 +30,11 @@ export const f3RashasCurse = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['f3_wind_dervish'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f3_wind_dervish'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [[{ type: 'is_manual_target', params: { index: 0 } }]],

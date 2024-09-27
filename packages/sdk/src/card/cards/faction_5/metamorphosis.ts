@@ -18,7 +18,9 @@ export const f5Metamorphosis = defineSerializedBlueprint({
           {
             type: 'transform_unit',
             params: {
-              blueprint: ['f5_magma'],
+              blueprint: {
+                candidates: [[{ type: 'static', params: { blueprints: ['f5_magma'] } }]]
+              },
               unit: { candidates: [[{ type: 'is_minion', params: { not: false } }]] },
               execute: 'now',
               duration: 'start_of_next_turn',

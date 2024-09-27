@@ -1,40 +1,34 @@
 import { defineSerializedBlueprint } from '../../card-blueprint';
 
-export const f6AspectOfTheFox = defineSerializedBlueprint({
-  id: 'f6_asect_of_the_fox',
-  name: 'Aspect of the Fox',
+export const f6HailstonePrison = defineSerializedBlueprint({
+  id: 'f6_hailstone_prison',
+  name: 'Hailstone Prison',
   collectable: true,
   keywords: [],
   relatedBlueprintIds: [],
   tags: [],
   kind: 'SPELL',
-  cost: 1,
   rarity: 'common',
   effects: [
     {
-      text: 'Transform a minion into a @Fox Ravager@.',
+      text: "Return a minion to its owner's hand.",
       config: {
-        executionContext: 'immediate',
         actions: [
           {
-            type: 'transform_unit',
+            type: 'bounce_unit',
             params: {
-              blueprint: {
-                candidates: [
-                  [{ type: 'static', params: { blueprints: ['f6_fox_ravager'] } }]
-                ]
-              },
-              unit: {
+              targets: {
                 candidates: [
                   [{ type: 'is_manual_target', params: { not: false, index: 0 } }]
-                ]
+                ],
+                random: false
               },
-              execute: 'now',
-              duration: 'always',
-              filter: { candidates: [], random: false }
+              filter: { candidates: [], random: false },
+              execute: 'now'
             }
           }
-        ]
+        ],
+        executionContext: 'immediate'
       },
       vfx: { tracks: [] }
     }
@@ -58,6 +52,8 @@ export const f6AspectOfTheFox = defineSerializedBlueprint({
     ]
   },
   cellHighlights: [],
-  spriteId: 'icon_f6_aspectofthefox',
+  sounds: {},
+  spriteId: 'icon_f6_hailstoneprison',
+  cost: 2,
   faction: 'f6'
 });

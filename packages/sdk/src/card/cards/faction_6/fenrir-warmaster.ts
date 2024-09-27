@@ -20,7 +20,11 @@ export const f6FenrirWarmaster = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['f6_ghost_wolf'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f6_ghost_wolf'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [

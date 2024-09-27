@@ -863,7 +863,9 @@ watch(
         params.ephemeral ??= false;
         params.location ??= 'hand';
         params.player ??= { candidates: [[{ type: 'any_player' }]], random: false };
-        params.blueprint ??= [];
+        params.blueprint ??= {
+          candidates: [[{ type: 'static', params: { blueprints: [] } }]]
+        };
       })
       .with({ type: 'teleport_unit' }, ({ params }) => {
         params.unit ??= { candidates: [[{ type: 'any_unit' }]], random: false };
@@ -941,7 +943,9 @@ watch(
         params.activeWhen ??= { candidates: [], random: false };
       })
       .with({ type: 'spawn' }, ({ params }) => {
-        params.blueprint ??= [];
+        params.blueprint ??= {
+          candidates: [[{ type: 'static', params: { blueprints: [] } }]]
+        };
         params.position ??= { candidates: [[{ type: undefined as any }]], random: false };
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
@@ -956,13 +960,17 @@ watch(
       .with({ type: 'equip_artifact' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
-        params.blueprint ??= [];
+        params.blueprint ??= {
+          candidates: [[{ type: 'static', params: { blueprints: [] } }]]
+        };
         params.player ??= { candidates: [[{ type: undefined as any }]], random: false };
       })
       .with({ type: 'summon_unit' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
-        params.blueprint ??= [];
+        params.blueprint ??= {
+          candidates: [[{ type: 'static', params: { blueprints: [] } }]]
+        };
         params.player ??= { candidates: [[{ type: undefined as any }]], random: false };
         params.position ??= { candidates: [[{ type: undefined as any }]], random: false };
       })
@@ -1056,7 +1064,9 @@ watch(
         params.filter ??= { candidates: [], random: false };
       })
       .with({ type: 'transform_unit' }, ({ params }) => {
-        params.blueprint ??= [];
+        params.blueprint ??= {
+          candidates: [[{ type: 'static', params: { blueprints: [] } }]]
+        };
         params.unit ??= { candidates: [[{ type: 'any_unit' }]] };
         params.execute ??= 'now';
         params.duration ??= 'always';

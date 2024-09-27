@@ -34,13 +34,24 @@ export const neutralPandora = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: [
-                'neutral_pandora_purple',
-                'neutral_pandora_green',
-                'neutral_pandora_red',
-                'neutral_pandora_yellow',
-                'neutral_pandora_blue'
-              ],
+              blueprint: {
+                candidates: [
+                  [
+                    {
+                      type: 'static',
+                      params: {
+                        blueprints: [
+                          'neutral_pandora_purple',
+                          'neutral_pandora_green',
+                          'neutral_pandora_red',
+                          'neutral_pandora_yellow',
+                          'neutral_pandora_blue'
+                        ]
+                      }
+                    }
+                  ]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [
@@ -119,13 +130,24 @@ export const neutralPandora = defineSerializedBlueprint({
                     params: {
                       filter: { candidates: [], random: false },
                       execute: 'now',
-                      blueprint: [
-                        'neutral_pandora_green',
-                        'neutral_pandora_yellow',
-                        'neutral_pandora_blue',
-                        'neutral_pandora_purple',
-                        'neutral_pandora_red'
-                      ],
+                      blueprint: {
+                        candidates: [
+                          [
+                            {
+                              type: 'static',
+                              params: {
+                                blueprints: [
+                                  'neutral_pandora_purple',
+                                  'neutral_pandora_green',
+                                  'neutral_pandora_red',
+                                  'neutral_pandora_yellow',
+                                  'neutral_pandora_blue'
+                                ]
+                              }
+                            }
+                          ]
+                        ]
+                      },
                       player: { candidates: [[{ type: 'ally_player' }]], random: false },
                       position: {
                         candidates: [

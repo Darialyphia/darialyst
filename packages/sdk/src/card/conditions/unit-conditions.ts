@@ -18,6 +18,7 @@ import type { CardConditionExtras } from './card-conditions';
 import { matchNumericOperator } from '../card-action';
 import { getAmount, type Amount } from '../helpers/amount';
 import type { TagId } from '../../utils/tribes';
+import { getBlueprints, type BlueprintCondition } from './blueprint-conditions';
 
 export type UnitConditionBase =
   | { type: 'any_unit' }
@@ -47,7 +48,10 @@ export type UnitConditionBase =
   | { type: 'is_same_row'; params: { cell: Filter<CellCondition>; not: boolean } }
   | { type: 'is_same_column'; params: { cell: Filter<CellCondition>; not: boolean } }
   | { type: 'has_keyword'; params: { keyword: KeywordId; not: boolean } }
-  | { type: 'has_blueprint'; params: { blueprint: string[]; not: boolean } }
+  | {
+      type: 'has_blueprint';
+      params: { blueprint: Filter<BlueprintCondition>; not: boolean };
+    }
   | { type: 'has_tag'; params: { tag: TagId; not: boolean } }
   | {
       type: 'has_attack';
@@ -391,7 +395,15 @@ export const getUnits = ({
             return e.isExhausted;
           })
           .with({ type: 'has_blueprint' }, condition => {
-            return condition.params.blueprint.includes(e.card.blueprintId);
+            const blueprints = getBlueprints({
+              session,
+              card,
+              targets,
+              conditions: condition.params.blueprint,
+              event,
+              eventName
+            });
+            return blueprints.some(b => b.id === e.card.blueprintId);
           })
           .with({ type: 'has_tag' }, condition => {
             return e.hasTag(condition.params.tag);

@@ -1,12 +1,15 @@
 <script setup lang="ts">
-import { CARDS } from '@game/sdk';
+import { CardNode, UnitNode } from '#components';
+import { CARDS, type Filter } from '@game/sdk';
+import type { BlueprintCondition } from '@game/sdk/src/card/conditions/blueprint-conditions';
+import { match } from 'ts-pattern';
 
-const blueprintIds = defineModel<string[]>({ required: true });
+const groups = defineModel<Filter<BlueprintCondition>>({ required: true });
 
 const format = useFormat();
 
 const allCards = computed(() => ({ ...format.value.cards, ...CARDS }));
-const options = computed(() =>
+const blueprintOptions = computed(() =>
   Object.entries(allCards.value)
     .map(([key, value]) => ({
       label: value.name,
@@ -14,28 +17,115 @@ const options = computed(() =>
     }))
     .sort((a, b) => a.label.localeCompare(b.label))
 );
+
+type Params = Component | null | { [key: string]: Params };
+
+type BlueprintDictionary = {
+  [Key in BlueprintCondition['type']]: {
+    label: string;
+    params: Record<keyof (BlueprintCondition & { type: Key })['params'], Params>;
+  };
+};
+
+const blueprintDict: BlueprintDictionary = {
+  static: { label: 'specific card', params: { blueprints: null } },
+  from_card: { label: 'same as another card', params: { card: CardNode } },
+  from_unit: { label: 'same as another unit', params: { unit: UnitNode } }
+};
+
+const typeOptions = computed(
+  () =>
+    Object.entries(blueprintDict).map(([id, { label }]) => ({
+      label,
+      value: id
+    })) as Array<{ label: string; value: BlueprintCondition['type'] }>
+);
+
+const getParams = (groupIndex: number, conditionIndex: number) =>
+  blueprintDict[groups.value.candidates[groupIndex][conditionIndex].type]!
+    .params as Record<string, Params>;
 </script>
 
 <template>
-  <div>
-    <UiCombobox
-      v-model="blueprintIds"
-      :options="options"
-      multiple
-      placeholder="Select a card"
-    />
-    <div v-auto-animate class="flex gap-2 wrap mt-3">
-      <div v-for="(id, index) in blueprintIds" :key="id" class="choice">
-        {{ allCards[id].name }}
+  <ConditionsNode v-slot="{ conditionIndex, groupIndex }" v-model="groups" hide-random>
+    <div>
+      <UiSelect
+        class="w-full mb-2"
+        :model-value="groups.candidates[groupIndex][conditionIndex]['type']"
+        :multiple="false"
+        :options="typeOptions"
+        @update:model-value="
+          type => {
+            if (!type) return;
+            const condition = groups.candidates[groupIndex][conditionIndex];
 
-        <UiIconButton
-          name="mdi:close"
-          type="button"
-          @click="blueprintIds.splice(index, 1)"
-        />
+            condition.type = type;
+
+            match(condition)
+              .with({ type: 'static' }, condition => {
+                condition.params = {
+                  blueprints: []
+                };
+              })
+              .with({ type: 'from_card' }, condition => {
+                condition.params = {
+                  card: { candidates: [] }
+                };
+              })
+              .with({ type: 'from_unit' }, condition => {
+                condition.params = {
+                  unit: { candidates: [] }
+                };
+              })
+              .exhaustive();
+          }
+        "
+      />
+
+      <div
+        v-for="(param, key) in getParams(groupIndex, conditionIndex)"
+        :key="key"
+        class="flex gap-2"
+      >
+        <template v-if="key === 'blueprints'">
+          <UiCombobox
+            v-model="(groups.candidates[groupIndex][conditionIndex] as any).params[key]"
+            :options="blueprintOptions"
+            multiple
+            placeholder="Select a card"
+          />
+          <div v-auto-animate class="flex gap-2 wrap mt-3">
+            <div
+              v-for="(id, index) in (groups.candidates[groupIndex][conditionIndex] as any)
+                .params[key]"
+              :key="id"
+              class="choice"
+            >
+              {{ allCards[id].name }}
+
+              <UiIconButton
+                name="mdi:close"
+                type="button"
+                @click="
+                  (groups.candidates[groupIndex][conditionIndex] as any).params[
+                    key
+                  ].splice(index, 1)
+                "
+              />
+            </div>
+          </div>
+        </template>
+
+        <template v-else>
+          <component
+            :is="param"
+            v-if="(groups.candidates[groupIndex][conditionIndex] as any).params[key]"
+            v-model="(groups.candidates[groupIndex][conditionIndex] as any).params[key]"
+          />
+        </template>
       </div>
     </div>
-  </div>
+  </ConditionsNode>
 </template>
 
 <style scoped lang="postcss">

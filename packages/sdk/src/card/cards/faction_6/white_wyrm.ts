@@ -1,8 +1,8 @@
 import { defineSerializedBlueprint } from '../../card-blueprint';
 
-export const f6FoxRavager = defineSerializedBlueprint({
-  id: 'f6_fox_ravager',
-  name: 'Fox Ravager',
+export const f6WhiteWyrm = defineSerializedBlueprint({
+  id: 'f6_white_wyrm',
+  name: 'White Wyrm',
   collectable: false,
   keywords: [],
   relatedBlueprintIds: [],
@@ -12,9 +12,10 @@ export const f6FoxRavager = defineSerializedBlueprint({
   effects: [],
   targets: { min: 0, targets: [] },
   cellHighlights: [],
-  spriteId: 'f6_ravager',
-  cost: 2,
+  sounds: {},
+  cost: 3,
   attack: 3,
-  maxHp: 3,
-  faction: 'f6'
+  maxHp: 4,
+  faction: 'f6',
+  spriteId: 'f6_whitewyvern'
 });

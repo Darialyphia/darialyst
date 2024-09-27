@@ -39,7 +39,11 @@ export const f3EtherealObelysk = defineSerializedBlueprint({
           {
             type: 'spawn',
             params: {
-              blueprint: ['f3_wind_dervish'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f3_wind_dervish'] } }]
+                ]
+              },
               position: {
                 candidates: [[{ type: 'is_manual_target', params: { index: 0 } }]]
               },

@@ -37,7 +37,9 @@ export const f5SilitharElder = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['f5_egg'],
+              blueprint: {
+                candidates: [[{ type: 'static', params: { blueprints: ['f5_egg'] } }]]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [
@@ -76,7 +78,16 @@ export const f5SilitharElder = defineSerializedBlueprint({
                     {
                       type: 'has_blueprint',
                       params: {
-                        blueprint: [f5Egg.id],
+                        blueprint: {
+                          candidates: [
+                            [
+                              {
+                                type: 'static',
+                                params: { blueprints: ['f5_egg'] }
+                              }
+                            ]
+                          ]
+                        },
                         not: false
                       }
                     }
@@ -99,7 +110,16 @@ export const f5SilitharElder = defineSerializedBlueprint({
                   {
                     type: 'transform_unit',
                     params: {
-                      blueprint: ['f5_silithar_elder'],
+                      blueprint: {
+                        candidates: [
+                          [
+                            {
+                              type: 'static',
+                              params: { blueprints: ['f5_silithar_elder'] }
+                            }
+                          ]
+                        ]
+                      },
                       unit: {
                         candidates: [[{ type: 'is_self', params: { not: false } }]]
                       }

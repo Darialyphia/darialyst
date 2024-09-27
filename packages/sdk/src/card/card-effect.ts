@@ -14,11 +14,11 @@ import type { CellCondition } from './conditions/cell-conditions';
 import type { CardKind } from './card-enums';
 import type { Trigger, TriggerFrequency } from './card-action-triggers';
 import type { Amount } from './helpers/amount';
-import type { CardBlueprintId } from './card';
 import type { KeywordId } from '../utils/keywords';
 import type { Point } from '@game/shared';
 import type { ArtifactCondition } from './conditions/artifact-conditions';
 import type { CardTargetsConfig } from './card-targets';
+import type { BlueprintCondition } from './conditions/blueprint-conditions';
 
 export type Filter<T> = { candidates: T[][]; random?: boolean };
 
@@ -277,7 +277,7 @@ export type Action<
       params: {
         location: 'hand' | 'deck';
         player: Filter<PlayerCondition>;
-        blueprint: CardBlueprintId[];
+        blueprint: Filter<BlueprintCondition>;
         ephemeral: boolean;
         filter?: Filter<GlobalCondition<T>>;
         execute?: ExecutionDelay;
@@ -394,7 +394,7 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
         execute?: ExecutionDelay;
-        blueprint: CardBlueprintId[];
+        blueprint: Filter<BlueprintCondition>;
         position: Filter<CellCondition>;
       };
     }
@@ -427,7 +427,7 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         execute?: ExecutionDelay;
         player: Filter<PlayerCondition>;
-        blueprint: CardBlueprintId[];
+        blueprint: Filter<BlueprintCondition>;
       };
     }
   | {
@@ -444,7 +444,7 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         execute?: ExecutionDelay;
         player: Filter<PlayerCondition>;
-        blueprint: CardBlueprintId[];
+        blueprint: Filter<BlueprintCondition>;
         position: Filter<CellCondition>;
       };
     }
@@ -617,7 +617,7 @@ export type Action<
   | {
       type: 'transform_unit';
       params: {
-        blueprint: CardBlueprintId[];
+        blueprint: Filter<BlueprintCondition>;
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;

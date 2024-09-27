@@ -19,7 +19,11 @@ export const f6GravityWell = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['f6_frost_well'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f6_frost_well'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [

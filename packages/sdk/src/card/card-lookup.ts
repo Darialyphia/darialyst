@@ -243,6 +243,11 @@ import { f6CrystalCloaker } from './cards/faction_6/crystal-cloaker';
 import { f6Snowchaser } from './cards/faction_6/snowchaser';
 import { f6FrosthornRhyno } from './cards/faction_6/frosthorn-rhyno';
 import { f2BattlePanddo } from './cards/faction_2/battle_panddo';
+import { f6HailstonePrison } from './cards/faction_6/hailstone_prison';
+import { f6WhiteWyrm } from './cards/faction_6/white_wyrm';
+import { f6AspectOfTheWyrm } from './cards/faction_6/aspect_of_the_wyrm';
+import { f6SeismicElemental } from './cards/faction_6/seismic_elemental';
+import { f6AspectOfTheMountain } from './cards/faction_6/aspect_of_the_mountain';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -445,6 +450,11 @@ const allCards: SerializedBlueprint<any>[] = [
   f6CrystalCloaker,
   f6Snowchaser,
   f6FrosthornRhyno,
+  f6HailstonePrison,
+  f6WhiteWyrm,
+  f6AspectOfTheWyrm,
+  f6SeismicElemental,
+  f6AspectOfTheMountain,
 
   neutralHealingMystic,
   neutralRiftWalker,

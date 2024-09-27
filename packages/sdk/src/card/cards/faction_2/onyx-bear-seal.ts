@@ -17,7 +17,9 @@ export const f2OnyxBearSeal = defineSerializedBlueprint({
           {
             type: 'transform_unit',
             params: {
-              blueprint: ['f2_panddo'],
+              blueprint: {
+                candidates: [[{ type: 'static', params: { blueprints: ['f2_panddo'] } }]]
+              },
               unit: {
                 candidates: [
                   [{ type: 'is_manual_target', params: { not: false, index: 0 } }]
