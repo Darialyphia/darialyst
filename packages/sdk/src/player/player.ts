@@ -1,5 +1,6 @@
 import { GAME_PHASES, GameSession } from '../game-session';
 import {
+  shuffleArray,
   type JSONObject,
   type Point3D,
   type Serializable,
@@ -25,6 +26,7 @@ import type { Entity } from '../entity/entity';
 import { TypedEventEmitter } from '../utils/typed-emitter';
 import type { Unit } from '../card/unit';
 import type { Artifact } from '../card/artifact';
+import type { Tag } from '../utils/tribes';
 
 export type PlayerId = string;
 export type CardIndex = number;
@@ -434,7 +436,20 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
     const availableSlots = this.session.config.MAX_HAND_SIZE - this.hand.length;
 
     const pool = this.deck.cards.filter(card => card.kind === kind);
-    const shuffledPool = pool.sort(() => this.session.rngSystem.next() - 0.5);
+    const shuffledPool = shuffleArray(pool, () => this.session.rngSystem.next());
+
+    const cards = shuffledPool.slice(0, Math.min(amount, availableSlots, pool.length));
+    if (cards) {
+      cards.forEach(c => c.draw());
+      this.hand.push(...cards);
+    }
+  }
+
+  drawFromTag(amount: number, tag: Tag) {
+    const availableSlots = this.session.config.MAX_HAND_SIZE - this.hand.length;
+
+    const pool = this.deck.cards.filter(card => card.blueprint.tags?.includes(tag));
+    const shuffledPool = shuffleArray(pool, () => this.session.rngSystem.next());
 
     const cards = shuffledPool.slice(0, Math.min(amount, availableSlots, pool.length));
     if (cards) {

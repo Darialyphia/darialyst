@@ -69,7 +69,9 @@ const componentNodes: Record<string, Component | string> = {
             })
             .with({ type: 'has_blueprint' }, condition => {
               condition.params = {
-                blueprint: []
+                blueprint: {
+                  candidates: [[{ type: 'static', params: { blueprints: [] } }]]
+                }
               };
             })
             .exhaustive();

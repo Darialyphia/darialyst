@@ -16,7 +16,8 @@ import {
   PlayerNode,
   TargetsNode,
   TileNode,
-  UnitNode
+  UnitNode,
+  TagNode
 } from '#components';
 
 const { triggers } = defineProps<{
@@ -149,6 +150,7 @@ const actionDict: ActionDictionary = {
       player: PlayerNode,
       execute: null,
       kind: null,
+      tag: TagNode,
       filter: GlobalConditionNode
     }
   },

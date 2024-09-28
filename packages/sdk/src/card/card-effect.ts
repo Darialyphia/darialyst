@@ -19,6 +19,7 @@ import type { Point } from '@game/shared';
 import type { ArtifactCondition } from './conditions/artifact-conditions';
 import type { CardTargetsConfig } from './card-targets';
 import type { BlueprintCondition } from './conditions/blueprint-conditions';
+import type { TagId } from '../utils/tribes';
 
 export type Filter<T> = { candidates: T[][]; random?: boolean };
 
@@ -66,6 +67,7 @@ export type Action<
         player: Filter<PlayerCondition>;
         execute?: ExecutionDelay;
         kind?: Exclude<CardKind, 'GENERAL'>;
+        tag?: TagId;
       };
     }
   | {
