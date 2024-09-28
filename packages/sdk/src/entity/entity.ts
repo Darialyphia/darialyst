@@ -179,6 +179,10 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
     return entity.id === this.id;
   }
 
+  get isAlive(): boolean {
+    return !!this.session.entitySystem.getEntityById(this.id);
+  }
+
   get isGeneral() {
     return this.card.blueprint.kind == CARD_KINDS.GENERAL;
   }
@@ -367,6 +371,8 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
   }
 
   async remove() {
+    if (!this.isAlive) return;
+
     this.session.entitySystem.removeEntity(this);
     this.modifiers.forEach(modifier => {
       modifier.onRemoved(this.session, this, modifier);
@@ -374,6 +380,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
   }
 
   async destroy(card?: Card) {
+    if (!this.isAlive) return;
     this.destroyedBy = card;
     await this.session.actionSystem.schedule(async () => {
       await this.emitAsync(ENTITY_EVENTS.BEFORE_DESTROY, this);

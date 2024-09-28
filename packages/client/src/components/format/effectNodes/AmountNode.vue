@@ -48,6 +48,10 @@ const amountDict: Record<
   missing_cards_in_hand: {
     label: 'The amount of cards needed to have a full hand.',
     params: {}
+  },
+  count_of_units: {
+    label: 'Equals to the number of units on the board',
+    params: { unit: UnitNode }
   }
 };
 
@@ -100,6 +104,7 @@ const id = useId();
               { type: 'hp' },
               { type: 'lowest_hp' },
               { type: 'highest_hp' },
+              { type: 'count_of_units' },
               amount => {
                 amount.params = {
                   unit: { candidates: [], random: false }

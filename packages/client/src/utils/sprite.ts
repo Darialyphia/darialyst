@@ -1,5 +1,8 @@
 import type { FrameObject, Spritesheet } from 'pixi.js';
 
+export const hasAnimation = (spritesheet: Spritesheet, name: string) => {
+  return !!spritesheet.animations[name];
+};
 // matches textures from an animation to its duration in the sprite sheet data
 export const createSpritesheetFrameObject = (
   name: string,

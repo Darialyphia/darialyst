@@ -248,6 +248,11 @@ import { f6WhiteWyrm } from './cards/faction_6/white_wyrm';
 import { f6AspectOfTheWyrm } from './cards/faction_6/aspect_of_the_wyrm';
 import { f6SeismicElemental } from './cards/faction_6/seismic_elemental';
 import { f6AspectOfTheMountain } from './cards/faction_6/aspect_of_the_mountain';
+import { f6SpiritOfTheWild } from './cards/faction_6/spirit_of_the_wild';
+import { f6Hearthsister } from './cards/faction_6/hearthsister';
+import { f6Coldbiter } from './cards/faction_6/coldbiter';
+import { f6BoreanBear } from './cards/faction_6/borean_bear';
+import { f6Frostfire } from './cards/faction_6/frostfire';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -455,6 +460,11 @@ const allCards: SerializedBlueprint<any>[] = [
   f6AspectOfTheWyrm,
   f6SeismicElemental,
   f6AspectOfTheMountain,
+  f6SpiritOfTheWild,
+  f6Hearthsister,
+  f6Coldbiter,
+  f6BoreanBear,
+  f6Frostfire,
 
   neutralHealingMystic,
   neutralRiftWalker,

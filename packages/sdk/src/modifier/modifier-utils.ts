@@ -670,6 +670,8 @@ export const provoke = ({ source, provoker }: { source: Card; provoker?: Entity 
     attack: (canAttack: boolean, { target }: { target: Entity }) => {
       // if entity already can't attack, do nothing
       if (!canAttack) return canAttack;
+      // Do nothing if the entity is tryign to attack another taunter
+      if (target.hasKeyword(KEYWORDS.PROVOKE)) return canAttack;
 
       return taunter.equals(target);
     }
