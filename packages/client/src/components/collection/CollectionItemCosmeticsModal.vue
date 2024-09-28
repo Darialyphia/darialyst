@@ -39,6 +39,7 @@ const cardBacks = [
   'wood',
   'lyonar',
   'vetruvian',
+  'abyssian',
   'magmar',
   'vanar'
 ];

@@ -8,7 +8,7 @@ export const f2FourWindsMagus = defineSerializedBlueprint({
   collectable: true,
   keywords: [],
   relatedBlueprintIds: [],
-  tags: [],
+  tags: ['arcanyst'],
   kind: CARD_KINDS.MINION,
   rarity: RARITIES.RARE,
   name: 'Four Winds Magus',

@@ -8,7 +8,7 @@ export const neutralArchonSpellbinder = defineSerializedBlueprint({
   collectable: true,
   keywords: [],
   relatedBlueprintIds: [],
-  tags: [],
+  tags: ['arcanyst'],
   kind: CARD_KINDS.MINION,
   rarity: RARITIES.LEGENDARY,
   targets: { min: 0, targets: [] },

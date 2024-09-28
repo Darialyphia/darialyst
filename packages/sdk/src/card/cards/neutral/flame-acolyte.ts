@@ -5,7 +5,7 @@ export const neutralFlameAcolyte = defineSerializedBlueprint({
   collectable: true,
   keywords: [],
   relatedBlueprintIds: [],
-  tags: [],
+  tags: ['arcanyst'],
   kind: 'MINION',
   rarity: 'epic',
   effects: [
