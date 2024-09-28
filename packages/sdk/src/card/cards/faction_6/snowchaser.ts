@@ -6,7 +6,7 @@ export const f6Snowchaser = defineSerializedBlueprint({
   collectable: true,
   keywords: ['infiltrate', 'dying_wish'],
   relatedBlueprintIds: [],
-  tags: [],
+  tags: ['vespyr'],
   kind: 'MINION',
   rarity: 'rare',
   effects: [

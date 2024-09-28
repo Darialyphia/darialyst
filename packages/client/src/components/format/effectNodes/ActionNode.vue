@@ -1291,6 +1291,10 @@ const id = useId();
         <KeywordNode v-model="(action.params as any)[key]" />
       </template>
 
+      <template v-else-if="key === 'tag'">
+        <TagNode v-model="(action.params as any)[key]" />
+      </template>
+
       <template v-else-if="isComponent(param)">
         <component
           :is="param"

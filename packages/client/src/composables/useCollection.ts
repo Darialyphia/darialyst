@@ -125,6 +125,11 @@ export const useCollection = () => {
             keyword =>
               matchesTextFilter(keyword.name) ||
               keyword.aliases.some(alias => isString(alias) && matchesTextFilter(alias))
+          ) ||
+          (card.tags ?? []).some(
+            tag =>
+              matchesTextFilter(tag.name) ||
+              tag.aliases.some(alias => isString(alias) && matchesTextFilter(alias))
           )
         );
       })

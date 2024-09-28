@@ -253,6 +253,7 @@ import { f6Hearthsister } from './cards/faction_6/hearthsister';
 import { f6Coldbiter } from './cards/faction_6/coldbiter';
 import { f6BoreanBear } from './cards/faction_6/borean_bear';
 import { f6Frostfire } from './cards/faction_6/frostfire';
+import { f6Cryogenesis } from './cards/faction_6/cryogenesis';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -465,6 +466,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f6Coldbiter,
   f6BoreanBear,
   f6Frostfire,
+  f6Cryogenesis,
 
   neutralHealingMystic,
   neutralRiftWalker,
