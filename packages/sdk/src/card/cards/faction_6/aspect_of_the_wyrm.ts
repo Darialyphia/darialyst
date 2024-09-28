@@ -1,11 +1,12 @@
 import { defineSerializedBlueprint } from '../../card-blueprint';
+import { f6WhiteWyrm } from './white_wyrm';
 
 export const f6AspectOfTheWyrm = defineSerializedBlueprint({
   id: 'f6_aspect_of_the_wyrm',
   name: 'Aspect of the Wyrm',
   collectable: true,
   keywords: [],
-  relatedBlueprintIds: [],
+  relatedBlueprintIds: [f6WhiteWyrm.id],
   tags: [],
   kind: 'SPELL',
   rarity: 'epic',

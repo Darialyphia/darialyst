@@ -1,11 +1,12 @@
 import { defineSerializedBlueprint } from '../../card-blueprint';
+import { f6SeismicElemental } from './seismic_elemental';
 
 export const f6AspectOfTheMountain = defineSerializedBlueprint({
   id: 'f6_aspect_of_the_mountain',
   name: 'Aspect of the Mountain',
   collectable: true,
   keywords: [],
-  relatedBlueprintIds: [],
+  relatedBlueprintIds: [f6SeismicElemental.id],
   tags: [],
   kind: 'SPELL',
   rarity: 'legendary',
