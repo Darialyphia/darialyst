@@ -184,7 +184,11 @@ export const [useCellConditionsProvider, _useCellConditions] = createInjectionSt
       is_at: { label: 'Is at coordinates', params: ['x', 'y', 'z'] },
       '2x2_area': { label: 'Is a 2x2 area', params: ['topLeft'] },
       '3x3_area': { label: 'Is a 3x3 area', params: ['center'] },
-      within_cells: { label: 'Within X cells', params: ['cell', 'amount'] }
+      within_cells: { label: 'Within X cells', params: ['cell', 'amount'] },
+      is_relative_from: {
+        label: 'Is on a position relative from another cell',
+        params: ['x', 'y', 'forwards', 'backwards', 'origin']
+      }
     };
 
     return computed(() => ({ ...baseDict, ...extrasDict.value }));

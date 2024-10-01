@@ -116,6 +116,15 @@ const id = useId();
                 cell: { candidates: [[{ type: 'any_cell' }]] }
               };
             })
+            .with({ type: 'is_relative_from' }, condition => {
+              condition.params = {
+                x: 0,
+                y: 0,
+                forwards: 0,
+                backwards: 0,
+                origin: { candidates: [] }
+              };
+            })
             .exhaustive();
         }
       "
@@ -128,7 +137,7 @@ const id = useId();
     >
       <span class="capitalize">{{ param }}</span>
       <UiTextInput
-        v-if="['index', 'x', 'y', 'z'].includes(param)"
+        v-if="['index', 'x', 'y', 'z', 'forwards', 'backwards'].includes(param)"
         :id
         v-model="(groups.candidates[groupIndex][conditionIndex] as any).params[param]"
         type="number"
@@ -139,7 +148,7 @@ const id = useId();
           v-model="(groups.candidates[groupIndex][conditionIndex] as any).params[param]"
         />
       </template>
-      <template v-if="param === 'cell'">
+      <template v-if="param === 'cell' || param === 'origin'">
         <CellNode
           v-if="(groups.candidates[groupIndex][conditionIndex] as any).params[param]"
           v-model="(groups.candidates[groupIndex][conditionIndex] as any).params[param]"

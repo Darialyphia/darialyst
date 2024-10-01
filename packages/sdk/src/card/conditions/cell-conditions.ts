@@ -51,6 +51,16 @@ export type CellConditionBase =
           card: CardConditionExtras['type'];
         }>;
       };
+    }
+  | {
+      type: 'is_relative_from';
+      params: {
+        origin: Filter<CellCondition>;
+        x: number;
+        y: number;
+        forwards: number;
+        backwards: number;
+      };
     };
 
 export type CellConditionExtras =
@@ -294,6 +304,37 @@ export const getCells = ({
                 })
               );
             });
+          })
+          .with({ type: 'is_relative_from' }, condition => {
+            const [origin] = getCells({
+              ...ctx,
+              playedPoint,
+              conditions: condition.params.origin
+            });
+            if (!origin) return false;
+            const diff = { x: 0, y: 0 };
+            diff.x += condition.params.x;
+            diff.y += condition.params.y;
+            const isP1 = ctx.card.player.isPlayer1;
+            diff.x += condition.params.forwards * (isP1 ? 1 : -1);
+            diff.x += condition.params.backwards * (isP1 ? -1 : 1);
+            const target = ctx.session.boardSystem.getCellAt({
+              x: origin.x + diff.x,
+              y: origin.y + diff.y,
+              z: origin.z
+            });
+            if (target && target.cellAbove) {
+              return target.cellAbove.equals(cell);
+            } else if (target) {
+              return target.equals(cell);
+            } else {
+              const targetBelow = ctx.session.boardSystem.getCellAt({
+                x: origin.x + diff.x,
+                y: origin.y + diff.y,
+                z: origin.z - 1
+              });
+              return targetBelow?.equals(cell);
+            }
           })
           .exhaustive();
       });
