@@ -75,9 +75,21 @@ export type Action<
       params: {
         filter?: Filter<GlobalCondition<T>>;
         mode: 'give' | 'set';
-        attack?: { amount: Amount<T>; activeWhen?: Filter<GlobalCondition<T>> };
-        hp?: { amount: Amount<T>; activeWhen?: Filter<GlobalCondition<T>> };
-        speed?: { amount: Amount<T>; activeWhen?: Filter<GlobalCondition<T>> };
+        attack?: {
+          amount: Amount<T>;
+          activeWhen?: Filter<GlobalCondition<T>>;
+          enabled?: boolean;
+        };
+        hp?: {
+          amount: Amount<T>;
+          activeWhen?: Filter<GlobalCondition<T>>;
+          enabled?: boolean;
+        };
+        speed?: {
+          amount: Amount<T>;
+          activeWhen?: Filter<GlobalCondition<T>>;
+          enabled?: boolean;
+        };
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;

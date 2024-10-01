@@ -160,9 +160,9 @@ const actionDict: ActionDictionary = {
       targets: UnitNode,
       mode: null,
       stackable: null,
-      attack: { amount: AmountNode, activeWhen: GlobalConditionNode },
-      hp: { amount: AmountNode, activeWhen: GlobalConditionNode },
-      speed: { amount: AmountNode, activeWhen: GlobalConditionNode },
+      attack: { amount: AmountNode, activeWhen: GlobalConditionNode, enabled: null },
+      hp: { amount: AmountNode, activeWhen: GlobalConditionNode, enabled: null },
+      speed: { amount: AmountNode, activeWhen: GlobalConditionNode, enabled: null },
       execute: null,
       duration: null,
       filter: GlobalConditionNode
@@ -741,15 +741,18 @@ watch(
         params.stackable ??= true;
         params.attack = {
           amount: params.attack?.amount ?? { type: 'fixed', params: { value: 0 } },
-          activeWhen: params.attack?.activeWhen ?? { candidates: [], random: false }
+          activeWhen: params.attack?.activeWhen ?? { candidates: [], random: false },
+          enabled: params.attack?.enabled ?? true
         };
         params.hp = {
           amount: params.hp?.amount ?? { type: 'fixed', params: { value: 0 } },
-          activeWhen: params.hp?.activeWhen ?? { candidates: [], random: false }
+          activeWhen: params.hp?.activeWhen ?? { candidates: [], random: false },
+          enabled: params.hp?.enabled ?? true
         };
         params.speed = {
           amount: params.speed?.amount ?? { type: 'fixed', params: { value: 0 } },
-          activeWhen: params.speed?.activeWhen ?? { candidates: [], random: false }
+          activeWhen: params.speed?.activeWhen ?? { candidates: [], random: false },
+          enabled: params.speed?.enabled ?? true
         };
         params.targets ??= { candidates: [[{ type: 'any_unit' }]], random: false };
         params.filter ??= { candidates: [], random: false };
@@ -1307,9 +1310,14 @@ const id = useId();
         <div v-for="(childParam, childKey) in param" :key="childKey" class="flex gap-2">
           <span class="capitalize min-w-11">{{ childKey }}</span>
 
+          <UiSwitch
+            v-if="childKey === 'enabled'"
+            v-model:checked="(action.params as any)[key][childKey]"
+          />
+
           <component
             :is="childParam"
-            v-if="(action.params as any)[key][childKey]"
+            v-else-if="(action.params as any)[key][childKey]"
             v-model="(action.params as any)[key][childKey]"
           />
         </div>

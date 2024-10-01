@@ -1260,6 +1260,7 @@ export const parseSerializeBlueprint = <T extends GenericCardEffect[]>(
     },
     async onPlay(ctx: EffectCtx) {
       for (const effect of effects) {
+        ctx.session.logger(effect.config);
         await match(effect.config.executionContext)
           .with('trigger_while_on_board', async () => {
             for (const action of effect.actions) {
