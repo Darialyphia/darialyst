@@ -51,18 +51,24 @@ export const useCollection = () => {
   const textFilterDebounced = refDebounced(textFilter, 100);
 
   const allCards = computed(() => {
-    return Object.values({ ...CARDS, ...selectedFormat.value.cards })
+    const result = Object.values({ ...CARDS, ...selectedFormat.value.cards })
       .filter(c => c.collectable)
       .map(card => {
         const collectionItem = collection.value.find(item => item.cardId === card.id);
+        // in case the card has not been touched by a custm format, parse it against the standard format to have more chance to hit the cache
+        const format = selectedFormat.value.cards[card.id]
+          ? selectedFormat.value
+          : undefined;
         return {
           _id: collectionItem?._id,
           cardId: card.id,
-          card: parseSerializeBlueprint(card),
+          card: parseSerializeBlueprint(card, format),
           pedestalId: collectionItem?.pedestalId ?? 'pedestal-default',
           cardBackId: collectionItem?.cardBackId ?? 'default'
         };
       });
+
+    return result;
   });
 
   const sortUnitFunction = (a: CollectionItemWithCard, b: CollectionItemWithCard) => {
