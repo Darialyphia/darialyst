@@ -47,6 +47,8 @@ const componentNodes: Record<string, Component | string> = {
               { type: 'minion' },
               { type: 'spell' },
               { type: 'artifact' },
+              { type: 'in_hand' },
+              { type: 'in_deck' },
               () => {
                 return;
               }

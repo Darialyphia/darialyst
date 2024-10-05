@@ -272,6 +272,18 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
     return card;
   }
 
+  discard(card: Card) {
+    const idxInHand = this.hand.indexOf(card);
+    if (idxInHand > -1) {
+      this.hand.splice(idxInHand, 1);
+    }
+    const idxInDeck = this.deck.cards.indexOf(card);
+    if (idxInDeck > -1) {
+      this.deck.pluck(card);
+    }
+    this.sendToGraveyard(card);
+  }
+
   sendToGraveyard(card: Card) {
     this.graveyard.unshift({ card, deletedAt: this.session.currentTurn });
   }

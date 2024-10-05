@@ -130,6 +130,8 @@ export const [useCardConditionsProvider, _useCardConditions] = createInjectionSt
       minion: { label: 'A minion card', params: [] },
       spell: { label: 'A spell card', params: [] },
       artifact: { label: 'An artifact card', params: [] },
+      in_hand: { label: "A card in a player's hand", params: [] },
+      in_deck: { label: "A card in a player's deck", params: [] },
       cost: { label: 'A card that costs X', params: ['operator', 'amount'] },
       index_in_hand: {
         label: 'A card at position X in your hand',

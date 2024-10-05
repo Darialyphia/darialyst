@@ -681,7 +681,7 @@ export type Action<
       };
     }
   | {
-      type: 'destroy_cards_in_deck';
+      type: 'send_card_to_graveyard';
       params: {
         card: Filter<
           CardConditionBase | Extract<CardConditionExtras, { type: T['unit'] }>

@@ -643,8 +643,8 @@ const actionDict: ActionDictionary = {
       filter: GlobalConditionNode
     }
   },
-  destroy_cards_in_deck: {
-    label: "Destroy cards in a player's deck",
+  send_card_to_graveyard: {
+    label: 'Send cards to the graveyard',
     params: {
       player: PlayerNode,
       card: CardNode,
@@ -1108,7 +1108,7 @@ watch(
         params.duration ??= 'always';
         params.stacks ??= { type: 'fixed', params: { value: 1 } };
       })
-      .with({ type: 'destroy_cards_in_deck' }, ({ params }) => {
+      .with({ type: 'send_card_to_graveyard' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
         params.card ??= { candidates: [[{ type: 'any_card' }]] };

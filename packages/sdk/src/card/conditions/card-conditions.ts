@@ -17,6 +17,8 @@ export type CardConditionBase =
   | { type: 'spell' }
   | { type: 'artifact' }
   | { type: 'index_in_hand'; params: { index: number } }
+  | { type: 'in_hand' }
+  | { type: 'in_deck' }
   | { type: 'from_player'; params: { player: Filter<PlayerCondition> } }
   | {
       type: 'cost';
@@ -81,8 +83,14 @@ export const getCards = ({
             })
             .with(
               { type: 'index_in_hand' },
-              condition => c.player.hand[condition.params.index] === card
+              condition => c.player.hand[condition.params.index] === c
             )
+            .with({ type: 'in_hand' }, () => {
+              return c.player.hand.includes(c);
+            })
+            .with({ type: 'in_deck' }, () => {
+              return c.player.deck.cards.includes(c);
+            })
             .with({ type: 'self' }, () => c === card)
             .with({ type: 'drawn_card' }, () => {
               if (eventName === 'card:drawn') {
