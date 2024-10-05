@@ -14,11 +14,13 @@ export const sendPasswordResetLinkUsecase = internalAction({
     const from = isDev ? 'delivered@resend.dev' : process.env.RESEND_DOMAIN;
     const to = isDev ? (process.env.RESEND_ACCOUNT_EMAIL as string) : args.email;
 
+    const link = `${process.env.CLIENT_URL}/reset-password?token=${args.token}`;
+    console.log(link);
     const { data, error } = await resend.emails.send({
       from: `Daria <${from}>`,
       to: [to],
       subject: 'Password reset link',
-      html: `Click <a href="${process.env.CLIENT_URL}/reset-password?token=${args.token}">this password reset link</a> to reset your password`
+      html: `Click <a href="${link}">this password reset link</a> to reset your password`
     });
 
     if (error) {
