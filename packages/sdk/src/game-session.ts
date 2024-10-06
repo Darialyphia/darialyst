@@ -257,6 +257,11 @@ export class GameSession extends TypedEventEmitter<GameEventMap> {
           deaths: [],
           newEntities: []
         };
+        session.on('game:error', error => {
+          console.group('Simulation error');
+          console.log(error);
+          console.groupEnd();
+        });
         session.on('entity:after_take_damage', event => {
           if (result.damageTaken[event.entity.id]) {
             result.damageTaken[event.entity.id] += event.amount;
