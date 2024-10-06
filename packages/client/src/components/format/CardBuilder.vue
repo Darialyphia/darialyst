@@ -95,8 +95,8 @@ watch(
   () => blueprint.value.kind,
   (kind, oldkind) => {
     if (isUnit(kind) && !isUnit(oldkind)) {
-      (blueprint.value as UnitBlueprint).attack = 0;
-      (blueprint.value as UnitBlueprint).maxHp = 0;
+      (blueprint.value as UnitBlueprint).attack ??= 0;
+      (blueprint.value as UnitBlueprint).maxHp ??= 0;
       return;
     }
 
