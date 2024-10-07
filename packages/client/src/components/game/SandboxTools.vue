@@ -6,11 +6,12 @@ const { clientSession, serverSession } = defineProps<{
   clientSession: ClientSession;
 }>();
 
-const performAction = (cb: (session: GameSession) => void) => {
-  cb(serverSession);
+const performAction = async (cb: (session: GameSession) => Promise<void>) => {
+  await cb(serverSession);
   // eslint-disable-next-line vue/no-mutating-props
   clientSession.rngSystem.values = serverSession.rngSystem.serialize().values;
-  cb(clientSession);
+  await cb(clientSession);
+  clientSession.emit('scheduler:flushed');
 };
 </script>
 
@@ -27,8 +28,8 @@ const performAction = (cb: (session: GameSession) => void) => {
           <UiButton
             class="ghost-button"
             @click="
-              performAction(session => {
-                session.playerSystem.activePlayer.draw(1);
+              performAction(async session => {
+                await session.playerSystem.activePlayer.draw(1);
               })
             "
           >
@@ -37,8 +38,8 @@ const performAction = (cb: (session: GameSession) => void) => {
           <UiButton
             class="ghost-button"
             @click="
-              performAction(session => {
-                session.playerSystem.activePlayer.draw(
+              performAction(async session => {
+                await session.playerSystem.activePlayer.draw(
                   clientSession.config.MAX_HAND_SIZE
                 );
               })
@@ -49,7 +50,7 @@ const performAction = (cb: (session: GameSession) => void) => {
           <UiButton
             class="ghost-button"
             @click="
-              performAction(session => {
+              performAction(async session => {
                 const player = session.playerSystem.activePlayer;
                 const count = player.hand.length;
                 player.hand.forEach(card => {
@@ -57,7 +58,8 @@ const performAction = (cb: (session: GameSession) => void) => {
                 });
                 player.hand = [];
                 player.deck.shuffle();
-                player.draw(count);
+                await player.draw(count);
+                console.log('cards drawn', player.hand.length);
               })
             "
           >
@@ -66,8 +68,10 @@ const performAction = (cb: (session: GameSession) => void) => {
           <UiButton
             class="ghost-button"
             @click="
-              performAction(session => {
-                session.playerSystem.activePlayer.giveGold(clientSession.config.MAX_GOLD);
+              performAction(async session => {
+                await session.playerSystem.activePlayer.giveGold(
+                  clientSession.config.MAX_GOLD
+                );
               })
             "
           >
