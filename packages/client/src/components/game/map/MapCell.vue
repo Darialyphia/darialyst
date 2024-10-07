@@ -152,7 +152,7 @@ const runSimulation = <T extends keyof GameEmits>(action: {
   payload: GameEmits[T][0];
 }) => {
   requestSimulation(action);
-  ui.isSimulationResultDisplayed.value = true;
+  ui.ResultDisplayed.value = true;
 };
 
 const hasCellAbove = computed(
@@ -251,7 +251,7 @@ const hasCellAbove = computed(
         ui.unhover();
         ui.mouseLightColor.value = DEFAULT_MOUSE_LIGHT_COLOR;
         ui.mouseLightStrength.value = DEFAULT_MOUSE_LIGHT_STRENGTH;
-        ui.isSimulationResultDisplayed.value = false;
+        ui.ResultDisplayed.value = false;
       }
     "
     @pointerdown="onPointerdown"

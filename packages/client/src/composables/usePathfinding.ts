@@ -70,12 +70,14 @@ export const usePathfindingProvider = (session: GameSession, ui: GameUiContext) 
       const neighbors = session.boardSystem.getNeighborsDestinations(point);
       const canAttack = neighbors.some(neighbor => {
         return (
-          entity.canMove(distanceMap.get(neighbor), { countAllMovements: true }) &&
+          entity.canMove(distanceMap.get(neighbor), { isSimulation: true }) &&
           entity.canAttackAt(point, neighbor)
         );
       });
       return (
-        entity.canMove(distanceMap.get(point)) || entity.canAttackAt(point) || canAttack
+        entity.canMove(distanceMap.get(point), { isSimulation: true }) ||
+        entity.canAttackAt(point) ||
+        canAttack
       );
     },
     canTarget(cellToTest) {

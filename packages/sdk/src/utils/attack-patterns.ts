@@ -22,7 +22,6 @@ export class DefaultAttackPattern implements AttackPattern {
     const cell = this.session.boardSystem.getCellAt(position)!;
 
     if (!simulatedPosition && !cell.entity?.canBeAttacked(this.entity)) return false;
-
     return isWithinCells(
       simulatedPosition ?? this.entity.position,
       position,

@@ -256,15 +256,18 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
     });
   }
 
+  get isOwnturn() {
+    return this.session.playerSystem.activePlayer.equals(this.player);
+  }
   canMove(
     distance: number,
-    { countAllMovements }: { countAllMovements: boolean } = { countAllMovements: false }
+    { isSimulation }: { isSimulation: boolean } = { isSimulation: false }
   ) {
-    if (!this.session.playerSystem.activePlayer.equals(this.player)) {
+    if (!isSimulation && !this.isOwnturn) {
       return false;
     }
 
-    const speed = countAllMovements
+    const speed = isSimulation
       ? this.speed * (this.maxMovements - this.movementsTaken)
       : this.speed;
 

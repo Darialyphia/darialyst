@@ -73,7 +73,7 @@ export type GameUiContext = {
   registerLayer(layer: Layer, name: LayerName): void;
   assignLayer(obj: Nullable<DisplayObject>, layer: LayerName): void;
 
-  isSimulationResultDisplayed: Ref<boolean>;
+  ResultDisplayed: Ref<boolean>;
 
   targetableCells: ComputedRef<Cell[]>;
   highlightableCells: ComputedRef<Cell[]>;
@@ -104,7 +104,7 @@ export const useGameUiProvider = (session: GameSession) => {
   const mouseLightStrength = ref(DEFAULT_MOUSE_LIGHT_STRENGTH);
 
   const api: GameUiContext = {
-    isSimulationResultDisplayed: ref(false),
+    ResultDisplayed: ref(false),
     isMenuOpened: ref(false),
     targetingMode,
     summonTarget,
