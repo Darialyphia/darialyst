@@ -8,6 +8,7 @@ import type { GameSession } from '../../game-session';
 import { CARD_KINDS } from '../card-enums';
 import { getAmount, type Amount } from '../helpers/amount';
 import { getPlayers, type PlayerCondition } from './player-condition';
+import { getBlueprints, type BlueprintCondition } from './blueprint-conditions';
 
 export type CardConditionBase =
   | { type: 'any_card' }
@@ -16,6 +17,8 @@ export type CardConditionBase =
   | { type: 'spell' }
   | { type: 'artifact' }
   | { type: 'index_in_hand'; params: { index: number } }
+  | { type: 'in_hand' }
+  | { type: 'in_deck' }
   | { type: 'from_player'; params: { player: Filter<PlayerCondition> } }
   | {
       type: 'cost';
@@ -24,7 +27,7 @@ export type CardConditionBase =
         amount: Amount<{ unit: UnitConditionExtras['type'] }>;
       };
     }
-  | { type: 'has_blueprint'; params: { blueprint: string[] } };
+  | { type: 'has_blueprint'; params: { blueprint: Filter<BlueprintCondition> } };
 
 export type CardConditionExtras =
   | { type: 'drawn_card' }
@@ -80,8 +83,14 @@ export const getCards = ({
             })
             .with(
               { type: 'index_in_hand' },
-              condition => c.player.hand[condition.params.index] === card
+              condition => c.player.hand[condition.params.index] === c
             )
+            .with({ type: 'in_hand' }, () => {
+              return c.player.hand.includes(c);
+            })
+            .with({ type: 'in_deck' }, () => {
+              return c.player.deck.cards.includes(c);
+            })
             .with({ type: 'self' }, () => c === card)
             .with({ type: 'drawn_card' }, () => {
               if (eventName === 'card:drawn') {
@@ -122,7 +131,15 @@ export const getCards = ({
               return players.some(p => p.equals(c.player));
             })
             .with({ type: 'has_blueprint' }, condition => {
-              return condition.params.blueprint.includes(c.blueprintId);
+              const blueprints = getBlueprints({
+                session,
+                card,
+                targets,
+                conditions: condition.params.blueprint,
+                event,
+                eventName
+              });
+              return blueprints.some(b => b.id === c.blueprintId);
             })
             .exhaustive();
         });

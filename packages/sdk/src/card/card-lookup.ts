@@ -242,6 +242,18 @@ import { f6Avalanche } from './cards/faction_6/avalanche';
 import { f6CrystalCloaker } from './cards/faction_6/crystal-cloaker';
 import { f6Snowchaser } from './cards/faction_6/snowchaser';
 import { f6FrosthornRhyno } from './cards/faction_6/frosthorn-rhyno';
+import { f2BattlePanddo } from './cards/faction_2/battle_panddo';
+import { f6HailstonePrison } from './cards/faction_6/hailstone_prison';
+import { f6WhiteWyrm } from './cards/faction_6/white_wyrm';
+import { f6AspectOfTheWyrm } from './cards/faction_6/aspect_of_the_wyrm';
+import { f6SeismicElemental } from './cards/faction_6/seismic_elemental';
+import { f6AspectOfTheMountain } from './cards/faction_6/aspect_of_the_mountain';
+import { f6SpiritOfTheWild } from './cards/faction_6/spirit_of_the_wild';
+import { f6Hearthsister } from './cards/faction_6/hearthsister';
+import { f6Coldbiter } from './cards/faction_6/coldbiter';
+import { f6BoreanBear } from './cards/faction_6/borean_bear';
+import { f6Frostfire } from './cards/faction_6/frostfire';
+import { f6Cryogenesis } from './cards/faction_6/cryogenesis';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -313,6 +325,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f2OnyxBearSeal,
   f2CycloneMask,
   f2MistWalking,
+  f2BattlePanddo,
 
   f3General,
   f3General2,
@@ -443,6 +456,17 @@ const allCards: SerializedBlueprint<any>[] = [
   f6CrystalCloaker,
   f6Snowchaser,
   f6FrosthornRhyno,
+  f6HailstonePrison,
+  f6WhiteWyrm,
+  f6AspectOfTheWyrm,
+  f6SeismicElemental,
+  f6AspectOfTheMountain,
+  f6SpiritOfTheWild,
+  f6Hearthsister,
+  f6Coldbiter,
+  f6BoreanBear,
+  f6Frostfire,
+  f6Cryogenesis,
 
   neutralHealingMystic,
   neutralRiftWalker,

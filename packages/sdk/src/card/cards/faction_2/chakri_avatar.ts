@@ -8,7 +8,7 @@ export const f2ChakriAvatar = defineSerializedBlueprint({
   collectable: true,
   keywords: [],
   relatedBlueprintIds: [],
-  tags: [],
+  tags: ['arcanyst'],
   kind: CARD_KINDS.MINION,
   rarity: RARITIES.COMMON,
   spriteId: 'f2_chakri_avatar',

@@ -14,11 +14,12 @@ import type { CellCondition } from './conditions/cell-conditions';
 import type { CardKind } from './card-enums';
 import type { Trigger, TriggerFrequency } from './card-action-triggers';
 import type { Amount } from './helpers/amount';
-import type { CardBlueprintId } from './card';
 import type { KeywordId } from '../utils/keywords';
 import type { Point } from '@game/shared';
 import type { ArtifactCondition } from './conditions/artifact-conditions';
 import type { CardTargetsConfig } from './card-targets';
+import type { BlueprintCondition } from './conditions/blueprint-conditions';
+import type { TagId } from '../utils/tribes';
 
 export type Filter<T> = { candidates: T[][]; random?: boolean };
 
@@ -66,6 +67,7 @@ export type Action<
         player: Filter<PlayerCondition>;
         execute?: ExecutionDelay;
         kind?: Exclude<CardKind, 'GENERAL'>;
+        tag?: TagId;
       };
     }
   | {
@@ -73,9 +75,21 @@ export type Action<
       params: {
         filter?: Filter<GlobalCondition<T>>;
         mode: 'give' | 'set';
-        attack?: { amount: Amount<T>; activeWhen?: Filter<GlobalCondition<T>> };
-        hp?: { amount: Amount<T>; activeWhen?: Filter<GlobalCondition<T>> };
-        speed?: { amount: Amount<T>; activeWhen?: Filter<GlobalCondition<T>> };
+        attack?: {
+          amount: Amount<T>;
+          activeWhen?: Filter<GlobalCondition<T>>;
+          enabled?: boolean;
+        };
+        hp?: {
+          amount: Amount<T>;
+          activeWhen?: Filter<GlobalCondition<T>>;
+          enabled?: boolean;
+        };
+        speed?: {
+          amount: Amount<T>;
+          activeWhen?: Filter<GlobalCondition<T>>;
+          enabled?: boolean;
+        };
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
@@ -277,7 +291,7 @@ export type Action<
       params: {
         location: 'hand' | 'deck';
         player: Filter<PlayerCondition>;
-        blueprint: CardBlueprintId[];
+        blueprint: Filter<BlueprintCondition>;
         ephemeral: boolean;
         filter?: Filter<GlobalCondition<T>>;
         execute?: ExecutionDelay;
@@ -394,7 +408,7 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         activeWhen?: Filter<GlobalCondition<T>>;
         execute?: ExecutionDelay;
-        blueprint: CardBlueprintId[];
+        blueprint: Filter<BlueprintCondition>;
         position: Filter<CellCondition>;
       };
     }
@@ -427,7 +441,7 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         execute?: ExecutionDelay;
         player: Filter<PlayerCondition>;
-        blueprint: CardBlueprintId[];
+        blueprint: Filter<BlueprintCondition>;
       };
     }
   | {
@@ -444,7 +458,7 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         execute?: ExecutionDelay;
         player: Filter<PlayerCondition>;
-        blueprint: CardBlueprintId[];
+        blueprint: Filter<BlueprintCondition>;
         position: Filter<CellCondition>;
       };
     }
@@ -617,7 +631,7 @@ export type Action<
   | {
       type: 'transform_unit';
       params: {
-        blueprint: CardBlueprintId[];
+        blueprint: Filter<BlueprintCondition>;
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
@@ -667,7 +681,7 @@ export type Action<
       };
     }
   | {
-      type: 'destroy_cards_in_deck';
+      type: 'send_card_to_graveyard';
       params: {
         card: Filter<
           CardConditionBase | Extract<CardConditionExtras, { type: T['unit'] }>

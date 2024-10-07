@@ -15,7 +15,7 @@ export const f2Gorehorn = defineSerializedBlueprint({
   spriteId: 'f2_gorehorn',
   cost: 3,
   attack: 3,
-  maxHp: 3,
+  maxHp: 4,
   faction: FACTION_IDS.F2,
   effects: [
     {

@@ -56,7 +56,7 @@ export const f1SunBloom = defineSerializedBlueprint({
                     }
                   ]
                 ],
-                random: true
+                random: false
               }
             }
           }

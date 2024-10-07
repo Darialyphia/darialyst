@@ -31,7 +31,11 @@ export const f2StormKage = defineSerializedBlueprint({
               ephemeral: true,
               location: 'hand',
               player: { candidates: [[{ type: 'ally_player' }]] },
-              blueprint: ['f2_kage_lightning']
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f2_kage_lightning'] } }]
+                ]
+              }
             }
           }
         ],

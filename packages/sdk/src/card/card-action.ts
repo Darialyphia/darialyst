@@ -56,7 +56,7 @@ import { RebirthCardAction } from './actions/rebirth.card-action';
 import { AdaptCardAction } from './actions/adapt.card-action';
 import { ToughCardAction } from './actions/tough.card-action';
 import { VulnerableCardAction } from './actions/vulnerable.card-action';
-import { DestroyCardsInDeckCardAction } from './actions/destroy-cards-in-deck.card-action';
+import { SendCardToGraveyardCardAction } from './actions/send-card-to-graveyard.card-action';
 import { RootCardAction } from './actions/root.card-action';
 import { ChangeCanRetaliateCardAction } from './actions/change-can-retaliate.action';
 import { StunCardAction } from './actions/stun.card-action';
@@ -248,8 +248,8 @@ export const parseCardAction = (action: Action): ParsedActionResult => {
       .with({ type: 'vulnerable' }, action => {
         return new VulnerableCardAction(action, ctx, event, eventName).execute();
       })
-      .with({ type: 'destroy_cards_in_deck' }, action => {
-        return new DestroyCardsInDeckCardAction(action, ctx, event, eventName).execute();
+      .with({ type: 'send_card_to_graveyard' }, action => {
+        return new SendCardToGraveyardCardAction(action, ctx, event, eventName).execute();
       })
       .with({ type: 'root' }, action => {
         return new RootCardAction(action, ctx, event, eventName).execute();

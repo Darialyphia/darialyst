@@ -9,7 +9,7 @@ export const f3Chronomancer = defineSerializedBlueprint({
   collectable: true,
   keywords: [KEYWORDS.OPENING_GAMBIT.id],
   relatedBlueprintIds: [],
-  tags: [],
+  tags: ['arcanyst'],
   kind: CARD_KINDS.MINION,
   rarity: RARITIES.COMMON,
   targets: { min: 0, targets: [] },

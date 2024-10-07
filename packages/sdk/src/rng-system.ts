@@ -17,6 +17,7 @@ export class ServerRngSystem implements RngSystem {
 
   constructor(public readonly seed: string) {
     this.rng = randoomSeed(this.seed);
+    this.next = this.next.bind(this);
   }
 
   next() {

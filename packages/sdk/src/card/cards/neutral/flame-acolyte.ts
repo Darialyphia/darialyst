@@ -5,7 +5,7 @@ export const neutralFlameAcolyte = defineSerializedBlueprint({
   collectable: true,
   keywords: [],
   relatedBlueprintIds: [],
-  tags: [],
+  tags: ['arcanyst'],
   kind: 'MINION',
   rarity: 'epic',
   effects: [
@@ -19,7 +19,11 @@ export const neutralFlameAcolyte = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['neutral_spellspark'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['neutral_spellspark'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [

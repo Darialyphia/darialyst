@@ -6,7 +6,7 @@ export const f6CrystalCloaker = defineSerializedBlueprint({
   collectable: true,
   keywords: ['infiltrate'],
   relatedBlueprintIds: [],
-  tags: [],
+  tags: ['vespyr'],
   kind: 'MINION',
   rarity: 'common',
   effects: [

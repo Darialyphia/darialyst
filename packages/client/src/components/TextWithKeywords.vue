@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import type { GameFormatDto } from '@game/api/src/convex/formats/format.mapper';
 import { CARDS, KEYWORDS, TAGS, type CardBlueprint, type Keyword } from '@game/sdk';
 import { parseSerializeBlueprint } from '@game/sdk/src/card/card-parser';
 import { isString } from '@game/shared';
 const { text, highlighted = true } = defineProps<{
   text: string;
   highlighted?: boolean;
+  format?: GameFormatDto;
 }>();
 
 const KEYWORD_DELIMITER = '@';

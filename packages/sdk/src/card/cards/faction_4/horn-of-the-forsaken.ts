@@ -34,7 +34,11 @@ export const f4HornOfTheForsaken = defineSerializedBlueprint({
                     params: {
                       filter: { candidates: [], random: false },
                       execute: 'now',
-                      blueprint: ['f4_wraithling'],
+                      blueprint: {
+                        candidates: [
+                          [{ type: 'static', params: { blueprints: ['f4_wraithling'] } }]
+                        ]
+                      },
                       player: { candidates: [[{ type: 'ally_player' }]], random: false },
                       position: {
                         candidates: [

@@ -27,6 +27,8 @@ export const useEntityTexture = (
     const diffuseSheet = await assets.loadSpritesheet(
       entity.value.card.blueprint.spriteId
     );
+    if (!hasAnimation(diffuseSheet, animationName.value)) return;
+
     textures.value = createSpritesheetFrameObject(animationName.value, diffuseSheet);
   };
   setTextures();

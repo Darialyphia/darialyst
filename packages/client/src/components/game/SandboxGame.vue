@@ -92,6 +92,11 @@ serverSession.onUpdate(async (action, opts) => {
 
 const error = ref<Nullable<Error>>(null);
 serverSession.on('game:error', err => {
+  console.group('Crash report');
+  console.log('%cServer Session', 'color: blue;', serverSession);
+  console.log('%Client Session', 'color: green', clientSession);
+  console.log(error);
+  console.groupEnd();
   error.value = err;
 });
 

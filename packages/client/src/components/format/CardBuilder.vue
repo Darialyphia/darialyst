@@ -95,8 +95,8 @@ watch(
   () => blueprint.value.kind,
   (kind, oldkind) => {
     if (isUnit(kind) && !isUnit(oldkind)) {
-      (blueprint.value as UnitBlueprint).attack = 0;
-      (blueprint.value as UnitBlueprint).maxHp = 0;
+      (blueprint.value as UnitBlueprint).attack ??= 0;
+      (blueprint.value as UnitBlueprint).maxHp ??= 0;
       return;
     }
 
@@ -177,29 +177,6 @@ const soundOptions = computed(() => {
 });
 const spriteModalRoot = ref<HTMLElement>();
 
-const visibleSprites = ref(new Set<string>());
-const spriteTimeouts = new Map<string, ReturnType<typeof setTimeout>>();
-const onIntersectionObserver =
-  (sprite: string) => (entries: IntersectionObserverEntry[]) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        if (!spriteTimeouts.has(sprite)) {
-          spriteTimeouts.set(
-            sprite,
-            setTimeout(() => {
-              visibleSprites.value.add(sprite);
-              spriteTimeouts.delete(sprite);
-            }, 500)
-          );
-        }
-      } else {
-        visibleSprites.value.delete(sprite);
-        const timeout = spriteTimeouts.get(sprite);
-        if (timeout) clearTimeout(timeout);
-        spriteTimeouts.delete(sprite);
-      }
-    });
-  };
 const hoveredSprite = ref<string | null>(null);
 
 const copyCode = () => {
@@ -293,10 +270,6 @@ const soundsList = useVirtualList(soundOptions, { itemHeight: 32, overscan: 5 })
                 <div
                   v-for="sprite in spriteOptions"
                   :key="sprite"
-                  v-intersection-observer="[
-                    onIntersectionObserver(sprite),
-                    { root: spriteModalRoot, rootMargin: '300px 0px 300px 0px' }
-                  ]"
                   class="sprite"
                   @mouseenter="hoveredSprite = sprite"
                   @mouseleave="hoveredSprite = null"
@@ -308,7 +281,7 @@ const soundsList = useVirtualList(soundOptions, { itemHeight: 32, overscan: 5 })
                     }
                   "
                 >
-                  <CardSprite v-if="visibleSprites.has(sprite)" :sprite-id="sprite" />
+                  <CardSprite :sprite-id="sprite" />
                 </div>
               </template>
             </div>

@@ -30,7 +30,11 @@ export const f4BlackSolus = defineSerializedBlueprint({
               ephemeral: false,
               location: 'hand',
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
-              blueprint: ['f4_wraithling']
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f4_wraithling'] } }]
+                ]
+              }
             }
           },
           {
@@ -41,7 +45,11 @@ export const f4BlackSolus = defineSerializedBlueprint({
               ephemeral: false,
               location: 'hand',
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
-              blueprint: ['f4_wraithling']
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f4_wraithling'] } }]
+                ]
+              }
             }
           }
         ]
@@ -73,7 +81,19 @@ export const f4BlackSolus = defineSerializedBlueprint({
                             { type: 'is_ally', params: { not: false } },
                             {
                               type: 'has_blueprint',
-                              params: { blueprint: ['f4_wraithling'], not: false }
+                              params: {
+                                blueprint: {
+                                  candidates: [
+                                    [
+                                      {
+                                        type: 'static',
+                                        params: { blueprints: ['f4_wraithling'] }
+                                      }
+                                    ]
+                                  ]
+                                },
+                                not: false
+                              }
                             }
                           ]
                         ],

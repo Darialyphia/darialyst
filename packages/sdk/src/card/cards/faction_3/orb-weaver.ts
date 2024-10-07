@@ -31,7 +31,11 @@ export const f3OrbWeaver = defineSerializedBlueprint({
                 random: false
               },
               execute: 'now',
-              blueprint: ['f3_orb_weaver'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f3_orb_weaver'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [[{ type: 'is_manual_target', params: { index: 0 } }]],

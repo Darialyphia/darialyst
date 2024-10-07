@@ -11,6 +11,7 @@ export class ChangeStatsCardAction extends CardAction<'change_stats'> {
 
     return (value: number) => {
       if (!this.action.params.attack) return value;
+      if (this.action.params.attack.enabled === false) return value;
 
       const shouldApply = this.checkGlobalConditions(
         this.action.params.attack.activeWhen
@@ -33,6 +34,7 @@ export class ChangeStatsCardAction extends CardAction<'change_stats'> {
 
     return (value: number) => {
       if (!this.action.params.hp) return value;
+      if (this.action.params.hp.enabled === false) return value;
 
       const shouldApply = this.checkGlobalConditions(this.action.params.hp.activeWhen);
       if (!shouldApply) return value;
@@ -55,6 +57,7 @@ export class ChangeStatsCardAction extends CardAction<'change_stats'> {
 
     return (value: number) => {
       if (!this.action.params.speed) return value;
+      if (this.action.params.speed.enabled === false) return value;
 
       const shouldApply = this.checkGlobalConditions(this.action.params.speed.activeWhen);
       if (!shouldApply) return value;

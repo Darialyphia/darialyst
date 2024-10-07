@@ -29,7 +29,11 @@ export const neutralDioltas = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['neutral_tombstone'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['neutral_tombstone'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { VERSION } from '@game/sdk';
 import { mapRange } from '@game/shared';
+
 definePageMeta({
   name: 'ClientHome',
   pageTransition: {

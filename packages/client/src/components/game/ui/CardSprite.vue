@@ -16,9 +16,23 @@ const assets = useAssets();
 const { settings } = useUserSettings();
 
 const sheet = ref<SpritesheetWithAnimations>();
+
+const root = ref<HTMLElement>();
+const isVisible = ref(false);
+useIntersectionObserver(
+  root,
+  ([{ isIntersecting }]) => {
+    isVisible.value = isIntersecting;
+  },
+  {
+    rootMargin: '500px'
+  }
+);
+
 watchEffect(async () => {
   if (!assets.loaded.value) return;
   if (!spriteId) return;
+  if (!isVisible.value) return;
   sheet.value = await assets.loadSpritesheet(spriteId);
 });
 
@@ -92,7 +106,7 @@ const style = computed(() =>
 </script>
 
 <template>
-  <div class="card-sprite">
+  <div class="card-sprite" ref="root">
     <div
       v-if="pedestalId"
       :style="{ '--bg': `url(/assets/pedestals/${pedestalId}.png)` }"

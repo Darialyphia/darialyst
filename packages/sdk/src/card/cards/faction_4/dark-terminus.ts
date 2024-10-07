@@ -32,7 +32,11 @@ export const f4DarkTransormation = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['f4_wraithling'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f4_wraithling'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [[{ type: 'is_manual_target', params: { index: 0 } }]],

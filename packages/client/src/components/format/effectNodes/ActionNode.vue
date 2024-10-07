@@ -16,7 +16,8 @@ import {
   PlayerNode,
   TargetsNode,
   TileNode,
-  UnitNode
+  UnitNode,
+  TagNode
 } from '#components';
 
 const { triggers } = defineProps<{
@@ -149,6 +150,7 @@ const actionDict: ActionDictionary = {
       player: PlayerNode,
       execute: null,
       kind: null,
+      tag: TagNode,
       filter: GlobalConditionNode
     }
   },
@@ -158,9 +160,9 @@ const actionDict: ActionDictionary = {
       targets: UnitNode,
       mode: null,
       stackable: null,
-      attack: { amount: AmountNode, activeWhen: GlobalConditionNode },
-      hp: { amount: AmountNode, activeWhen: GlobalConditionNode },
-      speed: { amount: AmountNode, activeWhen: GlobalConditionNode },
+      attack: { amount: AmountNode, activeWhen: GlobalConditionNode, enabled: null },
+      hp: { amount: AmountNode, activeWhen: GlobalConditionNode, enabled: null },
+      speed: { amount: AmountNode, activeWhen: GlobalConditionNode, enabled: null },
       execute: null,
       duration: null,
       filter: GlobalConditionNode
@@ -641,8 +643,8 @@ const actionDict: ActionDictionary = {
       filter: GlobalConditionNode
     }
   },
-  destroy_cards_in_deck: {
-    label: "Destroy cards in a player's deck",
+  send_card_to_graveyard: {
+    label: 'Send cards to the graveyard',
     params: {
       player: PlayerNode,
       card: CardNode,
@@ -739,15 +741,18 @@ watch(
         params.stackable ??= true;
         params.attack = {
           amount: params.attack?.amount ?? { type: 'fixed', params: { value: 0 } },
-          activeWhen: params.attack?.activeWhen ?? { candidates: [], random: false }
+          activeWhen: params.attack?.activeWhen ?? { candidates: [], random: false },
+          enabled: params.attack?.enabled ?? true
         };
         params.hp = {
           amount: params.hp?.amount ?? { type: 'fixed', params: { value: 0 } },
-          activeWhen: params.hp?.activeWhen ?? { candidates: [], random: false }
+          activeWhen: params.hp?.activeWhen ?? { candidates: [], random: false },
+          enabled: params.hp?.enabled ?? true
         };
         params.speed = {
           amount: params.speed?.amount ?? { type: 'fixed', params: { value: 0 } },
-          activeWhen: params.speed?.activeWhen ?? { candidates: [], random: false }
+          activeWhen: params.speed?.activeWhen ?? { candidates: [], random: false },
+          enabled: params.speed?.enabled ?? true
         };
         params.targets ??= { candidates: [[{ type: 'any_unit' }]], random: false };
         params.filter ??= { candidates: [], random: false };
@@ -863,7 +868,9 @@ watch(
         params.ephemeral ??= false;
         params.location ??= 'hand';
         params.player ??= { candidates: [[{ type: 'any_player' }]], random: false };
-        params.blueprint ??= [];
+        params.blueprint ??= {
+          candidates: [[{ type: 'static', params: { blueprints: [] } }]]
+        };
       })
       .with({ type: 'teleport_unit' }, ({ params }) => {
         params.unit ??= { candidates: [[{ type: 'any_unit' }]], random: false };
@@ -941,7 +948,9 @@ watch(
         params.activeWhen ??= { candidates: [], random: false };
       })
       .with({ type: 'spawn' }, ({ params }) => {
-        params.blueprint ??= [];
+        params.blueprint ??= {
+          candidates: [[{ type: 'static', params: { blueprints: [] } }]]
+        };
         params.position ??= { candidates: [[{ type: undefined as any }]], random: false };
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
@@ -956,13 +965,17 @@ watch(
       .with({ type: 'equip_artifact' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
-        params.blueprint ??= [];
+        params.blueprint ??= {
+          candidates: [[{ type: 'static', params: { blueprints: [] } }]]
+        };
         params.player ??= { candidates: [[{ type: undefined as any }]], random: false };
       })
       .with({ type: 'summon_unit' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
-        params.blueprint ??= [];
+        params.blueprint ??= {
+          candidates: [[{ type: 'static', params: { blueprints: [] } }]]
+        };
         params.player ??= { candidates: [[{ type: undefined as any }]], random: false };
         params.position ??= { candidates: [[{ type: undefined as any }]], random: false };
       })
@@ -1056,7 +1069,9 @@ watch(
         params.filter ??= { candidates: [], random: false };
       })
       .with({ type: 'transform_unit' }, ({ params }) => {
-        params.blueprint ??= [];
+        params.blueprint ??= {
+          candidates: [[{ type: 'static', params: { blueprints: [] } }]]
+        };
         params.unit ??= { candidates: [[{ type: 'any_unit' }]] };
         params.execute ??= 'now';
         params.duration ??= 'always';
@@ -1093,7 +1108,7 @@ watch(
         params.duration ??= 'always';
         params.stacks ??= { type: 'fixed', params: { value: 1 } };
       })
-      .with({ type: 'destroy_cards_in_deck' }, ({ params }) => {
+      .with({ type: 'send_card_to_graveyard' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
         params.card ??= { candidates: [[{ type: 'any_card' }]] };
@@ -1279,6 +1294,10 @@ const id = useId();
         <KeywordNode v-model="(action.params as any)[key]" />
       </template>
 
+      <template v-else-if="key === 'tag'">
+        <TagNode v-model="(action.params as any)[key]" />
+      </template>
+
       <template v-else-if="isComponent(param)">
         <component
           :is="param"
@@ -1291,9 +1310,14 @@ const id = useId();
         <div v-for="(childParam, childKey) in param" :key="childKey" class="flex gap-2">
           <span class="capitalize min-w-11">{{ childKey }}</span>
 
+          <UiSwitch
+            v-if="childKey === 'enabled'"
+            v-model:checked="(action.params as any)[key][childKey]"
+          />
+
           <component
             :is="childParam"
-            v-if="(action.params as any)[key][childKey]"
+            v-else-if="(action.params as any)[key][childKey]"
             v-model="(action.params as any)[key][childKey]"
           />
         </div>

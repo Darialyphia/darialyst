@@ -3,6 +3,7 @@ import { Card, type SerializedCard } from './card';
 import { type Serializable, type Values } from '@game/shared';
 import type { PlayerId } from '../player/player';
 import { TypedEventEmitter } from '../utils/typed-emitter';
+import { shuffleArray } from '@game/shared';
 
 export type SerializedDeck = {
   cards: SerializedCard[];
@@ -39,7 +40,7 @@ export class Deck extends TypedEventEmitter<DeckEventMap> implements Serializabl
   }
 
   shuffle() {
-    this.cards = this.cards.sort(() => this.session.rngSystem.next() - 0.5);
+    this.cards = shuffleArray(this.cards, () => this.session.rngSystem.next());
   }
 
   async draw(amount: number) {

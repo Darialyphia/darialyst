@@ -22,7 +22,11 @@ export const f4Gloomchaser = defineSerializedBlueprint({
                 random: false
               },
               execute: 'now',
-              blueprint: ['f4_wraithling'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f4_wraithling'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [

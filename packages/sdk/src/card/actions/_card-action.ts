@@ -15,6 +15,10 @@ import type { EntityModifier } from '../../modifier/entity-modifier';
 import { getAmount } from '../helpers/amount';
 import { getEquipedArtifact } from '../conditions/artifact-conditions';
 import type { CardBlueprintId } from '../card';
+import {
+  getBlueprints,
+  type BlueprintCondition
+} from '../conditions/blueprint-conditions';
 
 export const noop = () => void 0;
 
@@ -57,7 +61,13 @@ export abstract class CardAction<T extends Action['type']> {
     });
   }
 
-  protected getBlueprint(blueprints: CardBlueprintId[]) {
+  protected getBlueprint(conditions: Filter<BlueprintCondition>) {
+    const blueprints = getBlueprints({
+      ...this.ctx,
+      conditions,
+      event: this.event,
+      eventName: this.eventName
+    });
     if (blueprints.length === 1) return blueprints[0]!;
 
     const idx = this.session.rngSystem.nextInt(blueprints.length - 1);

@@ -45,7 +45,11 @@ export const neutralJaxTruesight = defineSerializedBlueprint({
             params: {
               filter: { candidates: [[{ type: 'played_from_hand', params: {} }]] },
               execute: 'now',
-              blueprint: ['neutral_mini_jax'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['neutral_mini_jax'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]] },
               position: {
                 candidates: [

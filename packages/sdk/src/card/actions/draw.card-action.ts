@@ -1,3 +1,4 @@
+import { getTagById } from '../../utils/tribes';
 import { CardAction, noop } from './_card-action';
 
 export class DrawCardAction extends CardAction<'draw_cards'> {
@@ -7,6 +8,8 @@ export class DrawCardAction extends CardAction<'draw_cards'> {
         const amount = this.getAmount(this.action.params.amount);
         if (this.action.params.kind) {
           player.drawFromKind(amount, this.action.params.kind);
+        } else if (this.action.params.tag) {
+          player.drawFromTag(amount, getTagById(this.action.params.tag)!);
         } else {
           await player.draw(amount);
         }

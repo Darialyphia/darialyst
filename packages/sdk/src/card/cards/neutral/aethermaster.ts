@@ -9,7 +9,7 @@ export const neutralAethermaster = defineSerializedBlueprint({
   collectable: true,
   keywords: [],
   relatedBlueprintIds: [],
-  tags: [],
+  tags: ['arcanyst'],
   kind: CARD_KINDS.MINION,
   rarity: RARITIES.RARE,
   targets: { min: 0, targets: [] },

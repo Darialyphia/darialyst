@@ -1,7 +1,7 @@
 import { defineSerializedBlueprint } from '../../card-blueprint';
 
 export const f6FoxRavager = defineSerializedBlueprint({
-  id: 'fox_ravager',
+  id: 'f6_fox_ravager',
   name: 'Fox Ravager',
   collectable: false,
   keywords: [],

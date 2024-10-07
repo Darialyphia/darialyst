@@ -1,11 +1,12 @@
 import { defineSerializedBlueprint } from '../../card-blueprint';
+import { f6FoxRavager } from './fox-ravager';
 
 export const f6AspectOfTheFox = defineSerializedBlueprint({
   id: 'f6_asect_of_the_fox',
   name: 'Aspect of the Fox',
   collectable: true,
   keywords: [],
-  relatedBlueprintIds: [],
+  relatedBlueprintIds: [f6FoxRavager.id],
   tags: [],
   kind: 'SPELL',
   cost: 1,
@@ -19,7 +20,11 @@ export const f6AspectOfTheFox = defineSerializedBlueprint({
           {
             type: 'transform_unit',
             params: {
-              blueprint: ['fox_ravager'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f6_fox_ravager'] } }]
+                ]
+              },
               unit: {
                 candidates: [
                   [{ type: 'is_manual_target', params: { not: false, index: 0 } }]

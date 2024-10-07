@@ -113,6 +113,14 @@ export type Amount<T extends ConditionOverrides> =
       type: 'missing_cards_in_hand';
       // eslint-disable-next-line @typescript-eslint/ban-types
       params: {};
+    }
+  | {
+      type: 'count_of_units';
+      params: {
+        unit: Filter<
+          UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
+        >;
+      };
     };
 
 export const getAmount = ({
@@ -217,6 +225,12 @@ export const getAmount = ({
     })
     .with({ type: 'missing_cards_in_hand' }, () => {
       return ctx.session.config.MAX_HAND_SIZE - ctx.card.player.hand.length;
+    })
+    .with({ type: 'count_of_units' }, amount => {
+      return getUnits({
+        ...ctx,
+        conditions: amount.params.unit
+      }).length;
     })
     .exhaustive();
 };

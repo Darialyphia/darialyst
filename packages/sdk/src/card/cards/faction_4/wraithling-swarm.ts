@@ -19,7 +19,11 @@ export const f4WraithlingSwarm = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['f4_wraithling'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f4_wraithling'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [[{ type: 'is_manual_target', params: { index: 0 } }]],
@@ -32,7 +36,11 @@ export const f4WraithlingSwarm = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['f4_wraithling'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f4_wraithling'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [[{ type: 'is_manual_target', params: { index: 1 } }]],
@@ -45,7 +53,11 @@ export const f4WraithlingSwarm = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['f4_wraithling'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f4_wraithling'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [[{ type: 'is_manual_target', params: { index: 2 } }]],

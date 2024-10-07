@@ -19,7 +19,11 @@ export const f6BonechillBarrier = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['f6_ice_barrier'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f6_ice_barrier'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [

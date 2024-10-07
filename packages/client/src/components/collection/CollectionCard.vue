@@ -2,7 +2,6 @@
 import { api } from '@game/api';
 import type { Id } from '@game/api/src/convex/_generated/dataModel';
 import { type CardBlueprint } from '@game/sdk';
-import { uniqBy } from 'lodash-es';
 
 defineOptions({
   inheritAttrs: false
@@ -29,7 +28,6 @@ const {
 const emit = defineEmits<{ click: [] }>();
 
 const { settings } = useUserSettings();
-
 const cardEl = ref<HTMLElement>();
 const angle = ref({
   x: 0,

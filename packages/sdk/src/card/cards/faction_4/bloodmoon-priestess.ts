@@ -27,7 +27,11 @@ export const f4BloodmoonPriestess = defineSerializedBlueprint({
             params: {
               filter: { candidates: [], random: false },
               execute: 'now',
-              blueprint: ['bNFeb9'],
+              blueprint: {
+                candidates: [
+                  [{ type: 'static', params: { blueprints: ['f4_wraithling'] } }]
+                ]
+              },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
               position: {
                 candidates: [
