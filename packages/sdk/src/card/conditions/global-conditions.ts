@@ -205,7 +205,7 @@ export const checkGlobalConditions = (
           const isCardBeingPlayed = currentAction instanceof PlayCardAction;
 
           if (!isCardBeingPlayed) return false;
-          return card.equals(currentAction.cachedCard);
+          return card.isBeingPlayedFromHand;
         })
         .with({ type: 'target_exists' }, condition => {
           return !!targets[condition.params.index];

@@ -51,7 +51,7 @@ export class PlayCardAction extends GameAction<typeof schema> {
       return this.printError(`Card not found at index ${this.payload.cardIndex}`);
     }
     this.cachedCard = this.card;
-
+    console.log(this.cachedCard.blueprintId);
     if (this.isUnit && !this.cachedCard.canPlayAt(this.payload.position)) {
       return this.printError(
         `Not allowed to play ${this.cachedCard.blueprintId} as position ${JSON.stringify(this.payload.position)}`

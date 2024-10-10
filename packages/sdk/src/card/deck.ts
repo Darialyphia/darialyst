@@ -73,7 +73,6 @@ export class Deck extends TypedEventEmitter<DeckEventMap> implements Serializabl
 
   async replace(replacedCard: Card) {
     await this.emitAsync(DECK_EVENTS.BEFORE_REPLACE, { deck: this, replacedCard });
-
     let replacement: Card;
     let index: number;
 
@@ -90,9 +89,9 @@ export class Deck extends TypedEventEmitter<DeckEventMap> implements Serializabl
     );
 
     await replacedCard.replace();
-
     this.cards[index] = replacedCard;
 
+    console.groupEnd();
     await this.emitAsync(DECK_EVENTS.AFTER_REPLACE, {
       deck: this,
       replacedCard,

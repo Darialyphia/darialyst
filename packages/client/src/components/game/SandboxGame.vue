@@ -59,24 +59,24 @@ const wait = (duration: number) =>
     setTimeout(res, duration);
   });
 
-const aiWorker = new AIWorker();
 const serverSession = ServerSession.create(state, {
   seed: _seed,
   format: toRaw(format)
 });
 
-aiWorker.postMessage({
-  type: 'init',
-  payload: { state, seed: _seed, format: toRaw(format) }
-});
+// const aiWorker = new AIWorker();
+// aiWorker.postMessage({
+//   type: 'init',
+//   payload: { state, seed: _seed, format: toRaw(format) }
+// });
 
-aiWorker.addEventListener('message', async event => {
-  const action = event.data as SerializedAction | undefined;
-  if (action) {
-    await wait(500);
-    serverSession.dispatch(action);
-  }
-});
+// aiWorker.addEventListener('message', async event => {
+//   const action = event.data as SerializedAction | undefined;
+//   if (action) {
+//     await wait(500);
+//     serverSession.dispatch(action);
+//   }
+// });
 
 const clientSession = ClientSession.create(serverSession.serialize(), {
   format
