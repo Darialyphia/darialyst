@@ -34,7 +34,7 @@ const selectedCard = computed(() => {
 });
 const addCard = (card: GenericSerializedBlueprint) => {
   format.value.cards[card.id] = JSON.parse(JSON.stringify(card));
-  if (format.value.cards[card.id].sounds) {
+  if (!format.value.cards[card.id].sounds) {
     format.value.cards[card.id].sounds = {};
   }
   selectedCardId.value = card.id;

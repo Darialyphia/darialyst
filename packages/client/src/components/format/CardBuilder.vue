@@ -167,13 +167,17 @@ const spriteOptions = computed(() => {
     )
     .otherwise(() => []);
 });
-
+const soundSearch = ref('');
 const soundOptions = computed(() => {
-  return Object.keys(sounds).map(k => {
-    const filename = k.replace('/assets/sfx{m}/', '');
+  return Object.keys(sounds)
+    .filter(sound =>
+      sound.toLocaleLowerCase().includes(soundSearch.value.toLocaleLowerCase())
+    )
+    .map(k => {
+      const filename = k.replace('/assets/sfx{m}/', '');
 
-    return { value: filename, label: filename.split('.')[0] };
-  });
+      return { value: filename, label: filename.split('.')[0] };
+    });
 });
 const spriteModalRoot = ref<HTMLElement>();
 
@@ -228,7 +232,11 @@ const soundKeys = computed(() =>
     : [{ key: 'play', label: 'When played' }]
 );
 const soundDrawerOpened = ref<string | null>(null);
-
+watchEffect(() => {
+  if (soundDrawerOpened.value === null) {
+    soundSearch.value = '';
+  }
+});
 const soundsList = useVirtualList(soundOptions, { itemHeight: 32, overscan: 5 });
 </script>
 
@@ -406,6 +414,12 @@ const soundsList = useVirtualList(soundOptions, { itemHeight: 32, overscan: 5 })
         @update:is-opened="soundDrawerOpened = null"
       >
         <div class="overflow-hidden">
+          <UiTextInput
+            v-model="soundSearch"
+            id="sound-search"
+            left-icon="material-symbols:search"
+            placeholder="Search a sound"
+          />
           <div
             class="sounds-list fancy-scrollbar"
             v-bind="soundsList.containerProps"

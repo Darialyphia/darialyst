@@ -15,5 +15,13 @@ export const f2General2 = defineSerializedBlueprint({
   tags: [],
   keywords: [],
   relatedBlueprintIds: [],
-  effects: []
+  effects: [],
+  sounds: {
+    play: 'sfx_unit_deploy_1.m4a',
+    walk: 'sfx_neutral_ladylocke_attack_impact.m4a',
+    attack: 'sfx_f2general_attack_swing.m4a',
+    dealDamage: 'sfx_f2general_attack_impact_2.m4a',
+    takeDamage: 'sfx_f2general_hit_2.m4a',
+    death: 'sfx_f2general_death.m4a'
+  }
 });

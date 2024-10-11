@@ -15,5 +15,13 @@ export const f6General3 = defineSerializedBlueprint({
   tags: [],
   keywords: [],
   relatedBlueprintIds: [],
-  effects: []
+  effects: [],
+  sounds: {
+    play: 'sfx_unit_deploy.m4a',
+    walk: 'sfx_unit_run_charge_4.m4a',
+    attack: 'sfx_neutral_sunelemental_attack_swing.m4a',
+    dealDamage: 'sfx_neutral_ladylocke_attack_swing.m4a',
+    takeDamage: 'sfx_neutral_sunelemental_hit.m4a',
+    death: 'sfx_neutral_gambitgirl_death.m4a'
+  }
 });

@@ -15,5 +15,13 @@ export const f4General2 = defineSerializedBlueprint({
   tags: [],
   keywords: [],
   relatedBlueprintIds: [],
-  effects: []
+  effects: [],
+  sounds: {
+    play: 'sfx_spell_fractalreplication.m4a',
+    walk: 'sfx_neutral_ladylocke_attack_impact.m4a',
+    attack: 'sfx_neutral_prophetofthewhite_attack_swing.m4a',
+    dealDamage: 'sfx_f4_blacksolus_attack_impact.m4a',
+    takeDamage: 'sfx_f4_blacksolus_hit.m4a',
+    death: 'sfx_f1_elyxstormblade_death.m4a'
+  }
 });

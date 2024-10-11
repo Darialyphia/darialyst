@@ -267,6 +267,7 @@ import { neutralWorldcoreGolem } from './cards/neutral/worldcore-golem';
 import { f2Vigiluchi } from './cards/faction_2/vigiluchi';
 import { f3AncestralVessel } from './cards/faction_3/ancestral-vessel';
 import { f3Anubis } from './cards/faction_3/anubis';
+import { f1ArclyteProtector } from './cards/faction_1/arclyte-protector';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -302,6 +303,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f1Decimate,
   f1AegisBarrier,
   f1SkywindGlaives,
+  f1ArclyteProtector,
 
   f2General,
   f2General2,
