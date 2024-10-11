@@ -1,22 +1,17 @@
 <script setup lang="ts">
-import type { Id } from '@game/api/src/convex/_generated/dataModel';
 import { CARD_KINDS, CARDS, type CardKind } from '@game/sdk';
 import { parseSerializeBlueprint } from '@game/sdk/src/card/card-parser';
 import { uniqBy } from 'lodash-es';
 
-const { loadout, formatId } = defineProps<{
+const { loadout } = defineProps<{
   loadout: {
     name: string;
     cards: Array<{
       id: string;
       pedestalId: string;
-      cardBackId: string;
     }>;
   };
-  formatId: Id<'formats'> | undefined;
 }>();
-
-const isOpened = defineModel<boolean>('isOpened', { required: true });
 
 const groupedCards = computed(() => {
   const copies: Record<string, number> = {};
@@ -66,55 +61,43 @@ const getCountByKind = (kind: CardKind) => {
 const cardsCount = computed(() => {
   return loadout.cards.length;
 });
-
-const loadoutCode = computed(() => {
-  const json = JSON.stringify(loadout.cards.map(c => c.id));
-  const code = `${loadout.name}|${btoa(json)}|${formatId}`;
-  return encodeURIComponent(code);
-});
 </script>
 
 <template>
-  <UiModal
-    v-model:is-opened="isOpened"
-    :title="loadout.name"
-    :style="{ '--ui-modal-size': 'var(--size-lg)' }"
-  >
-    <template #title>
-      <div class="header">
-        <img :src="`/assets/ui/icon_${general.card.faction!.id}.png`" />
-        <div>
-          <div>{{ loadout.name }}</div>
-        </div>
-        <div class="flex text-1 font-4">
-          <div class="counts">
-            <div>
-              <span>{{ getCountByKind('MINION') }}</span>
-              Minions
-            </div>
-            <div>
-              <span>{{ getCountByKind('SPELL') }}</span>
-              Spells
-            </div>
-            <div>
-              <span>{{ getCountByKind('ARTIFACT') }}</span>
-              Artifacts
-            </div>
-            <div>
-              <span>{{ cardsCount }}</span>
-              Total
-            </div>
-          </div>
-          <LoadoutStats
-            :loadout="loadout.cards"
-            class="flex-1"
-            :style="{ '--bar-size': 'var(--size-11)' }"
-          />
-        </div>
+  <section class="loadout-details fancy-surface">
+    <div class="header">
+      <img :src="`/assets/ui/icon_${general.card.faction!.id}.png`" />
+      <div>
+        <div>{{ loadout.name }}</div>
       </div>
-    </template>
+      <div class="flex text-1 font-4">
+        <div class="counts">
+          <div>
+            <span>{{ getCountByKind('MINION') }}</span>
+            Minions
+          </div>
+          <div>
+            <span>{{ getCountByKind('SPELL') }}</span>
+            Spells
+          </div>
+          <div>
+            <span>{{ getCountByKind('ARTIFACT') }}</span>
+            Artifacts
+          </div>
+          <div>
+            <span>{{ cardsCount }}</span>
+            Total
+          </div>
+        </div>
+        <LoadoutStats
+          :loadout="loadout.cards"
+          class="flex-1"
+          :style="{ '--bar-size': 'var(--size-11)' }"
+        />
+      </div>
+    </div>
 
-    <div ref="root" class="root fancy-scrollbar">
+    <div class="root fancy-scrollbar">
       <ul class="minions-list">
         <li>
           <CardSprite
@@ -206,22 +189,19 @@ const loadoutCode = computed(() => {
         </div>
       </div>
     </div>
-    <NuxtLink
-      custom
-      :to="{ name: 'LoadoutPreview', query: { code: loadoutCode } }"
-      v-slot="{ href, navigate }"
-    >
-      <UiButton :href class="ghost-button" target="_blank" @click="navigate">
-        Open
-      </UiButton>
-    </NuxtLink>
-  </UiModal>
+  </section>
 </template>
 
 <style scoped lang="postcss">
 :has(> .root) {
   overflow-y: auto;
   max-height: 100dvh;
+}
+
+.loadout-details {
+  margin-inline: auto;
+  max-width: var(--size-lg);
+  padding-inline: var(--size-6);
 }
 .header {
   display: grid;

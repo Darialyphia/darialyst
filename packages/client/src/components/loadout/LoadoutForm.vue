@@ -10,14 +10,16 @@ import {
   type LoadoutViolation
 } from '@game/sdk';
 import { parseSerializeBlueprint } from '@game/sdk/src/card/card-parser';
-import type { Nullable } from '@game/shared';
+import type { Nullable, PartialBy } from '@game/shared';
 import { uniqBy } from 'lodash-es';
 
 const emit = defineEmits<{
   back: [];
 }>();
 
-const { format } = defineProps<{ format: Pick<GameFormatDto, 'cards' | 'config'> }>();
+const { format } = defineProps<{
+  format: PartialBy<Pick<GameFormatDto, '_id' | 'cards' | 'config'>, '_id'>;
+}>();
 const { formValues, save, isSaving } = useLoadoutForm();
 
 const formatCards = computed(() => {
@@ -100,7 +102,7 @@ const { copy } = useClipboard();
 
 const exportCode = () => {
   const json = JSON.stringify(formValues.value.cards.map(c => c.id));
-  const code = `${formValues.value.name}|${btoa(json)}`;
+  const code = `${formValues.value.name}|${btoa(json)}|${format._id}`;
   copy(code);
   importCode.value = code;
 };
@@ -166,6 +168,7 @@ const hasViolation = (type: LoadoutViolation['type']) =>
                   <LoadoutModal
                     v-model:is-opened="isDetailModalOpened"
                     :loadout="formValues"
+                    :format-id="format._id"
                   />
                   <UiButton
                     class="ghost-button"

@@ -154,7 +154,7 @@ const collectionItemComponent = computed(() =>
       v-if="loadouts"
       v-model:is-editing-loadout="isEditingLoadout"
       class="sidebar"
-      :format="selectedFormat"
+      :format="{ ...selectedFormat, _id: selectedFormatId }"
       :loadouts="loadouts"
     />
     <div v-else class="sidebar" />

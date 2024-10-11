@@ -252,6 +252,12 @@ export const KEYWORDS = {
     description: 'This unit takes less damage from all sources (minimum. 1).',
     aliases: [/though\([0-9]+\)/, 'tough']
   },
+  THORNS: {
+    id: 'thorns',
+    name: 'Thorns',
+    description: 'Deal extra damage to units attacking this.',
+    aliases: [/thorn\([0-9]+\)/, 'tough']
+  },
   VEIL: {
     id: 'veil',
     name: 'Veil',

@@ -92,10 +92,10 @@ export const useLoadoutFormProvider = ({
   };
 
   const initFromCode = (code: string) => {
-    const [name, formatId, cardsBase64] = code.split('|') as [
+    const [name, cardsBase64, formatId] = code.split('|') as [
       string,
-      Id<'formats'>,
-      string
+      string,
+      Id<'formats'>
     ];
     selectedFormatId.value = formatId;
     const decodedCards = JSON.parse(atob(cardsBase64)) as string[];

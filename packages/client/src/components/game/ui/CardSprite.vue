@@ -93,12 +93,14 @@ watchEffect(async () => {
 
 const staticStyle = computed(() => {
   if (!sheet.value) return null;
+  const animation =
+    sheet.value.animations['breathing'] ?? sheet.value.animations['default'];
   const { sourceSize } = Object.values(sheet.value.data.frames)[0];
   const bg = sheet.value.baseTexture.resource.src;
   return {
     '--bg': `url('${bg}')`,
-    '--width': `${sourceSize?.w}px`,
-    '--height': `${sourceSize?.h}px`,
+    '--width': `${animation ? animation[0].orig.width : sourceSize?.w}px`,
+    '--height': `${animation ? animation[0].orig.height : sourceSize?.h}px`,
     '--pos-x': 0,
     '--pos-y': 0
   };

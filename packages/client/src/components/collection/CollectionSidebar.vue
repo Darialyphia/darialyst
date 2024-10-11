@@ -2,11 +2,11 @@
 import type { Id } from '@game/api/src/convex/_generated/dataModel';
 import type { GameFormatDto } from '@game/api/src/convex/formats/format.mapper';
 import type { LoadoutDto } from '@game/api/src/convex/loadout/loadout.mapper';
-import type { Nullable } from '@game/shared';
+import type { Nullable, PartialBy } from '@game/shared';
 
 const { loadouts } = defineProps<{
   loadouts: LoadoutDto[];
-  format: Pick<GameFormatDto, 'cards' | 'config'>;
+  format: PartialBy<Pick<GameFormatDto, '_id' | 'cards' | 'config'>, '_id'>;
 }>();
 const isEditing = defineModel<boolean>('isEditingLoadout', { required: true });
 
