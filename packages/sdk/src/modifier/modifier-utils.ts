@@ -1015,9 +1015,10 @@ export const frenzy = ({ source }: { source: Card }) => {
         async listener(_, ctx) {
           const unsub = ctx.attachedTo.on('after_deal_damage', async event => {
             if (!event.isBattleDamage) return;
-            const nearbyEnemies = ctx.session.entitySystem.getNearbyEnemies(
-              ctx.attachedTo
-            );
+            const nearbyEnemies = ctx.session.entitySystem
+              .getNearbyEnemies(ctx.attachedTo)
+              .filter(enemy => !enemy.equals(event.target));
+
             await Promise.all(
               nearbyEnemies.map(enemy =>
                 ctx.attachedTo.dealDamage(event.amount, enemy, false)
