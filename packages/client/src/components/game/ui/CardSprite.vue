@@ -32,6 +32,7 @@ useIntersectionObserver(
 );
 
 const unload = () => {
+  if (import.meta.env.PROD) return;
   if (unloadOnUnmount && spriteId) {
     assets.unloadSpritesheet(spriteId);
   }
