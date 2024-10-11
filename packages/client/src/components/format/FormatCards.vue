@@ -13,7 +13,7 @@ const format = defineModel<{
   cards: Record<string, GenericSerializedBlueprint>;
   config: GameSessionConfig;
 }>('format', { required: true });
-console.log(format.value);
+
 const customCards = computed(() =>
   Object.values(format.value.cards).filter(card => !CARDS[card.id])
 );

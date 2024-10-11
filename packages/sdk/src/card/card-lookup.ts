@@ -264,6 +264,7 @@ import { neutralGolemVanguard } from './cards/neutral/golem-vanguard';
 import { neutralGolemMetallurgist } from './cards/neutral/golem-metallurgist';
 import { neutralNebula } from './cards/neutral/nebula';
 import { neutralWorldcoreGolem } from './cards/neutral/worldcore-golem';
+import { f2Vigiluchi } from './cards/faction_2/vigiluchi';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -336,6 +337,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f2CycloneMask,
   f2MistWalking,
   f2BattlePanddo,
+  f2Vigiluchi,
 
   f3General,
   f3General2,

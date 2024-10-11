@@ -15,6 +15,7 @@ const {
   unloadOnUnmount?: boolean;
 }>();
 const assets = useAssets();
+
 const { settings } = useUserSettings();
 
 const sheet = ref<SpritesheetWithAnimations>();
@@ -32,10 +33,11 @@ useIntersectionObserver(
 );
 
 const unload = () => {
-  if (import.meta.env.PROD) return;
-  if (unloadOnUnmount && spriteId) {
-    assets.unloadSpritesheet(spriteId);
-  }
+  return;
+  // if (import.meta.env.PROD) return;
+  // if (unloadOnUnmount && spriteId) {
+  //   assets.unloadSpritesheet(spriteId);
+  // }
 };
 watchEffect(async () => {
   if (!assets.loaded.value) return;

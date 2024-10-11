@@ -9,7 +9,7 @@ import {
 } from 'pixi.js';
 import type { InjectionKey } from 'vue';
 import { BaseTexture, SCALE_MODES } from 'pixi.js';
-import { getUnits } from '@game/sdk/src/card/conditions/unit-conditions';
+import type { Nullable } from '@game/shared';
 
 BaseTexture.defaultOptions.scaleMode = SCALE_MODES.NEAREST;
 
@@ -17,6 +17,7 @@ export type SpritesheetWithAnimations = Spritesheet & {
   animations: Record<string, Texture[]>;
 };
 export type AssetsContext = {
+  manifest: Readonly<Nullable<AssetsManifest>>;
   loaded: Ref<boolean>;
   fullyLoaded: Ref<boolean>;
   loadSpritesheet(key: string): Promise<SpritesheetWithAnimations>;
@@ -71,6 +72,7 @@ const getNormalAssetData = (
 };
 
 export const useAssetsProvider = () => {
+  let manifest: AssetsManifest;
   // means the essentials are loaded and the app is ready to run
   const loaded = ref(false);
   // means that all bundles have been loaded, except units and icons that are lazy loaded. The game screen s ready to be displayed
@@ -79,7 +81,7 @@ export const useAssetsProvider = () => {
   const init = async () => {
     extensions.add(asepriteSpriteSheetParser, asepriteTilesetParser);
     Assets.cache.reset();
-    const manifest = await $fetch<AssetsManifest>('/assets/assets-manifest.json');
+    manifest = await $fetch<AssetsManifest>('/assets/assets-manifest.json');
 
     // createNormalSheetsBundle(manifest, 'units');
     // transform the manifest to add separate bundles for units and icons, as loading everything at once is way too expensive
@@ -115,7 +117,11 @@ export const useAssetsProvider = () => {
 
   const bundlesPromises = new Map<string, Promise<any>>();
   const normalPromises = new Map<string, Promise<SpritesheetWithAnimations>>();
+
   const api: AssetsContext = {
+    get manifest() {
+      return manifest;
+    },
     loaded,
     fullyLoaded,
     load,
