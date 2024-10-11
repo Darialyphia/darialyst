@@ -1,15 +1,34 @@
 import { Interceptable, type inferInterceptor } from '../utils/helpers';
 import type { Point3D, Serializable } from '@game/shared';
 import { Entity, ENTITY_EVENTS } from '../entity/entity';
-import { Card, type CardBlueprintId } from './card';
+import { Card, CARD_EVENTS, type CardBlueprintId, type SerializedCard } from './card';
 import { CARD_KINDS } from './card-enums';
 import { PlayCardAction } from '../action/play-card.action';
+import type { CardIndex, PlayerId } from '../player/player';
+import type { GameSession } from '../game-session';
 
 export type UnitInterceptor = Unit['interceptors'];
 
 export class Unit extends Card implements Serializable {
   entity!: Entity;
 
+  constructor(
+    session: GameSession,
+    index: CardIndex,
+    options: SerializedCard,
+    playerId: PlayerId
+  ) {
+    super(session, index, options, playerId);
+    this.on(CARD_EVENTS.CHANGE_OWNER, () => {
+      const interceptors = [
+        this.entity.addInterceptor('canAttack', () => false),
+        this.entity.addInterceptor('canMove', () => false)
+      ];
+      this.session.once('player:turn_end', () => {
+        interceptors.forEach(unsub => unsub());
+      });
+    });
+  }
   override get blueprint() {
     const blueprint = this.session.cardBlueprints[this.blueprintId];
     if (blueprint.kind !== CARD_KINDS.GENERAL && blueprint.kind !== CARD_KINDS.MINION) {
