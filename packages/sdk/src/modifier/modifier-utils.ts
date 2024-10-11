@@ -1,4 +1,4 @@
-import type { MaybePromise, Point3D } from '@game/shared';
+import { dist, isDefined, type MaybePromise, type Point3D } from '@game/shared';
 import { type Cell } from '../board/cell';
 import type { GameSession } from '../game-session';
 import { Entity, ENTITY_EVENTS, type EntityId } from '../entity/entity';
@@ -1310,6 +1310,65 @@ export const veil = ({ duration, source }: { source: Card; duration?: number }) 
         tickOn: 'start',
         duration,
         keywords: [KEYWORDS.VEIL]
+      })
+    ]
+  });
+};
+
+export const battlePet = ({ source }: { source: Card }) => {
+  return createEntityModifier({
+    id: KEYWORDS.BATTLE_PET.id,
+    visible: false,
+    stackable: false,
+    source,
+    mixins: [
+      modifierGameEventMixin({
+        eventName: 'player:turn_start',
+        keywords: [KEYWORDS.BATTLE_PET],
+        async listener([player], { session, attachedTo }) {
+          if (!player.equals(attachedTo.player)) return;
+          const [closestAttackableEnemy] = attachedTo.player.opponent.entities
+            .filter(enemy => attachedTo.canAttack(enemy))
+            .sort((a, b) => {
+              return (
+                dist(a.position, attachedTo.position) -
+                dist(b.position, attachedTo.position)
+              );
+            });
+
+          if (closestAttackableEnemy) {
+            await attachedTo.performAttack(closestAttackableEnemy);
+            return;
+          } else {
+            const [shortestPathToEnemy] = attachedTo.player.opponent.entities
+              .map(enemy => {
+                return session.boardSystem
+                  .getNeighbors3D(enemy.position)
+                  .filter(cell => cell.isWalkable && !cell.entity)
+                  .map(cell => ({
+                    enemy,
+                    path: session.boardSystem.getPathTo(attachedTo, cell)
+                  }))
+                  .filter(element => isDefined(element.path))
+                  .sort((a, b) => {
+                    return a.path!.path.length - b.path!.path.length;
+                  })
+                  .at(0);
+              })
+              .filter(isDefined)
+              .sort((a, b) => {
+                return a.path!.path.length - b.path!.path.length;
+              });
+
+            if (!shortestPathToEnemy) return;
+            await attachedTo.move(
+              shortestPathToEnemy.path!.path.slice(0, attachedTo.speed)
+            );
+            if (attachedTo.canAttack(shortestPathToEnemy.enemy)) {
+              await attachedTo.performAttack(shortestPathToEnemy.enemy);
+            }
+          }
+        }
       })
     ]
   });

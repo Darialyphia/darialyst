@@ -494,6 +494,15 @@ export type Action<
       };
     }
   | {
+      type: 'battle_pet';
+      params: {
+        activeWhen?: Filter<GlobalCondition<T>>;
+        duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
+        execute?: ExecutionDelay;
+        filter?: Filter<GlobalCondition<T>>;
+      };
+    }
+  | {
       type: 'vulnerable';
       params: {
         stacks: Amount<T>;

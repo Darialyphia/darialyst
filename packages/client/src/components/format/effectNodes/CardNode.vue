@@ -1,7 +1,14 @@
 <script setup lang="ts">
+import { isDefined } from '@game/shared';
 import type { CardConditionBase, Filter } from '@game/sdk';
 import { match } from 'ts-pattern';
-import { NumericOperatorNode, AmountNode, PlayerNode, BlueprintNode } from '#components';
+import {
+  NumericOperatorNode,
+  AmountNode,
+  PlayerNode,
+  BlueprintNode,
+  TagNode
+} from '#components';
 
 const groups = defineModel<Filter<CardConditionBase>>({ required: true });
 
@@ -22,7 +29,8 @@ const componentNodes: Record<string, Component | string> = {
   operator: NumericOperatorNode,
   amount: AmountNode,
   player: PlayerNode,
-  blueprint: BlueprintNode
+  blueprint: BlueprintNode,
+  tag: TagNode
 };
 </script>
 
@@ -76,6 +84,11 @@ const componentNodes: Record<string, Component | string> = {
                 }
               };
             })
+            .with({ type: 'has_tag' }, condition => {
+              condition.params = {
+                tag: ''
+              };
+            })
             .exhaustive();
         }
       "
@@ -95,7 +108,11 @@ const componentNodes: Record<string, Component | string> = {
       <template v-else>
         <component
           :is="componentNodes[param]"
-          v-if="(groups.candidates[groupIndex][conditionIndex] as any).params[param]"
+          v-if="
+            isDefined(
+              (groups.candidates[groupIndex][conditionIndex] as any).params[param]
+            )
+          "
           v-model="(groups.candidates[groupIndex][conditionIndex] as any).params[param]"
         />
       </template>

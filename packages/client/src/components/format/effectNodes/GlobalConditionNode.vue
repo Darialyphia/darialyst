@@ -152,7 +152,7 @@ const id = useId();
             value="all"
             step="1"
           />
-          All the following conditions match
+          All the units match the following conditions
         </label>
         <label>
           <input
@@ -160,7 +160,7 @@ const id = useId();
             type="radio"
             value="some"
           />
-          Some of the following conditions match
+          At least one unit match the following conditions
         </label>
         <label>
           <input
@@ -171,7 +171,7 @@ const id = useId();
             value="none"
             step="1"
           />
-          None of the following conditions match
+          None of the units match the following conditions
         </label>
       </fieldset>
 

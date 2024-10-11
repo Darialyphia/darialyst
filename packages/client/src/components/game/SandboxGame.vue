@@ -94,8 +94,8 @@ const error = ref<Nullable<Error>>(null);
 serverSession.on('game:error', err => {
   console.group('Crash report');
   console.log('%cServer Session', 'color: blue;', serverSession);
-  console.log('%Client Session', 'color: green', clientSession);
-  console.log(error);
+  console.log('%cClient Session', 'color: green', clientSession);
+  console.log(error.value);
   console.groupEnd();
   error.value = err;
 });

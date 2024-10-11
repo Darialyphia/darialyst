@@ -9,6 +9,7 @@ import {
 } from 'pixi.js';
 import type { InjectionKey } from 'vue';
 import { BaseTexture, SCALE_MODES } from 'pixi.js';
+import { getUnits } from '@game/sdk/src/card/conditions/unit-conditions';
 
 BaseTexture.defaultOptions.scaleMode = SCALE_MODES.NEAREST;
 
@@ -19,6 +20,7 @@ export type AssetsContext = {
   loaded: Ref<boolean>;
   fullyLoaded: Ref<boolean>;
   loadSpritesheet(key: string): Promise<SpritesheetWithAnimations>;
+  unloadSpritesheet(key: string): Promise<void>;
   loadTexture(key: string): Promise<Texture>;
   loadNormalSpritesheet(
     key: string,
@@ -36,12 +38,16 @@ const splitBundle = (manifest: AssetsManifest, name: string) => {
   const bundle = manifest.bundles.find(b => b.name === name)!;
   manifest.bundles.splice(manifest.bundles.indexOf(bundle), 1);
 
+  const bundleIds: string[] = [];
   (bundle.assets as UnresolvedAsset[]).forEach(asset => {
-    manifest.bundles.push({
+    const newBundle = {
       name: asset.alias?.[0] ?? '',
       assets: [asset]
-    });
+    };
+    manifest.bundles.push(newBundle);
+    bundleIds.push(newBundle.name);
   });
+  return bundleIds;
 };
 
 const getNormalAssetData = (
@@ -72,7 +78,6 @@ export const useAssetsProvider = () => {
 
   const init = async () => {
     extensions.add(asepriteSpriteSheetParser, asepriteTilesetParser);
-
     Assets.cache.reset();
     const manifest = await $fetch<AssetsManifest>('/assets/assets-manifest.json');
 
@@ -102,7 +107,7 @@ export const useAssetsProvider = () => {
   const load = async () => {
     if (loaded.value) return;
     await init();
-    await Promise.all([Assets.loadBundle('ui'), Assets.loadBundle('pedestals')]);
+    await Promise.all(['ui', 'pedestals'].map(id => Assets.loadBundle(id)));
     loaded.value = true;
 
     loadNonCriticalResources();
@@ -145,6 +150,11 @@ export const useAssetsProvider = () => {
       }
       await bundlesPromises.get(key);
       return Assets.get<SpritesheetWithAnimations>(key);
+    },
+    async unloadSpritesheet(key) {
+      if (!bundlesPromises.has(key)) return;
+      bundlesPromises.delete(key);
+      return Assets.unloadBundle(key);
     },
     async loadTexture(key) {
       // avoids pixi warning messages when we try to load a bundle multiple times

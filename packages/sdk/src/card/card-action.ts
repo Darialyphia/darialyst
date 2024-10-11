@@ -64,6 +64,7 @@ import { FreezeCardAction } from './actions/freeze.card-action';
 import { VeilCardAction } from './actions/veil.card-action';
 import { WallCardAction } from './actions/wall.card-action';
 import { InfiltrateCardAction } from './actions/infiltrate.card-action';
+import { BattlePetCardAction } from './actions/battle-pet.card-action';
 
 export type ParsedActionResult = (
   ctx: EffectCtx,
@@ -271,6 +272,9 @@ export const parseCardAction = (action: Action): ParsedActionResult => {
       })
       .with({ type: 'infiltrate' }, action => {
         return new InfiltrateCardAction(action, ctx, event, eventName).execute();
+      })
+      .with({ type: 'battle_pet' }, action => {
+        return new BattlePetCardAction(action, ctx, event, eventName).execute();
       })
       .exhaustive();
   };

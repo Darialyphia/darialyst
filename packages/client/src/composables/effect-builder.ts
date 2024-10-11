@@ -144,6 +144,10 @@ export const [useCardConditionsProvider, _useCardConditions] = createInjectionSt
       has_blueprint: {
         label: 'A card with the name',
         params: ['blueprint']
+      },
+      has_tag: {
+        label: 'A card with a tag',
+        params: ['tag']
       }
     };
 

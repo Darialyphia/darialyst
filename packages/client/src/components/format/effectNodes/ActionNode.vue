@@ -365,6 +365,15 @@ const actionDict: ActionDictionary = {
       filter: GlobalConditionNode
     }
   },
+  battle_pet: {
+    label: 'Battle Pet',
+    params: {
+      activeWhen: GlobalConditionNode,
+      duration: null,
+      execute: null,
+      filter: GlobalConditionNode
+    }
+  },
   veil: {
     label: 'Veil',
     params: {
@@ -1135,6 +1144,12 @@ watch(
       .with({ type: 'wall' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
+        params.duration ??= 'always';
+      })
+      .with({ type: 'battle_pet' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+        params.activeWhen ??= { candidates: [], random: false };
         params.duration ??= 'always';
       })
       .exhaustive();

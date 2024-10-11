@@ -749,7 +749,7 @@
  ],
  "meta": {
   "app": "https://www.aseprite.org/",
-  "version": "1.3.8.1-x64",
+  "version": "1.3.9.2-x64",
   "image": "f1_archdeacon.png",
   "format": "RGBA8888",
   "size": { "w": 3380, "h": 780 },

@@ -5,12 +5,14 @@ const {
   spriteId,
   pedestalId,
   animation,
-  animated = true
+  animated = true,
+  unloadOnUnmount
 } = defineProps<{
   spriteId?: string;
   pedestalId?: string;
   animation?: Animation;
   animated?: boolean;
+  unloadOnUnmount?: boolean;
 }>();
 const assets = useAssets();
 const { settings } = useUserSettings();
@@ -29,13 +31,27 @@ useIntersectionObserver(
   }
 );
 
+const unload = () => {
+  if (unloadOnUnmount && spriteId) {
+    assets.unloadSpritesheet(spriteId);
+  }
+};
 watchEffect(async () => {
   if (!assets.loaded.value) return;
   if (!spriteId) return;
-  if (!isVisible.value) return;
+  if (!isVisible.value) {
+    sheet.value = undefined;
+    unload();
+    return;
+  }
   sheet.value = await assets.loadSpritesheet(spriteId);
 });
 
+onUnmounted(() => {
+  if (spriteId) {
+    unload();
+  }
+});
 const isHovered = ref(false);
 
 const currentAnimation = computed(() => {

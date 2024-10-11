@@ -281,7 +281,7 @@ const soundsList = useVirtualList(soundOptions, { itemHeight: 32, overscan: 5 })
                     }
                   "
                 >
-                  <CardSprite :sprite-id="sprite" />
+                  <CardSprite :sprite-id="sprite" unload-on-unmount />
                 </div>
               </template>
             </div>

@@ -408,10 +408,6 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
   }
 
   getCardFromHand(index: CardIndex) {
-    console.log(
-      index,
-      this.hand.map(c => c.blueprintId)
-    );
     return this.hand[index];
   }
 

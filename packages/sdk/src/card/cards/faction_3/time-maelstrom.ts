@@ -17,7 +17,7 @@ export const f3TimeMaelstrom = defineSerializedBlueprint({
   faction: 'f3',
   effects: [
     {
-      text: 'Give @Ephemeral@ to all minions.',
+      text: 'Give @Ephemeral@ to all enemy minions.',
       config: {
         executionContext: 'immediate',
         actions: [
@@ -25,7 +25,12 @@ export const f3TimeMaelstrom = defineSerializedBlueprint({
             type: 'add_effect',
             params: {
               unit: {
-                candidates: [[{ type: 'is_minion', params: { not: false } }]],
+                candidates: [
+                  [
+                    { type: 'is_minion', params: { not: false } },
+                    { type: 'is_enemy', params: { not: false } }
+                  ]
+                ],
                 random: false
               },
               effect: {

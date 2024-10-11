@@ -254,6 +254,16 @@ import { f6Coldbiter } from './cards/faction_6/coldbiter';
 import { f6BoreanBear } from './cards/faction_6/borean_bear';
 import { f6Frostfire } from './cards/faction_6/frostfire';
 import { f6Cryogenesis } from './cards/faction_6/cryogenesis';
+import { neutralSkyrockGolem } from './cards/neutral/skyrock-golem';
+import { neutralBloodshardGolem } from './cards/neutral/bloodshard-golem';
+import { neutralHailstoneGolem } from './cards/neutral/heilstone-golem';
+import { neutralBrightmossGolem } from './cards/neutral/brightmoss-golem';
+import { neutralStormMetalGolem } from './cards/neutral/storm-metal-golem';
+import { neutralDragonboneGolem } from './cards/neutral/dragonbone-golem';
+import { neutralGolemVanguard } from './cards/neutral/golem-vanguard';
+import { neutralGolemMetallurgist } from './cards/neutral/golem-metallurgist';
+import { neutralNebula } from './cards/neutral/nebula';
+import { neutralWorldcoreGolem } from './cards/neutral/worldcore-golem';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -514,7 +524,17 @@ const allCards: SerializedBlueprint<any>[] = [
   neutralPandoraYellow,
   neutralPaddo,
   neutralAstralCrusader,
-  neutralBladeshaker
+  neutralBladeshaker,
+  neutralSkyrockGolem,
+  neutralBloodshardGolem,
+  neutralHailstoneGolem,
+  neutralBrightmossGolem,
+  neutralStormMetalGolem,
+  neutralDragonboneGolem,
+  neutralGolemVanguard,
+  neutralGolemMetallurgist,
+  neutralNebula,
+  neutralWorldcoreGolem
 ];
 
 export const CARDS = keyBy(allCards, 'id') as Record<

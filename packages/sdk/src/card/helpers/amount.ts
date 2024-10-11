@@ -23,7 +23,11 @@ export type Amount<T extends ConditionOverrides> =
     }
   | {
       type: 'cards_in_hands';
-      params: { player: Filter<PlayerCondition> };
+      params: {
+        player: Filter<PlayerCondition>;
+        add?: number;
+        scale?: number;
+      };
     }
   | {
       type: 'attack';
@@ -31,6 +35,8 @@ export type Amount<T extends ConditionOverrides> =
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        add?: number;
+        scale?: number;
       };
     }
   | {
@@ -39,6 +45,8 @@ export type Amount<T extends ConditionOverrides> =
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        add?: number;
+        scale?: number;
       };
     }
   | {
@@ -47,6 +55,8 @@ export type Amount<T extends ConditionOverrides> =
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        add?: number;
+        scale?: number;
       };
     }
   | {
@@ -55,6 +65,8 @@ export type Amount<T extends ConditionOverrides> =
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        add?: number;
+        scale?: number;
       };
     }
   | {
@@ -63,6 +75,8 @@ export type Amount<T extends ConditionOverrides> =
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        add?: number;
+        scale?: number;
       };
     }
   | {
@@ -71,6 +85,8 @@ export type Amount<T extends ConditionOverrides> =
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        add?: number;
+        scale?: number;
       };
     }
   | {
@@ -79,6 +95,8 @@ export type Amount<T extends ConditionOverrides> =
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        add?: number;
+        scale?: number;
       };
     }
   | {
@@ -87,6 +105,8 @@ export type Amount<T extends ConditionOverrides> =
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        add?: number;
+        scale?: number;
       };
     }
   | {
@@ -95,24 +115,33 @@ export type Amount<T extends ConditionOverrides> =
         card: Filter<
           CardConditionBase | Extract<CardConditionExtras, { type: T['card'] }>
         >;
-        scale: number;
+        add?: number;
+        scale?: number;
       };
     }
   | {
       type: 'equiped_artifact_count';
       params: {
         player: Filter<PlayerCondition>;
+        add?: number;
+        scale?: number;
       };
     }
   | {
       type: 'destroyed_units';
       // eslint-disable-next-line @typescript-eslint/ban-types
-      params: {};
+      params: {
+        add?: number;
+        scale?: number;
+      };
     }
   | {
       type: 'missing_cards_in_hand';
       // eslint-disable-next-line @typescript-eslint/ban-types
-      params: {};
+      params: {
+        add?: number;
+        scale?: number;
+      };
     }
   | {
       type: 'count_of_units';
@@ -120,8 +149,15 @@ export type Amount<T extends ConditionOverrides> =
         unit: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        add?: number;
+        scale?: number;
       };
     };
+
+const withCommonParams = (params: { add?: number; scale?: number }, amount: number) => {
+  const scaled = amount * (params.scale ?? 1);
+  return scaled + (params.add ?? 0);
+};
 
 export const getAmount = ({
   amount,
@@ -140,7 +176,8 @@ export const getAmount = ({
     .with({ type: 'cards_in_hands' }, amount => {
       const [player] = getPlayers({ ...ctx, conditions: amount.params.player });
       if (!player) return 0;
-      return player.hand.length;
+
+      return withCommonParams(amount.params, player.hand.length);
     })
     .with({ type: 'cost' }, amount => {
       const [unit] = getUnits({
@@ -148,7 +185,8 @@ export const getAmount = ({
         conditions: amount.params.unit
       });
       if (!unit) return unit;
-      return unit.card.cost;
+
+      return withCommonParams(amount.params, unit.card.cost);
     })
     .with({ type: 'attack' }, amount => {
       const [unit] = getUnits({
@@ -156,7 +194,7 @@ export const getAmount = ({
         conditions: amount.params.unit
       });
       if (!unit) return unit;
-      return unit.attack;
+      return withCommonParams(amount.params, unit.attack);
     })
     .with({ type: 'lowest_attack' }, amount => {
       return Math.min(
@@ -167,11 +205,14 @@ export const getAmount = ({
       );
     })
     .with({ type: 'highest_attack' }, amount => {
-      return Math.max(
-        ...getUnits({
-          ...ctx,
-          conditions: amount.params.unit
-        }).map(u => u.attack)
+      return withCommonParams(
+        amount.params,
+        Math.max(
+          ...getUnits({
+            ...ctx,
+            conditions: amount.params.unit
+          }).map(u => u.attack)
+        )
       );
     })
     .with({ type: 'hp' }, amount => {
@@ -180,7 +221,7 @@ export const getAmount = ({
         conditions: amount.params.unit
       });
       if (!unit) return unit;
-      return unit.hp;
+      return withCommonParams(amount.params, unit.hp);
     })
     .with({ type: 'maxHp' }, amount => {
       const [unit] = getUnits({
@@ -188,22 +229,28 @@ export const getAmount = ({
         conditions: amount.params.unit
       });
       if (!unit) return unit;
-      return unit.maxHp;
+      return withCommonParams(amount.params, unit.maxHp);
     })
     .with({ type: 'lowest_hp' }, amount => {
-      return Math.min(
-        ...getUnits({
-          ...ctx,
-          conditions: amount.params.unit
-        }).map(u => u.hp)
+      return withCommonParams(
+        amount.params,
+        Math.min(
+          ...getUnits({
+            ...ctx,
+            conditions: amount.params.unit
+          }).map(u => u.hp)
+        )
       );
     })
     .with({ type: 'highest_hp' }, amount => {
-      return Math.max(
-        ...getUnits({
-          ...ctx,
-          conditions: amount.params.unit
-        }).map(u => u.hp)
+      return withCommonParams(
+        amount.params,
+        Math.max(
+          ...getUnits({
+            ...ctx,
+            conditions: amount.params.unit
+          }).map(u => u.hp)
+        )
       );
     })
     .with({ type: 'card_played_since_last_turn' }, amount => {
@@ -211,26 +258,34 @@ export const getAmount = ({
         ctx.card.player.playedCardSinceLastTurn.includes(card)
       );
 
-      return cards.length * amount.params.scale;
+      return withCommonParams(amount.params, cards.length);
     })
     .with({ type: 'equiped_artifact_count' }, amount => {
       const [player] = getPlayers({ ...ctx, conditions: amount.params.player });
 
-      return player.artifacts.length;
+      return withCommonParams(amount.params, player.artifacts.length);
     })
-    .with({ type: 'destroyed_units' }, () => {
-      return ctx.session.entitySystem
-        .getList()
-        .filter(e => e.destroyedBy?.equals(ctx.card)).length;
+    .with({ type: 'destroyed_units' }, amount => {
+      return withCommonParams(
+        amount.params,
+        ctx.session.entitySystem.getList().filter(e => e.destroyedBy?.equals(ctx.card))
+          .length
+      );
     })
-    .with({ type: 'missing_cards_in_hand' }, () => {
-      return ctx.session.config.MAX_HAND_SIZE - ctx.card.player.hand.length;
+    .with({ type: 'missing_cards_in_hand' }, amount => {
+      return withCommonParams(
+        amount.params,
+        ctx.session.config.MAX_HAND_SIZE - ctx.card.player.hand.length
+      );
     })
     .with({ type: 'count_of_units' }, amount => {
-      return getUnits({
-        ...ctx,
-        conditions: amount.params.unit
-      }).length;
+      return withCommonParams(
+        amount.params,
+        getUnits({
+          ...ctx,
+          conditions: amount.params.unit
+        }).length
+      );
     })
     .exhaustive();
 };

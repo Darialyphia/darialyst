@@ -27,7 +27,8 @@ export type CardConditionBase =
         amount: Amount<{ unit: UnitConditionExtras['type'] }>;
       };
     }
-  | { type: 'has_blueprint'; params: { blueprint: Filter<BlueprintCondition> } };
+  | { type: 'has_blueprint'; params: { blueprint: Filter<BlueprintCondition> } }
+  | { type: 'has_tag'; params: { tag: string } };
 
 export type CardConditionExtras =
   | { type: 'drawn_card' }
@@ -140,6 +141,9 @@ export const getCards = ({
                 eventName
               });
               return blueprints.some(b => b.id === c.blueprintId);
+            })
+            .with({ type: 'has_tag' }, condition => {
+              return c.blueprint.tags?.some(tag => tag.id === condition.params.tag);
             })
             .exhaustive();
         });
