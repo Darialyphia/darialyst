@@ -10,6 +10,7 @@ export class ChangeReplaceCountCardAction extends CardAction<'change_replaces_co
       return match(this.action.params.mode)
         .with('give', () => value + this.getAmount(this.action.params.amount))
         .with('set', () => staticValue)
+        .with('scale', () => value * this.getAmount(this.action.params.amount))
         .exhaustive();
     };
   }

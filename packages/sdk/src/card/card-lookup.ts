@@ -265,6 +265,8 @@ import { neutralGolemMetallurgist } from './cards/neutral/golem-metallurgist';
 import { neutralNebula } from './cards/neutral/nebula';
 import { neutralWorldcoreGolem } from './cards/neutral/worldcore-golem';
 import { f2Vigiluchi } from './cards/faction_2/vigiluchi';
+import { f3AncestralVessel } from './cards/faction_3/ancestral-vessel';
+import { f3Anubis } from './cards/faction_3/anubis';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -373,6 +375,8 @@ const allCards: SerializedBlueprint<any>[] = [
   f3Hexblade,
   f3TimeMaelstrom,
   f3AurorasTears,
+  f3AncestralVessel,
+  f3Anubis,
 
   f4General,
   f4General2,

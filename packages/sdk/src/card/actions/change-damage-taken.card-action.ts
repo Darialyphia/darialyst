@@ -30,8 +30,9 @@ export class ChangeDamageTakenAction extends CardAction<'change_damage_taken'> {
               const amount = this.getAmount(this.action.params.amount);
 
               return match(this.action.params.mode)
-                .with('give', () => value + amount)
+                .with('give', () => Math.max(0, value + amount))
                 .with('set', () => amount)
+                .with('scale', () => value * amount)
                 .exhaustive();
             }
         })

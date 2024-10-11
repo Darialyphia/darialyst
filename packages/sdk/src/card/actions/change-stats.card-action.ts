@@ -23,6 +23,7 @@ export class ChangeStatsCardAction extends CardAction<'change_stats'> {
       return match(this.action.params.mode)
         .with('give', () => Math.max(0, value + amount))
         .with('set', () => staticValue)
+        .with('scale', () => value * amount)
         .exhaustive();
     };
   }
@@ -42,10 +43,9 @@ export class ChangeStatsCardAction extends CardAction<'change_stats'> {
       const amount = this.getAmount(this.action.params.hp.amount);
 
       return match(this.action.params.mode)
-        .with('give', () => {
-          return value + amount;
-        })
+        .with('give', () => Math.max(0, value + amount))
         .with('set', () => staticValue)
+        .with('scale', () => value * amount)
         .exhaustive();
     };
   }
@@ -65,10 +65,9 @@ export class ChangeStatsCardAction extends CardAction<'change_stats'> {
       const amount = this.getAmount(this.action.params.speed.amount);
 
       return match(this.action.params.mode)
-        .with('give', () => {
-          return value + amount;
-        })
+        .with('give', () => Math.max(0, value + amount))
         .with('set', () => staticValue)
+        .with('scale', () => value * amount)
         .exhaustive();
     };
   }

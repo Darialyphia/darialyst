@@ -1168,7 +1168,11 @@ const id = useId();
       <fieldset v-if="key === 'mode'" class="flex flex-col">
         <label>
           <input v-model="(action.params as any)[key]" type="radio" value="give" />
-          Add amount to current stats
+          Add amount
+        </label>
+        <label>
+          <input v-model="(action.params as any)[key]" type="radio" value="scale" />
+          Scale amount
         </label>
         <label>
           <input v-model="(action.params as any)[key]" type="radio" value="set" />

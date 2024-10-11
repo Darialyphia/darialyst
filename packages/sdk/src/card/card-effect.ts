@@ -74,7 +74,7 @@ export type Action<
       type: 'change_stats';
       params: {
         filter?: Filter<GlobalCondition<T>>;
-        mode: 'give' | 'set';
+        mode: 'give' | 'set' | 'scale';
         attack?: {
           amount: Amount<T>;
           activeWhen?: Filter<GlobalCondition<T>>;
@@ -102,7 +102,7 @@ export type Action<
       type: 'change_damage_taken';
       params: {
         filter?: Filter<GlobalCondition<T>>;
-        mode: 'give' | 'set';
+        mode: 'give' | 'set' | 'scale';
         amount: Amount<T>;
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
@@ -120,7 +120,7 @@ export type Action<
       type: 'change_damage_dealt';
       params: {
         filter?: Filter<GlobalCondition<T>>;
-        mode: 'give' | 'set';
+        mode: 'give' | 'set' | 'scale';
         amount: Amount<T>;
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
@@ -135,7 +135,7 @@ export type Action<
       type: 'change_heal_received';
       params: {
         filter?: Filter<GlobalCondition<T>>;
-        mode: 'give' | 'set';
+        mode: 'give' | 'set' | 'scale';
         amount: Amount<T>;
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
@@ -325,7 +325,7 @@ export type Action<
       type: 'change_replaces_count';
       params: {
         filter?: Filter<GlobalCondition<T>>;
-        mode: 'give' | 'set';
+        mode: 'give' | 'set' | 'scale';
         amount: Amount<T>;
         player: Filter<PlayerCondition>;
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';

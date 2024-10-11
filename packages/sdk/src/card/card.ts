@@ -8,6 +8,7 @@ import { TypedEventEmitter } from '../utils/typed-emitter';
 import type { CardKind } from './card-enums';
 import type { CardBlueprint } from './card-blueprint';
 import { PlayCardAction } from '../action/play-card.action';
+import { Unit } from './unit';
 
 export type CardBlueprintId = string;
 
@@ -160,6 +161,15 @@ export abstract class Card
 
   changePlayer(newPlayerId: PlayerId) {
     this.playerId = newPlayerId;
+    if (this instanceof Unit && this.entity) {
+      const interceptors = [
+        this.entity.addInterceptor('canAttack', () => false),
+        this.entity.addInterceptor('canMove', () => false)
+      ];
+      this.session.once('player:turn_end', () => {
+        interceptors.forEach(unsub => unsub());
+      });
+    }
     this.emit(CARD_EVENTS.CHANGE_OWNER, this);
   }
 }
