@@ -831,7 +831,6 @@ export const essence = ({
       {
         keywords: [KEYWORDS.ESSENCE],
         onApplied(session, card) {
-          console.log('apply essence');
           if (!(card instanceof Unit)) return;
 
           const essenceCache = {
@@ -863,7 +862,6 @@ export const essence = ({
           });
         },
         async onRemoved(session, card) {
-          console.log('remove essence');
           await session.actionSystem.schedule(async () => {
             if (card.meta.essence) {
               card.playImpl = card.meta.essence.originalPlaympl;
@@ -1049,7 +1047,6 @@ export const airdrop = () =>
       {
         keywords: [KEYWORDS.AIRDROP],
         onApplied(session, attachedTo) {
-          console.log('apply airdrop');
           if (!(attachedTo instanceof Unit)) {
             console.warn('Airdrop only works on units !');
             return;
@@ -1058,9 +1055,6 @@ export const airdrop = () =>
             'canPlayAt',
             (value, { point }) => !session.entitySystem.getEntityAt(point)
           );
-        },
-        onRemoved() {
-          console.log('remove airdrop');
         }
       }
     ]

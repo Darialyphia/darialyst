@@ -1305,6 +1305,42 @@ const id = useId();
         />
       </div>
 
+      <div v-else-if="key === 'choices'">
+        <div
+          class="flex gap-2 items-start mt-2"
+          v-for="(choice, choiceIndex) in (action.params as any)[key]"
+          :key="choiceIndex"
+        >
+          <UiIconButton
+            name="material-symbols:delete-outline"
+            class="error-button"
+            type="button"
+            @click="(action.params as any)[key].splice(choiceIndex, 1)"
+          />
+          <div>
+            <UiTextInput
+              v-model="(action.params as any)[key][choiceIndex].text"
+              :id="`card-choide-${choiceIndex}`"
+            />
+            <EffectNode v-model="(action.params as any)[key][choiceIndex].effect" />
+          </div>
+        </div>
+        <UiButton
+          variant="subtle"
+          @click="
+            (action.params as any)[key].push({
+              text: 'Your effect text',
+              effect: {
+                executionContext: 'immediate',
+                actions: []
+              }
+            })
+          "
+        >
+          Add choice
+        </UiButton>
+      </div>
+
       <template v-else-if="key === 'blueprint'">
         <BlueprintNode v-model="(action.params as any)[key]" />
       </template>

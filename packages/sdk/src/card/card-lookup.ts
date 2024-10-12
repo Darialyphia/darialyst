@@ -274,6 +274,7 @@ import { f6WinterMaerid } from './cards/faction_6/winter-maerid';
 import { f6VoiceOfTheWind } from './cards/faction_6/voice-of-thz-wind';
 import { f6Treant } from './cards/faction_6/treant';
 import { f6AncientGrove } from './cards/faction_6/anient-grove';
+import { f2Whiplash } from './cards/faction_2/whiplash';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -348,6 +349,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f2MistWalking,
   f2BattlePanddo,
   f2Vigiluchi,
+  f2Whiplash,
 
   f3General,
   f3General2,
