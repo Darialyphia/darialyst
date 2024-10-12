@@ -831,6 +831,7 @@ export const essence = ({
       {
         keywords: [KEYWORDS.ESSENCE],
         onApplied(session, card) {
+          console.log('apply essence');
           if (!(card instanceof Unit)) return;
 
           const essenceCache = {
@@ -862,6 +863,7 @@ export const essence = ({
           });
         },
         async onRemoved(session, card) {
+          console.log('remove essence');
           await session.actionSystem.schedule(async () => {
             if (card.meta.essence) {
               card.playImpl = card.meta.essence.originalPlaympl;
@@ -900,6 +902,11 @@ export const whileInHand = (
   cleanup: (card: Card) => any
 ) => {
   card.on(CARD_EVENTS.DRAWN, cb);
+  card.player.on('after_replace', event => {
+    if (event.replacement.equals(card)) {
+      cb(card);
+    }
+  });
   const unsub = async () => {
     await card.session.actionSystem.schedule(async () => {
       cleanup(card);
@@ -1038,11 +1045,11 @@ export const airdrop = () =>
   createCardModifier({
     id: 'airdrop',
     stackable: false,
-
     mixins: [
       {
         keywords: [KEYWORDS.AIRDROP],
         onApplied(session, attachedTo) {
+          console.log('apply airdrop');
           if (!(attachedTo instanceof Unit)) {
             console.warn('Airdrop only works on units !');
             return;
@@ -1051,6 +1058,9 @@ export const airdrop = () =>
             'canPlayAt',
             (value, { point }) => !session.entitySystem.getEntityAt(point)
           );
+        },
+        onRemoved() {
+          console.log('remove airdrop');
         }
       }
     ]
