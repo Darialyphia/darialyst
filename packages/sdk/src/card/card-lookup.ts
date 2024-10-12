@@ -270,6 +270,10 @@ import { f3Anubis } from './cards/faction_3/anubis';
 import { f1ArclyteProtector } from './cards/faction_1/arclyte-protector';
 import { neutralWhistlingBlade } from './cards/neutral/whistling-blade';
 import { f6Bubblesmith } from './cards/faction_6/bubblesmith';
+import { f6WinterMaerid } from './cards/faction_6/winter-maerid';
+import { f6VoiceOfTheWind } from './cards/faction_6/voice-of-thz-wind';
+import { f6Treant } from './cards/faction_6/treant';
+import { f6AncientGrove } from './cards/faction_6/anient-grove';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -488,6 +492,10 @@ const allCards: SerializedBlueprint<any>[] = [
   f6Frostfire,
   f6Cryogenesis,
   f6Bubblesmith,
+  f6WinterMaerid,
+  f6VoiceOfTheWind,
+  f6Treant,
+  f6AncientGrove,
 
   neutralHealingMystic,
   neutralRiftWalker,

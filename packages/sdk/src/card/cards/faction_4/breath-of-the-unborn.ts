@@ -17,7 +17,7 @@ export const f4BreathOfTheUnborn = defineSerializedBlueprint({
           {
             type: 'deal_damage',
             params: {
-              amount: { type: 'fixed', params: { value: 2 } },
+              amount: { type: 'fixed', params: { value: 4 } },
               targets: {
                 candidates: [[{ type: 'is_minion', params: { not: false } }]],
                 random: false
@@ -51,7 +51,7 @@ export const f4BreathOfTheUnborn = defineSerializedBlueprint({
   targets: { min: 0, targets: [[[{ type: 'any_cell' }]]] },
   cellHighlights: [],
   name: 'Breath of the Unborn',
-  cost: 6,
+  cost: 5,
   faction: 'f4',
   spriteId: 'icon_f4_breathoftheunborn'
 });

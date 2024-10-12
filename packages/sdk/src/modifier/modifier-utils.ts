@@ -192,6 +192,7 @@ export const fearsome = ({
         keywords: [KEYWORDS.FEARSOME],
         duration,
         listener([event]) {
+          if (event.target.isGeneral) return;
           const unsub = event.target.addInterceptor('canRetaliate', () => false);
           event.entity.once('after_attack', unsub);
         }
