@@ -25,7 +25,10 @@ export const f4BlackSolus = defineSerializedBlueprint({
           {
             type: 'generate_card',
             params: {
-              filter: { candidates: [], random: false },
+              filter: {
+                candidates: [[{ type: 'played_from_hand', params: {} }]],
+                random: false
+              },
               execute: 'now',
               ephemeral: false,
               location: 'hand',
@@ -40,7 +43,10 @@ export const f4BlackSolus = defineSerializedBlueprint({
           {
             type: 'generate_card',
             params: {
-              filter: { candidates: [], random: false },
+              filter: {
+                candidates: [[{ type: 'played_from_hand', params: {} }]],
+                random: false
+              },
               execute: 'now',
               ephemeral: false,
               location: 'hand',

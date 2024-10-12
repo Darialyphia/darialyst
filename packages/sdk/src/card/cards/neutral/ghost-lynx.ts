@@ -27,7 +27,10 @@ export const neutralGhostLynx = defineSerializedBlueprint({
             params: {
               amount: { type: 'fixed', params: { value: 1 } },
               player: { candidates: [[{ type: 'ally_player' }]], random: false },
-              filter: { candidates: [], random: false },
+              filter: {
+                candidates: [[{ type: 'played_from_hand', params: {} }]],
+                random: false
+              },
               execute: 'end_of_turn'
             }
           }

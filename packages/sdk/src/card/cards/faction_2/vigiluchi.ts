@@ -63,7 +63,10 @@ export const f2Vigiluchi = defineSerializedBlueprint({
                 ],
                 random: false
               },
-              filter: { candidates: [], random: false },
+              filter: {
+                candidates: [[{ type: 'played_from_hand', params: {} }]],
+                random: false
+              },
               execute: 'now'
             }
           }

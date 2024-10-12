@@ -268,6 +268,8 @@ import { f2Vigiluchi } from './cards/faction_2/vigiluchi';
 import { f3AncestralVessel } from './cards/faction_3/ancestral-vessel';
 import { f3Anubis } from './cards/faction_3/anubis';
 import { f1ArclyteProtector } from './cards/faction_1/arclyte-protector';
+import { neutralWhistlingBlade } from './cards/neutral/whistling-blade';
+import { f6Bubblesmith } from './cards/faction_6/bubblesmith';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -485,6 +487,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f6BoreanBear,
   f6Frostfire,
   f6Cryogenesis,
+  f6Bubblesmith,
 
   neutralHealingMystic,
   neutralRiftWalker,
@@ -542,7 +545,8 @@ const allCards: SerializedBlueprint<any>[] = [
   neutralGolemVanguard,
   neutralGolemMetallurgist,
   neutralNebula,
-  neutralWorldcoreGolem
+  neutralWorldcoreGolem,
+  neutralWhistlingBlade
 ];
 
 export const CARDS = keyBy(allCards, 'id') as Record<

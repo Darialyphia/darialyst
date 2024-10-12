@@ -41,7 +41,10 @@ export const neutralLightbender = defineSerializedBlueprint({
                   ]
                 ]
               },
-              filter: { candidates: [] },
+              filter: {
+                candidates: [[{ type: 'played_from_hand', params: {} }]],
+                random: false
+              },
               execute: 'now'
             }
           }
