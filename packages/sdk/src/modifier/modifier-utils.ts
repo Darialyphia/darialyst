@@ -1259,6 +1259,7 @@ export const discover = ({ choices }: { choices: CardBlueprint[] }) => {
   let cleanup: any;
 
   return createCardModifier({
+    id: KEYWORDS.DISCOVER.id,
     stackable: false,
     mixins: [
       modifierCardGameEventMixin({
@@ -1293,7 +1294,7 @@ export const discover = ({ choices }: { choices: CardBlueprint[] }) => {
                 cardBackId: card.player.general.card.cardBackId
               });
 
-              card.player.hand.push(discoveredCard);
+              card.player.tryPutInHand(discoveredCard);
 
               return result;
             };
@@ -1303,6 +1304,47 @@ export const discover = ({ choices }: { choices: CardBlueprint[] }) => {
           cleanup?.();
         }
       }
+    ]
+  });
+};
+
+const IGNORE_ECHO_MODIFIER_ID = 'echoed';
+export const echo = () => {
+  let cleanup: any;
+
+  return createCardModifier({
+    id: KEYWORDS.ECHO.id,
+    stackable: false,
+    mixins: [
+      modifierCardGameEventMixin({
+        eventName: 'card:after_played',
+        keywords: [KEYWORDS.ECHO],
+        listener([card], ctx) {
+          if (!card.equals(ctx.attachedTo)) return;
+          if (card.hasModifier(IGNORE_ECHO_MODIFIER_ID)) return;
+
+          const copy = card.player.generateCard({
+            blueprintId: card.blueprintId,
+            pedestalId: card.player.general.card.pedestalId,
+            cardBackId: card.player.general.card.cardBackId
+          });
+
+          copy.addModifier(
+            createCardModifier({
+              id: IGNORE_ECHO_MODIFIER_ID,
+              stackable: false,
+              mixins: [
+                {
+                  onApplied(session, card, modifier) {
+                    card.description = card.description.replace('@Echo@', '');
+                  }
+                }
+              ]
+            })
+          );
+          card.player.tryPutInHand(copy);
+        }
+      })
     ]
   });
 };

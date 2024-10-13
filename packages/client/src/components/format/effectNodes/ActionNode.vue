@@ -706,6 +706,10 @@ const actionDict: ActionDictionary = {
       execute: null,
       filter: GlobalConditionNode
     }
+  },
+  echo: {
+    label: 'Echo',
+    params: { execute: null, filter: GlobalConditionNode }
   }
 };
 
@@ -1167,6 +1171,11 @@ watch(
           candidates: [[{ type: 'minion', params: {} }]]
         };
       })
+      .with({ type: 'echo' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+      })
+
       .exhaustive();
   },
   { immediate: true }

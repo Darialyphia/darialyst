@@ -91,6 +91,7 @@ const { isMobile } = useResponsive();
               <ActionBarItem
                 :index="index"
                 :blueprint="card.blueprint"
+                :description="card.description"
                 :cost="card.cost"
                 :attack="(card as Unit).attack"
                 :max-hp="(card as Unit).maxHp"

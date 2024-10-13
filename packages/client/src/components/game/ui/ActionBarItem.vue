@@ -2,15 +2,17 @@
 import { KEYWORDS, type Card, type CardBlueprint } from '@game/sdk';
 import { isDefined } from '@game/shared';
 
-const { index, blueprint, cost, attack, maxHp, pedestalId, cardBackId } = defineProps<{
-  index: number;
-  blueprint: CardBlueprint;
-  cost: number;
-  attack?: number;
-  maxHp?: number;
-  pedestalId: string;
-  cardBackId: string;
-}>();
+const { index, description, blueprint, cost, attack, maxHp, pedestalId, cardBackId } =
+  defineProps<{
+    index: number;
+    description: string;
+    blueprint: CardBlueprint;
+    cost: number;
+    attack?: number;
+    maxHp?: number;
+    pedestalId: string;
+    cardBackId: string;
+  }>();
 const { ui, currentTutorialStep } = useGame();
 
 const userPlayer = useUserPlayer();
@@ -22,6 +24,9 @@ const hasEssence = () => {
     card.value.meta.essence
   );
 };
+const hasEchoed = computed(() => {
+  return card.value.modifiers.some(m => m.id === 'echoed');
+});
 const isEssenceEnabled = ref(hasEssence());
 const canPlay = ref(userPlayer.value.canPlayCardAtIndex(index));
 
@@ -47,12 +52,13 @@ const isDisabled = computed(
         class="card"
         :class="{
           disabled: isDisabled,
-          essence: isEssenceEnabled
+          essence: isEssenceEnabled,
+          echoed: hasEchoed
         }"
         :card="{
           blueprintId: blueprint.id,
           name: blueprint.name,
-          description: blueprint.description,
+          description: description,
           kind: blueprint.kind,
           spriteId: blueprint.spriteId,
           rarity: blueprint.rarity,
@@ -75,10 +81,19 @@ const isDisabled = computed(
 @keyframes essence-glow {
   0%,
   100% {
-    box-shadow: inset 0 0 1rem 1rem hsl(var(--cyan-6-hsl) / 1);
+    box-shadow: inset 0 0 1rem 1rem hsl(var(--cyan-6-hsl) / 0.75);
   }
   50% {
-    box-shadow: inset 0 0 1rem 0.5rem hsl(var(--cyan-6-hsl) / 0.5);
+    box-shadow: inset 0 0 1rem 0.5rem hsl(var(--cyan-6-hsl) / 0.25);
+  }
+}
+@keyframes echoed-glow {
+  0%,
+  100% {
+    box-shadow: inset 0 0 1rem 1rem hsl(var(--lime-6-hsl) / 0.5);
+  }
+  50% {
+    box-shadow: inset 0 0 1rem 0.5rem hsl(var(--cyan-6-hsl) / 0.15);
   }
 }
 .card {
@@ -99,6 +114,19 @@ const isDisabled = computed(
     border-radius: var(--radius-3);
 
     animation: essence-glow 3s ease infinite;
+  }
+
+  &.echoed::after {
+    pointer-events: none;
+    content: '';
+
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+
+    border-radius: var(--radius-3);
+
+    animation: echoed-glow 3s ease infinite;
   }
 }
 </style>

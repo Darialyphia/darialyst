@@ -97,6 +97,12 @@ export const KEYWORDS = {
     description: 'Triggers when the unit is destroyed.',
     aliases: []
   },
+  ECHO: {
+    id: 'echo',
+    name: 'Echo',
+    description: 'When you play this card, put a copy of it in your hand without echo.',
+    aliases: []
+  },
   ELUSIVE: {
     id: 'elusive',
     name: 'Elusive',

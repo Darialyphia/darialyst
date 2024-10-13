@@ -35,6 +35,13 @@ export const f2GhostLightning = defineSerializedBlueprint({
           }
         ]
       }
+    },
+    {
+      text: '@Echo@',
+      config: {
+        executionContext: 'while_in_hand',
+        actions: [{ type: 'echo', params: {} }]
+      }
     }
   ]
 });

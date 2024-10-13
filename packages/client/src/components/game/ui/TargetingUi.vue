@@ -19,6 +19,7 @@ const cancel = () => {
 };
 
 const commitPlay = () => {
+  console.log('commit and play');
   if (ui.selectedCard.value!.meta.cardChoiceType) {
     ui.switchTargetingMode(TARGETING_MODES.CARD_CHOICE);
   } else {

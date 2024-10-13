@@ -6,7 +6,7 @@ export const f1DivineBond = defineSerializedBlueprint({
   id: 'f1_divine_bond',
   collectable: true,
   name: 'Divine Bond',
-  cost: 3,
+  cost: 2,
   kind: CARD_KINDS.SPELL,
   faction: FACTION_IDS.F1,
   keywords: [],

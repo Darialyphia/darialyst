@@ -720,6 +720,13 @@ export type Action<
       };
     }
   | {
+      type: 'echo';
+      params: {
+        filter?: Filter<GlobalCondition<T>>;
+        execute?: ExecutionDelay;
+      };
+    }
+  | {
       type: 'freeze';
       params: {
         target: Filter<

@@ -469,4 +469,9 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
       this.hand.push(...cards);
     }
   }
+
+  tryPutInHand(card: Card) {
+    if (this.isHandFull) return;
+    this.hand.push(card);
+  }
 }

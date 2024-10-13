@@ -132,6 +132,10 @@ export abstract class Card
     });
   }
 
+  hasModifier(id: ModifierId) {
+    return this.modifiers.some(m => m.id === id);
+  }
+
   draw() {
     return this.emitAsync(CARD_EVENTS.DRAWN, this);
   }

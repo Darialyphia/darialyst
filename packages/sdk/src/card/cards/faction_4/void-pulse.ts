@@ -48,6 +48,13 @@ export const f4VoidPulse = defineSerializedBlueprint({
         ]
       },
       vfx: { tracks: [] }
+    },
+    {
+      text: '@Echo@',
+      config: {
+        executionContext: 'while_in_hand',
+        actions: [{ type: 'echo', params: {} }]
+      }
     }
   ],
   targets: {
