@@ -275,6 +275,8 @@ import { f6VoiceOfTheWind } from './cards/faction_6/voice-of-thz-wind';
 import { f6Treant } from './cards/faction_6/treant';
 import { f6AncientGrove } from './cards/faction_6/anient-grove';
 import { f2Whiplash } from './cards/faction_2/whiplash';
+import { f5ScaleShaper } from './cards/faction_5/scaleshaper';
+import { f3ScionsReliquary } from './cards/faction_3/scions-reliquary';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -387,6 +389,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f3AurorasTears,
   f3AncestralVessel,
   f3Anubis,
+  f3ScionsReliquary,
 
   f4General,
   f4General2,
@@ -457,6 +460,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f5Tremors,
   f5DampeningWave,
   f5IridiumScale,
+  f5ScaleShaper,
 
   f6General,
   f6General2,

@@ -66,9 +66,7 @@ const summon = () => {
 
   ui.summonTarget.value = cell.position;
   pointerupSound.value?.play();
-  if (ui.selectedCard.value.meta.cardChoices) {
-    ui.switchTargetingMode(TARGETING_MODES.CARD_CHOICE);
-  } else if (ui.selectedCard.value.targets) {
+  if (ui.selectedCard.value.targets) {
     ui.switchTargetingMode(TARGETING_MODES.TARGETING);
   } else {
     dispatch('playCard', {

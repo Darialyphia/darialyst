@@ -19,13 +19,17 @@ const cancel = () => {
 };
 
 const commitPlay = () => {
-  dispatch('playCard', {
-    cardIndex: ui.selectedCardIndex.value!,
-    position: ui.summonTarget.value ?? { x: 0, y: 0, z: 0 },
-    targets: ui.cardTargets.value,
-    choice: ui.cardChoice.value ?? 0
-  });
-  ui.unselectCard();
+  if (ui.selectedCard.value!.meta.cardChoiceType) {
+    ui.switchTargetingMode(TARGETING_MODES.CARD_CHOICE);
+  } else {
+    dispatch('playCard', {
+      cardIndex: ui.selectedCardIndex.value!,
+      position: ui.summonTarget.value ?? { x: 0, y: 0, z: 0 },
+      targets: ui.cardTargets.value,
+      choice: ui.cardChoice.value ?? 0
+    });
+    ui.unselectCard();
+  }
 };
 
 watchEffect(() => {

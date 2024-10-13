@@ -89,17 +89,14 @@ const cancel = () => {
           () => {
             ui.cardChoice.value = index;
             if (!ui.selectedCard.value) return;
-            if (ui.selectedCard.value.targets) {
-              ui.switchTargetingMode(TARGETING_MODES.TARGETING);
-            } else {
-              dispatch('playCard', {
-                cardIndex: ui.selectedCardIndex.value!,
-                position: ui.summonTarget.value ?? { x: 0, y: 0, z: 0 },
-                targets: [],
-                choice: ui.cardChoice.value ?? 0
-              });
-              ui.unselectCard();
-            }
+
+            dispatch('playCard', {
+              cardIndex: ui.selectedCardIndex.value!,
+              position: ui.summonTarget.value ?? { x: 0, y: 0, z: 0 },
+              targets: ui.cardTargets.value,
+              choice: ui.cardChoice.value ?? 0
+            });
+            ui.unselectCard();
           }
         "
       />

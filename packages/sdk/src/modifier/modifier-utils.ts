@@ -1263,7 +1263,7 @@ export const discover = ({ choices }: { choices: CardBlueprint[] }) => {
     mixins: [
       modifierCardGameEventMixin({
         eventName: 'player:turn_start',
-        listener([player], ctx) {
+        listener(_, ctx) {
           ctx.attachedTo.meta.cardChoices =
             choices.length > MAX_CHOICES
               ? shuffleArray(choices, () => ctx.session.rngSystem.next()).slice(

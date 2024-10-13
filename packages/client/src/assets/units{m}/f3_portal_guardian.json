@@ -1,6 +1,6 @@
 { "frames": [
    {
-    "filename": "f3_portal_guardian.attack.0",
+    "filename": "f3_portal_guardianattack.0",
     "frame": { "x": 0, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -9,7 +9,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.1",
+    "filename": "f3_portal_guardianattack.1",
     "frame": { "x": 100, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -18,7 +18,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.2",
+    "filename": "f3_portal_guardianattack.2",
     "frame": { "x": 200, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -27,7 +27,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.3",
+    "filename": "f3_portal_guardianattack.3",
     "frame": { "x": 300, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -36,7 +36,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.4",
+    "filename": "f3_portal_guardianattack.4",
     "frame": { "x": 400, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -45,7 +45,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.5",
+    "filename": "f3_portal_guardianattack.5",
     "frame": { "x": 500, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -54,7 +54,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.6",
+    "filename": "f3_portal_guardianattack.6",
     "frame": { "x": 600, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -63,7 +63,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.7",
+    "filename": "f3_portal_guardianattack.7",
     "frame": { "x": 700, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -72,7 +72,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.8",
+    "filename": "f3_portal_guardianattack.8",
     "frame": { "x": 800, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -81,7 +81,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.9",
+    "filename": "f3_portal_guardianattack.9",
     "frame": { "x": 900, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -90,7 +90,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.10",
+    "filename": "f3_portal_guardianattack.10",
     "frame": { "x": 1000, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -99,7 +99,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.11",
+    "filename": "f3_portal_guardianattack.11",
     "frame": { "x": 1100, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -108,7 +108,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.12",
+    "filename": "f3_portal_guardianattack.12",
     "frame": { "x": 1200, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -117,7 +117,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.13",
+    "filename": "f3_portal_guardianattack.13",
     "frame": { "x": 1300, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -126,7 +126,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.14",
+    "filename": "f3_portal_guardianattack.14",
     "frame": { "x": 1400, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -135,7 +135,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.15",
+    "filename": "f3_portal_guardianattack.15",
     "frame": { "x": 1500, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -144,7 +144,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.16",
+    "filename": "f3_portal_guardianattack.16",
     "frame": { "x": 1600, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -153,7 +153,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.17",
+    "filename": "f3_portal_guardianattack.17",
     "frame": { "x": 1700, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -162,7 +162,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.18",
+    "filename": "f3_portal_guardianattack.18",
     "frame": { "x": 1800, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -171,7 +171,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.19",
+    "filename": "f3_portal_guardianattack.19",
     "frame": { "x": 1900, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -180,7 +180,7 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.attack.20",
+    "filename": "f3_portal_guardianattack.20",
     "frame": { "x": 2000, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
@@ -189,8 +189,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.0",
-    "frame": { "x": 0, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.21",
+    "frame": { "x": 2100, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -198,8 +198,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.1",
-    "frame": { "x": 100, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.22",
+    "frame": { "x": 2200, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -207,8 +207,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.2",
-    "frame": { "x": 200, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.23",
+    "frame": { "x": 2300, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -216,8 +216,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.3",
-    "frame": { "x": 300, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.24",
+    "frame": { "x": 2400, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -225,8 +225,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.4",
-    "frame": { "x": 400, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.25",
+    "frame": { "x": 2500, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -234,8 +234,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.5",
-    "frame": { "x": 500, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.26",
+    "frame": { "x": 2600, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -243,8 +243,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.6",
-    "frame": { "x": 600, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.27",
+    "frame": { "x": 2700, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -252,8 +252,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.7",
-    "frame": { "x": 700, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.28",
+    "frame": { "x": 2800, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -261,8 +261,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.8",
-    "frame": { "x": 800, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.29",
+    "frame": { "x": 2900, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -270,8 +270,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.9",
-    "frame": { "x": 900, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.30",
+    "frame": { "x": 3000, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -279,8 +279,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.10",
-    "frame": { "x": 1000, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.31",
+    "frame": { "x": 3100, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -288,8 +288,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.11",
-    "frame": { "x": 1100, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.32",
+    "frame": { "x": 3200, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -297,8 +297,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.12",
-    "frame": { "x": 1200, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.33",
+    "frame": { "x": 3300, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -306,8 +306,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.breathing.13",
-    "frame": { "x": 1300, "y": 100, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianbreathing.34",
+    "frame": { "x": 3400, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -315,8 +315,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.0",
-    "frame": { "x": 0, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.35",
+    "frame": { "x": 3500, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -324,8 +324,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.1",
-    "frame": { "x": 100, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.36",
+    "frame": { "x": 3600, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -333,8 +333,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.2",
-    "frame": { "x": 200, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.37",
+    "frame": { "x": 3700, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -342,8 +342,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.3",
-    "frame": { "x": 300, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.38",
+    "frame": { "x": 3800, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -351,8 +351,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.4",
-    "frame": { "x": 400, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.39",
+    "frame": { "x": 3900, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -360,8 +360,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.5",
-    "frame": { "x": 500, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.40",
+    "frame": { "x": 4000, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -369,8 +369,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.6",
-    "frame": { "x": 600, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.41",
+    "frame": { "x": 4100, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -378,8 +378,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.7",
-    "frame": { "x": 700, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.42",
+    "frame": { "x": 4200, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -387,8 +387,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.8",
-    "frame": { "x": 800, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.43",
+    "frame": { "x": 4300, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -396,8 +396,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.9",
-    "frame": { "x": 900, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.44",
+    "frame": { "x": 4400, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -405,8 +405,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.10",
-    "frame": { "x": 1000, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.45",
+    "frame": { "x": 4500, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -414,8 +414,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.11",
-    "frame": { "x": 1100, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.46",
+    "frame": { "x": 4600, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -423,8 +423,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.12",
-    "frame": { "x": 1200, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.47",
+    "frame": { "x": 4700, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -432,8 +432,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.13",
-    "frame": { "x": 1300, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.48",
+    "frame": { "x": 4800, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -441,8 +441,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.14",
-    "frame": { "x": 1400, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.49",
+    "frame": { "x": 4900, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -450,8 +450,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.15",
-    "frame": { "x": 1500, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.50",
+    "frame": { "x": 5000, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -459,8 +459,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.16",
-    "frame": { "x": 1600, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.51",
+    "frame": { "x": 5100, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -468,8 +468,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.17",
-    "frame": { "x": 1700, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.52",
+    "frame": { "x": 5200, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -477,8 +477,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.18",
-    "frame": { "x": 1800, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.53",
+    "frame": { "x": 5300, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -486,8 +486,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.death.19",
-    "frame": { "x": 1900, "y": 200, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardiandeath.54",
+    "frame": { "x": 5400, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -495,8 +495,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.hit.0",
-    "frame": { "x": 0, "y": 300, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianhit.55",
+    "frame": { "x": 5500, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -504,8 +504,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.hit.1",
-    "frame": { "x": 100, "y": 300, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianhit.56",
+    "frame": { "x": 5600, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -513,8 +513,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.hit.2",
-    "frame": { "x": 200, "y": 300, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianhit.57",
+    "frame": { "x": 5700, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -522,8 +522,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.idle.0",
-    "frame": { "x": 0, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.58",
+    "frame": { "x": 5800, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -531,8 +531,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.idle.1",
-    "frame": { "x": 100, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.59",
+    "frame": { "x": 5900, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -540,8 +540,8 @@
     "duration": 64
    },
    {
-    "filename": "f3_portal_guardian.idle.2",
-    "frame": { "x": 200, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.60",
+    "frame": { "x": 6000, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -549,8 +549,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.3",
-    "frame": { "x": 300, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.61",
+    "frame": { "x": 6100, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -558,8 +558,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.4",
-    "frame": { "x": 400, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.62",
+    "frame": { "x": 6200, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -567,8 +567,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.5",
-    "frame": { "x": 500, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.63",
+    "frame": { "x": 6300, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -576,8 +576,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.6",
-    "frame": { "x": 600, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.64",
+    "frame": { "x": 6400, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -585,8 +585,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.7",
-    "frame": { "x": 700, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.65",
+    "frame": { "x": 6500, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -594,8 +594,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.8",
-    "frame": { "x": 800, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.66",
+    "frame": { "x": 6600, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -603,8 +603,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.9",
-    "frame": { "x": 900, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.67",
+    "frame": { "x": 6700, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -612,8 +612,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.10",
-    "frame": { "x": 1000, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.68",
+    "frame": { "x": 6800, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -621,8 +621,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.11",
-    "frame": { "x": 1100, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.69",
+    "frame": { "x": 6900, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -630,8 +630,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.12",
-    "frame": { "x": 1200, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.70",
+    "frame": { "x": 7000, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -639,8 +639,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.13",
-    "frame": { "x": 1300, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.71",
+    "frame": { "x": 7100, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -648,8 +648,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.idle.14",
-    "frame": { "x": 1400, "y": 400, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianidle.72",
+    "frame": { "x": 7200, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -657,8 +657,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.run.0",
-    "frame": { "x": 0, "y": 500, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianrun.73",
+    "frame": { "x": 7300, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -666,8 +666,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.run.1",
-    "frame": { "x": 100, "y": 500, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianrun.74",
+    "frame": { "x": 7400, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -675,8 +675,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.run.2",
-    "frame": { "x": 200, "y": 500, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianrun.75",
+    "frame": { "x": 7500, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -684,8 +684,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.run.3",
-    "frame": { "x": 300, "y": 500, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianrun.76",
+    "frame": { "x": 7600, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -693,8 +693,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.run.4",
-    "frame": { "x": 400, "y": 500, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianrun.77",
+    "frame": { "x": 7700, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -702,8 +702,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.run.5",
-    "frame": { "x": 500, "y": 500, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianrun.78",
+    "frame": { "x": 7800, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -711,8 +711,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.run.6",
-    "frame": { "x": 600, "y": 500, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianrun.79",
+    "frame": { "x": 7900, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -720,8 +720,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.run.7",
-    "frame": { "x": 700, "y": 500, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianrun.80",
+    "frame": { "x": 8000, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -729,8 +729,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.run.8",
-    "frame": { "x": 800, "y": 500, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianrun.81",
+    "frame": { "x": 8100, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -738,8 +738,8 @@
     "duration": 80
    },
    {
-    "filename": "f3_portal_guardian.run.9",
-    "frame": { "x": 900, "y": 500, "w": 100, "h": 100 },
+    "filename": "f3_portal_guardianrun.82",
+    "frame": { "x": 8200, "y": 0, "w": 100, "h": 100 },
     "rotated": false,
     "trimmed": false,
     "spriteSourceSize": { "x": 0, "y": 0, "w": 100, "h": 100 },
@@ -749,10 +749,10 @@
  ],
  "meta": {
   "app": "https://www.aseprite.org/",
-  "version": "1.3.7-x64",
+  "version": "1.3.9.2-x64",
   "image": "f3_portal_guardian.png",
   "format": "RGBA8888",
-  "size": { "w": 2100, "h": 600 },
+  "size": { "w": 8300, "h": 100 },
   "scale": "1",
   "frameTags": [
    { "name": "attack", "from": 0, "to": 20, "direction": "forward", "color": "#000000ff" },
