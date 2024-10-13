@@ -79,6 +79,12 @@ export const KEYWORDS = {
     description: 'Triggers effect whenever a unit is destroyed.',
     aliases: []
   },
+  DISCOVER: {
+    id: 'discover',
+    name: 'Discover',
+    description: 'Choose one crd between 3 choices and add it to your hand.',
+    aliases: []
+  },
   DISPEL: {
     id: 'dispel',
     name: 'Dispel',

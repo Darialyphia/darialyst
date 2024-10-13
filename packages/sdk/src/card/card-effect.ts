@@ -690,6 +690,14 @@ export type Action<
       };
     }
   | {
+      type: 'discover';
+      params: {
+        execute?: ExecutionDelay;
+        filter?: Filter<GlobalCondition<T>>;
+        blueprints: Filter<BlueprintCondition>;
+      };
+    }
+  | {
       type: 'send_card_to_graveyard';
       params: {
         card: Filter<

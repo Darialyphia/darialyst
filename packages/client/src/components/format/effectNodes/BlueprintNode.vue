@@ -1,8 +1,11 @@
 <script setup lang="ts">
-import { CardNode, UnitNode } from '#components';
+import { CardNode, KeywordNode, NumericOperatorNode, UnitNode } from '#components';
 import { CARDS, type Filter } from '@game/sdk';
 import type { BlueprintCondition } from '@game/sdk/src/card/conditions/blueprint-conditions';
 import { match } from 'ts-pattern';
+import AmountNode from './AmountNode.vue';
+import TagNode from './TagNode.vue';
+import FactionNode from './FactionNode.vue';
 
 const groups = defineModel<Filter<BlueprintCondition>>({ required: true });
 
@@ -30,7 +33,17 @@ type BlueprintDictionary = {
 const blueprintDict: BlueprintDictionary = {
   static: { label: 'specific card', params: { blueprints: null } },
   from_card: { label: 'same as another card', params: { card: CardNode } },
-  from_unit: { label: 'same as another unit', params: { unit: UnitNode } }
+  from_unit: { label: 'same as another unit', params: { unit: UnitNode } },
+  minion: { label: 'A minion card', params: {} },
+  spell: { label: 'A spell card', params: {} },
+  artifact: { label: 'An artifact card', params: {} },
+  cost: {
+    label: 'A card with costs X ',
+    params: { amount: AmountNode, operator: NumericOperatorNode }
+  },
+  from_faction: { label: 'A card from faction', params: { factions: FactionNode } },
+  has_tag: { label: 'A unit with a tag', params: { tag: TagNode } },
+  has_keyword: { label: 'A unit with a keyword', params: { keyword: KeywordNode } }
 };
 
 const typeOptions = computed(
@@ -42,8 +55,8 @@ const typeOptions = computed(
 );
 
 const getParams = (groupIndex: number, conditionIndex: number) =>
-  blueprintDict[groups.value.candidates[groupIndex][conditionIndex].type]!
-    .params as Record<string, Params>;
+  blueprintDict[groups.value.candidates[groupIndex][conditionIndex].type]!?.params ??
+  ({} as Record<string, Params>);
 </script>
 
 <template>
@@ -75,6 +88,35 @@ const getParams = (groupIndex: number, conditionIndex: number) =>
               .with({ type: 'from_unit' }, condition => {
                 condition.params = {
                   unit: { candidates: [] }
+                };
+              })
+              .with(
+                { type: 'minion' },
+                { type: 'spell' },
+                { type: 'artifact' },
+                condition => {
+                  condition.params = {};
+                }
+              )
+              .with({ type: 'cost' }, condition => {
+                condition.params = {
+                  operator: 'equals',
+                  amount: { type: 'fixed', params: { value: 0 } }
+                };
+              })
+              .with({ type: 'from_faction' }, condition => {
+                condition.params = {
+                  factions: [null]
+                };
+              })
+              .with({ type: 'has_keyword' }, condition => {
+                condition.params = {
+                  keyword: undefined as any
+                };
+              })
+              .with({ type: 'has_tag' }, condition => {
+                condition.params = {
+                  tag: undefined as any
                 };
               })
               .exhaustive();
@@ -114,6 +156,17 @@ const getParams = (groupIndex: number, conditionIndex: number) =>
               />
             </div>
           </div>
+        </template>
+
+        <template v-else-if="key === 'has_keyword'">
+          <KeywordNode
+            v-model="(groups.candidates[groupIndex][conditionIndex] as any).params[key]"
+          />
+        </template>
+        <template v-else-if="key === 'has_tag'">
+          <TagNode
+            v-model="(groups.candidates[groupIndex][conditionIndex] as any).params[key]"
+          />
         </template>
 
         <template v-else>

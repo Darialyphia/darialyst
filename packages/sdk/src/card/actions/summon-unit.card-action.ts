@@ -8,7 +8,7 @@ export class SummonUnitCardAction extends CardAction<'summon_unit'> {
     const cells = this.getCells(this.action.params.position);
     const doSummon = (position: Point3D) => {
       const card = player.generateCard({
-        blueprintId: this.getBlueprint(this.action.params.blueprint).id,
+        blueprintId: this.getOneBlueprint(this.action.params.blueprint).id,
         pedestalId: this.card.pedestalId,
         cardBackId: this.card.cardBackId
       });

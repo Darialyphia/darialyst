@@ -66,7 +66,7 @@ const summon = () => {
 
   ui.summonTarget.value = cell.position;
   pointerupSound.value?.play();
-  if (ui.selectedCard.value.meta.adapt) {
+  if (ui.selectedCard.value.meta.cardChoices) {
     ui.switchTargetingMode(TARGETING_MODES.CARD_CHOICE);
   } else if (ui.selectedCard.value.targets) {
     ui.switchTargetingMode(TARGETING_MODES.TARGETING);
@@ -185,7 +185,7 @@ const hasCellAbove = computed(
             if (!userPlayer.canPlayCardAtIndex(ui.selectedCardIndex.value!)) {
               return;
             }
-            if (ui.selectedCard.value.meta.adapt) {
+            if (ui.selectedCard.value.meta.cardChoices) {
               return;
             }
             runSimulation({

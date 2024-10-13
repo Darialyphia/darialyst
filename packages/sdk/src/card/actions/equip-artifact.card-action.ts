@@ -6,7 +6,7 @@ export class EquipArtifactCardAction extends CardAction<'equip_artifact'> {
     const [player] = this.getPlayers(this.action.params.player);
 
     const card = player.generateCard({
-      blueprintId: this.getBlueprint(this.action.params.blueprint).id,
+      blueprintId: this.getOneBlueprint(this.action.params.blueprint).id,
       pedestalId: this.card.pedestalId,
       cardBackId: this.card.cardBackId
     });

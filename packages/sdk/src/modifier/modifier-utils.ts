@@ -1,4 +1,10 @@
-import { dist, isDefined, type MaybePromise, type Point3D } from '@game/shared';
+import {
+  dist,
+  isDefined,
+  shuffleArray,
+  type MaybePromise,
+  type Point3D
+} from '@game/shared';
 import { type Cell } from '../board/cell';
 import type { GameSession } from '../game-session';
 import { Entity, ENTITY_EVENTS, type EntityId } from '../entity/entity';
@@ -7,7 +13,10 @@ import { modifierCardInterceptorMixin } from '../modifier/mixins/card-intercepto
 import { modifierEntityInterceptorMixin } from '../modifier/mixins/entity-interceptor.mixin';
 import { KEYWORDS, type Keyword } from '../utils/keywords';
 import { createCardModifier } from './card-modifier';
-import { modifierGameEventMixin } from './mixins/game-event.mixin';
+import {
+  modifierCardGameEventMixin,
+  modifierGameEventMixin
+} from './mixins/game-event.mixin';
 import { modifierEntityDurationMixin } from './mixins/duration.mixin';
 import { isWithinCells } from '../utils/targeting';
 import { modifierSelfEventMixin } from './mixins/self-event.mixin';
@@ -1206,7 +1215,6 @@ export const rebirth = ({ source }: { source: Card }) => {
 };
 
 export type AdaptChoice = {
-  // type: 'card';
   blueprintId: CardBlueprintId;
   description: string;
   onPlay: (options: { position: Point3D; targets: Point3D[] }) => Promise<void>;
@@ -1220,7 +1228,8 @@ export const adapt = ({ choices }: { choices: AdaptChoice[] }) => {
       {
         keywords: [KEYWORDS.ADAPT],
         onApplied(session, card) {
-          card.meta.adapt = choices;
+          card.meta.cardChoices = choices;
+          card.meta.cardChoiceType = 'adapt';
 
           cleanup = card.once('before_played', () => {
             const originalPlayImpl = card.playImpl;
@@ -1230,8 +1239,62 @@ export const adapt = ({ choices }: { choices: AdaptChoice[] }) => {
                 targets,
                 choice
               });
-              const choiceToApply = card.meta.adapt[choice] as AdaptChoice;
+              const choiceToApply = card.meta.cardChoices[choice] as AdaptChoice;
               await choiceToApply.onPlay({ position, targets });
+              return result;
+            };
+          });
+        },
+        onRemoved() {
+          cleanup?.();
+        }
+      }
+    ]
+  });
+};
+
+const MAX_CHOICES = 3;
+
+export const discover = ({ choices }: { choices: CardBlueprint[] }) => {
+  let cleanup: any;
+
+  return createCardModifier({
+    stackable: false,
+    mixins: [
+      modifierCardGameEventMixin({
+        eventName: 'player:turn_start',
+        listener([player], ctx) {
+          ctx.attachedTo.meta.cardChoices =
+            choices.length > MAX_CHOICES
+              ? shuffleArray(choices, () => ctx.session.rngSystem.next()).slice(
+                  0,
+                  MAX_CHOICES
+                )
+              : choices;
+        }
+      }),
+      {
+        keywords: [KEYWORDS.DISCOVER],
+        onApplied(session, card) {
+          card.meta.cardChoiceType = 'discover';
+
+          cleanup = card.once('before_played', () => {
+            const originalPlayImpl = card.playImpl;
+            card.playImpl = async ({ position, targets, choice }) => {
+              const result = await originalPlayImpl.call(card, {
+                position,
+                targets,
+                choice
+              });
+              const blueprint = card.meta.cardChoices[choice];
+              const discoveredCard = card.player.generateCard({
+                blueprintId: blueprint.id,
+                pedestalId: card.player.general.card.pedestalId,
+                cardBackId: card.player.general.card.cardBackId
+              });
+
+              card.player.hand.push(discoveredCard);
+
               return result;
             };
           });

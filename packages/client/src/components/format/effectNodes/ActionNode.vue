@@ -698,6 +698,14 @@ const actionDict: ActionDictionary = {
       execute: null,
       filter: GlobalConditionNode
     }
+  },
+  discover: {
+    label: 'Discover',
+    params: {
+      blueprints: BlueprintNode,
+      execute: null,
+      filter: GlobalConditionNode
+    }
   }
 };
 
@@ -1151,6 +1159,13 @@ watch(
         params.execute ??= 'now';
         params.activeWhen ??= { candidates: [], random: false };
         params.duration ??= 'always';
+      })
+      .with({ type: 'discover' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+        params.blueprints ??= {
+          candidates: [[{ type: 'minion', params: {} }]]
+        };
       })
       .exhaustive();
   },

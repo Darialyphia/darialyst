@@ -82,6 +82,6 @@ session.on('entity:before_deal_damage', async e => {
     :x="10"
     :scale-x="isVertical ? scaleX * 0.75 : scaleX"
     :angle="angle"
-    :y="isVertical ? CELL_HEIGHT * 0.5 : -CELL_HEIGHT * 0.25"
+    :y="isVertical ? CELL_HEIGHT * 0.5 : 0"
   />
 </template>

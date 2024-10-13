@@ -2,7 +2,7 @@ import { CardAction, noop } from './_card-action';
 
 export class TransformUnitCardAction extends CardAction<'transform_unit'> {
   protected async executeImpl() {
-    const blueprintId = this.getBlueprint(this.action.params.blueprint).id;
+    const blueprintId = this.getOneBlueprint(this.action.params.blueprint).id;
     await Promise.all(
       this.getUnits(this.action.params.unit).map(async unit => {
         const originalBlueprint = unit.card.blueprintId;

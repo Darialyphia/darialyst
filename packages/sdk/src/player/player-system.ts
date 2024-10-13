@@ -81,6 +81,7 @@ export class PlayerSystem {
     }
 
     this.session.phase = GAME_PHASES.BATTLE;
+    await this.activePlayer.startTurn();
   }
 
   serialize() {

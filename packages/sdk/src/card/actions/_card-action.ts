@@ -61,7 +61,18 @@ export abstract class CardAction<T extends Action['type']> {
     });
   }
 
-  protected getBlueprint(conditions: Filter<BlueprintCondition>) {
+  protected getBlueprints(conditions: Filter<BlueprintCondition>) {
+    const blueprints = getBlueprints({
+      ...this.ctx,
+      conditions,
+      event: this.event,
+      eventName: this.eventName
+    });
+
+    return blueprints;
+  }
+
+  protected getOneBlueprint(conditions: Filter<BlueprintCondition>) {
     const blueprints = getBlueprints({
       ...this.ctx,
       conditions,

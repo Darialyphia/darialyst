@@ -7,7 +7,7 @@ export class GenerateCardCardAction extends CardAction<'generate_card'> {
       if (player.isHandFull) return;
 
       const card = player.generateCard({
-        blueprintId: this.getBlueprint(this.action.params.blueprint).id,
+        blueprintId: this.getOneBlueprint(this.action.params.blueprint).id,
         pedestalId: player.general.card.pedestalId,
         cardBackId: player.general.card.cardBackId
       });

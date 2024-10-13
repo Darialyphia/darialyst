@@ -14,7 +14,7 @@ import type { Id } from '@game/api/src/convex/_generated/dataModel';
 import type { SerializedAction } from '@game/sdk/src/action/action';
 import type { SerializedPlayer } from '@game/sdk/src/player/player';
 
-type GameInput = Defined<FunctionReturnType<typeof api.games.byRoomId>>;
+type GameInput = Defined<FunctionReturnType<typeof api.games.byId>>;
 
 const defaultFormat = {
   config: defaultConfig,

@@ -75,7 +75,7 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
   public readonly isPlayer1: boolean;
   public _maxGold: number;
   public currentGold: number;
-  private isP2T1: boolean;
+  private isT1: boolean;
   public hasMulliganed = false;
   public mulliganIndices: number[] = [];
   artifacts: PlayerArtifact[] = [];
@@ -113,7 +113,7 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
     this._maxGold = this.isPlayer1
       ? this.session.config.PLAYER_1_STARTING_GOLD
       : this.session.config.PLAYER_2_STARTING_GOLD;
-    this.isP2T1 = !this.isPlayer1;
+    this.isT1 = true;
     this.currentGold = this.maxGold;
   }
 
@@ -331,7 +331,9 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
     this.playedCardSinceLastTurn = [];
 
     this.entities.forEach(entity => entity.startTurn());
-    if (!this.isP2T1) {
+    if (this.isT1) {
+      this.isT1 = false;
+    } else {
       this.maxGold += this.session.config.MAX_GOLD_INCREASE_PER_TURN;
       if (this.session.config.REFILL_GOLD_EVERY_TURN) {
         this.currentGold = this.maxGold;
@@ -340,8 +342,6 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
       if (!this.session.config.DRAW_AT_END_OF_TURN) {
         await this.draw(this.session.config.CARD_DRAW_PER_TURN);
       }
-    } else {
-      this.isP2T1 = false;
     }
     await this.emitAsync(PLAYER_EVENTS.TURN_START, this);
   }
