@@ -37,6 +37,13 @@ export const f2MistWalking = defineSerializedBlueprint({
         executionContext: 'immediate'
       },
       vfx: { tracks: [] }
+    },
+    {
+      text: '@Echo@',
+      config: {
+        executionContext: 'while_in_hand',
+        actions: [{ type: 'echo', params: {} }]
+      }
     }
   ],
   targets: {
