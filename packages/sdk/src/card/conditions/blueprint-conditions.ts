@@ -85,7 +85,7 @@ export const getBlueprints = ({
             return cards.some(card => card.blueprintId === blueprint.id);
           })
           .with({ type: 'minion' }, () => blueprint.kind === CARD_KINDS.MINION)
-          .with({ type: 'spell' }, () => blueprint.kind === CARD_KINDS.MINION)
+          .with({ type: 'spell' }, () => blueprint.kind === CARD_KINDS.SPELL)
           .with({ type: 'artifact' }, () => blueprint.kind === CARD_KINDS.ARTIFACT)
           .with({ type: 'cost' }, condition => {
             const amount = getAmount({

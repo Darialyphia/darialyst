@@ -277,6 +277,7 @@ import { f6AncientGrove } from './cards/faction_6/anient-grove';
 import { f2Whiplash } from './cards/faction_2/whiplash';
 import { f5ScaleShaper } from './cards/faction_5/scaleshaper';
 import { f3ScionsReliquary } from './cards/faction_3/scions-reliquary';
+import { f2AncestralDivination } from './cards/faction_2/ancestral-divination';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -352,6 +353,7 @@ const allCards: SerializedBlueprint<any>[] = [
   f2BattlePanddo,
   f2Vigiluchi,
   f2Whiplash,
+  f2AncestralDivination,
 
   f3General,
   f3General2,
