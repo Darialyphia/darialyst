@@ -19,7 +19,6 @@ const cancel = () => {
 };
 
 const commitPlay = () => {
-  console.log('commit and play');
   if (ui.selectedCard.value!.meta.cardChoiceType) {
     ui.switchTargetingMode(TARGETING_MODES.CARD_CHOICE);
   } else {
@@ -86,18 +85,19 @@ watchEffect(() => {
 }
 
 button {
-  box-shadow: 0 5px 0.25rem hsl(var(--gray-11-hsl) / 0.6);
   --ui-button-size: var(--font-size-3);
 
+  box-shadow: 0 5px 0.25rem hsl(var(--gray-11-hsl) / 0.6);
+
   &:first-of-type {
+    border-top-left-radius: var(--radius-4);
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    border-top-left-radius: var(--radius-4);
   }
   &:last-of-type {
     border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
     border-bottom-right-radius: var(--radius-4);
+    border-bottom-left-radius: 0;
   }
 }
 </style>

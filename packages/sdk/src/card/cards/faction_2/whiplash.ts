@@ -69,7 +69,7 @@ export const f2Whiplash = defineSerializedBlueprint({
                           }
                         ]
                       },
-                      linkToCard: false
+                      linkToCard: true
                     }
                   }
                 ]
