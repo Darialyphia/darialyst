@@ -1,5 +1,6 @@
 import { KEYWORDS } from '../../../utils/keywords';
 import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineCardEffect } from '../../card-effect';
 import { CARD_KINDS, FACTION_IDS, RARITIES } from '../../card-enums';
 
 export const f2TuskBoar = defineSerializedBlueprint({
@@ -29,7 +30,7 @@ export const f2TuskBoar = defineSerializedBlueprint({
         ]
       }
     },
-    {
+    defineCardEffect({
       text: 'At the start of your turn, return this to your hand.',
       config: {
         executionContext: 'trigger_while_on_board',
@@ -41,13 +42,12 @@ export const f2TuskBoar = defineSerializedBlueprint({
                 candidates: [
                   [
                     {
-                      type: 'ally_player',
-                      params: {}
+                      type: 'ally_player'
                     }
                   ]
                 ]
               },
-              frequency: []
+              frequency: { type: 'once' }
             }
           }
         ],
@@ -70,6 +70,6 @@ export const f2TuskBoar = defineSerializedBlueprint({
           }
         ]
       }
-    }
+    })
   ]
 });

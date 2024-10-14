@@ -52,7 +52,11 @@ const blueprints = computed(() => {
   });
 });
 
+const canCancel = computed(
+  () => ui.selectedCard.value?.meta.cardChoiceType !== 'discover'
+);
 const cancel = () => {
+  if (!canCancel.value) return;
   ui.unselectCard();
   ui.cardChoice.value = null;
 };
@@ -103,7 +107,7 @@ const cancel = () => {
     </div>
 
     <footer class="mt-4 flex justify-center">
-      <UiButton class="error-button" @click="cancel">Cancel</UiButton>
+      <UiButton class="error-button" v-if="canCancel" @click="cancel">Cancel</UiButton>
     </footer>
   </UiModal>
 </template>
