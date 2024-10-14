@@ -660,8 +660,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
           stacks: stackable ? stacks : undefined
         });
       } else if (stackable) {
-        // @ts-expect-error
-        keywordsWithStacks.get(keyword.id)!.stacks++;
+        keywordsWithStacks.get(keyword.id)!.stacks!++;
       }
     };
 

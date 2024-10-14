@@ -4,7 +4,7 @@ export const f2Whiplash = defineSerializedBlueprint({
   id: 'EfMypc',
   name: 'Whiplash',
   collectable: true,
-  keywords: ['vulnerable'],
+  keywords: [],
   relatedBlueprintIds: [],
   tags: [],
   kind: 'MINION',
