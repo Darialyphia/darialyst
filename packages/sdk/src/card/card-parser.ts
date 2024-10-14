@@ -225,7 +225,7 @@ export const getEffectModifier = <T extends GameEvent>({
           }),
           {
             onRemoved(session) {
-              session.once('scheduler:flushed', () => {
+              return session.actionSystem.schedule(async () => {
                 cleanups.forEach(cleanup => cleanup());
               });
             }
@@ -269,7 +269,7 @@ export const getEffectModifier = <T extends GameEvent>({
           }),
           {
             onRemoved(session) {
-              session.once('scheduler:flushed', () => {
+              return session.actionSystem.schedule(async () => {
                 cleanups.forEach(cleanup => cleanup());
               });
             }
@@ -327,15 +327,15 @@ export const parseSerializedBlueprintEffect = (
               }
             },
             onRemoved() {
-              ctx.session.once('scheduler:flushed', () => {
-                cleanups.forEach(c => c());
+              ctx.session.actionSystem.schedule(async () => {
+                cleanups.forEach(cleanup => cleanup());
               });
             }
           });
 
           return () => {
-            ctx.session.once('scheduler:flushed', () => {
-              cleanups.forEach(c => c());
+            return ctx.session.actionSystem.schedule(async () => {
+              cleanups.forEach(cleanup => cleanup());
             });
           };
         }
@@ -364,15 +364,15 @@ export const parseSerializedBlueprintEffect = (
                         }
                       },
                       () => {
-                        session.once('scheduler:flushed', () => {
-                          cleanups.forEach(c => c());
+                        return session.actionSystem.schedule(async () => {
+                          cleanups.forEach(cleanup => cleanup());
                         });
                       }
                     );
                   },
                   onRemoved(session) {
-                    session.once('scheduler:flushed', () => {
-                      cleanups.forEach(c => c());
+                    session.actionSystem.schedule(async () => {
+                      cleanups.forEach(cleanup => cleanup());
                     });
                   }
                 }
@@ -1273,7 +1273,7 @@ export const parseSerializeBlueprint = <T extends GenericCardEffect[]>(
                   attachedTo.addModifier(entityModifier);
                 },
                 onRemoved(session, attachedTo) {
-                  session.once('scheduler:flushed', () => {
+                  return session.actionSystem.schedule(async () => {
                     attachedTo.removeModifier(entityModifier.id);
                   });
                 }

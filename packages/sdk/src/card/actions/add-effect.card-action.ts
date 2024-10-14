@@ -45,7 +45,6 @@ export class AddEffectCardAction extends CardAction<'add_effect'> {
       })
     );
     return () => {
-      console.log('cleanup', this.action.params.linkToCard);
       if (this.action.params.linkToCard) {
         cleanups.forEach(c => {
           c();
