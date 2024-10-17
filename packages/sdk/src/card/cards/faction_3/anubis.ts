@@ -16,24 +16,42 @@ export const f3Anubis = defineSerializedBlueprint({
         executionContext: 'while_on_board',
         actions: [
           {
-            type: 'change_damage_dealt',
+            type: 'aura',
             params: {
-              mode: 'scale',
-              stackable: true,
-              targets: {
+              isElligible: {
                 candidates: [
                   [
                     { type: 'is_general', params: { not: false } },
                     { type: 'is_ally', params: { not: false } }
                   ]
-                ],
-                random: false
+                ]
               },
-              filter: { candidates: [], random: false },
-              frequency: { type: 'always' },
-              amount: { type: 'fixed', params: { value: 2 } },
-              duration: 'always',
-              execute: 'now'
+              effect: {
+                executionContext: 'while_on_board',
+                actions: [
+                  {
+                    type: 'change_damage_dealt',
+                    params: {
+                      mode: 'scale',
+                      stackable: true,
+                      targets: {
+                        candidates: [
+                          [
+                            { type: 'is_general', params: { not: false } },
+                            { type: 'is_ally', params: { not: false } }
+                          ]
+                        ],
+                        random: false
+                      },
+                      filter: { candidates: [], random: false },
+                      frequency: { type: 'always' },
+                      amount: { type: 'fixed', params: { value: 2 } },
+                      duration: 'always',
+                      execute: 'now'
+                    }
+                  }
+                ]
+              }
             }
           }
         ]
