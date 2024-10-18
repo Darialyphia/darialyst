@@ -2,7 +2,7 @@ import { defineSerializedBlueprint } from '../../card-blueprint';
 
 export const f3Anubis = defineSerializedBlueprint({
   id: 'f3_anubis',
-  name: 'Anubis',
+  name: 'Oserix',
   collectable: true,
   keywords: [],
   relatedBlueprintIds: [],
@@ -106,8 +106,8 @@ export const f3Anubis = defineSerializedBlueprint({
   cellHighlights: [],
   sounds: {},
   spriteId: 'f3_anubis',
-  cost: 7,
-  attack: 9,
-  maxHp: 8,
+  cost: 2,
+  attack: 2,
+  maxHp: 2,
   faction: 'f3'
 });

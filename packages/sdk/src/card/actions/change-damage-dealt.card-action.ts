@@ -5,12 +5,11 @@ import { CardAction } from './_card-action';
 import { ENTITY_EVENTS } from '../../entity/entity';
 
 export class ChangeDamageDealtAction extends CardAction<'change_damage_dealt'> {
-  private modifierId = this.generateModifierId();
   private shouldApply = true;
 
-  makeModifier() {
+  makeModifier(id: string) {
     return createEntityModifier({
-      id: this.modifierId,
+      id,
       source: this.card,
       stackable: this.action.params.stackable,
       visible: false,
@@ -37,7 +36,7 @@ export class ChangeDamageDealtAction extends CardAction<'change_damage_dealt'> {
     const modifierId = this.generateModifierId();
 
     units.forEach(target => {
-      target.addModifier(this.makeModifier());
+      target.addModifier(this.makeModifier(modifierId));
 
       if (this.action.params.frequency.type === 'once') {
         target.once(ENTITY_EVENTS.AFTER_DEAL_DAMAGE, () => {
