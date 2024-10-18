@@ -12,7 +12,7 @@ export const f4ShadowDancer = defineSerializedBlueprint({
   cellHighlights: [],
   spriteId: 'f4_shadowdancer',
   name: 'Shadow Dancer',
-  cost: 5,
+  cost: 2,
   attack: 4,
   maxHp: 4,
   faction: 'f4',
@@ -59,7 +59,7 @@ export const f4ShadowDancer = defineSerializedBlueprint({
         ],
         triggers: [
           {
-            type: 'on_after_unit_destroyed',
+            type: 'on_before_unit_destroyed',
             params: {
               unit: {
                 candidates: [[{ type: 'is_self', params: { not: true } }]],

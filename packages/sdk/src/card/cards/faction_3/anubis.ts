@@ -106,7 +106,7 @@ export const f3Anubis = defineSerializedBlueprint({
   cellHighlights: [],
   sounds: {},
   spriteId: 'f3_anubis',
-  cost: 7,
+  cost: 2,
   attack: 9,
   maxHp: 8,
   faction: 'f3'
