@@ -12,7 +12,7 @@ export const f4ShadowDancer = defineSerializedBlueprint({
   cellHighlights: [],
   spriteId: 'f4_shadowdancer',
   name: 'Shadow Dancer',
-  cost: 2,
+  cost: 5,
   attack: 4,
   maxHp: 4,
   faction: 'f4',
