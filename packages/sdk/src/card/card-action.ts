@@ -1,6 +1,6 @@
 import { match } from 'ts-pattern';
 import type { Action, NumericOperator } from './card-effect';
-import { type AnyObject } from '@game/shared';
+import { type AnyObject, type Constructor } from '@game/shared';
 import { type EffectCtx } from './card-parser';
 import { DealDamageCardAction } from './actions/deal-damage.card-action';
 import { HealCardAction } from './actions/heal.card-action';
@@ -67,6 +67,7 @@ import { InfiltrateCardAction } from './actions/infiltrate.card-action';
 import { BattlePetCardAction } from './actions/battle-pet.card-action';
 import { DiscoverCardAction } from './actions/discover.card-action';
 import { EchoCardAction } from './actions/echo.card-action';
+import type { CardAction } from './actions/_card-action';
 
 export type ParsedActionResult = (
   ctx: EffectCtx,
@@ -86,204 +87,81 @@ export const matchNumericOperator = (
     .exhaustive();
 };
 
+const ACTION_DICTIONARY: {
+  [Type in Action['type']]: Constructor<CardAction<Type>>;
+} = {
+  activate_unit: ActivateUnitCardAction,
+  adapt: AdaptCardAction,
+  add_effect: AddEffectCardAction,
+  airdrop: AirdropCardAction,
+  aura: AuraCardAction,
+  backstab: BackstabCardAction,
+  barrier: BarrierCardAction,
+  battle_pet: BattlePetCardAction,
+  blast: BlastCardAction,
+  bounce_unit: BounceUnitCardAction,
+  celerity: CelerityCardAction,
+  change_can_attack: ChangeCanAttackCardAction,
+  change_can_be_attacked: ChangeCanBeAttackedCardAction,
+  change_can_retaliate: ChangeCanRetaliateCardAction,
+  change_card_cost: ChangeCardCostCardAction,
+  change_damage_dealt: ChangeDamageDealtAction,
+  change_damage_taken: ChangeDamageTakenAction,
+  change_heal_received: ChangeHealReceivedAction,
+  change_replaces_count: ChangeReplaceCountCardAction,
+  change_stats: ChangeStatsCardAction,
+  change_unit_owner: ChangeCardOwnerCardAction,
+  cleanse_entity: CleanseEntityCardAction,
+  create_tile: CreateTileCardAction,
+  deal_damage: DealDamageCardAction,
+  destroy_unit: DestroyUnitCardAction,
+  discover: DiscoverCardAction,
+  dispel_cell: DispelCellCardAction,
+  dispel_entity: DispelEntityCardAction,
+  draw_cards: DrawCardAction,
+  echo: EchoCardAction,
+  elusive: ElusiveCardAction,
+  ephemeral: EphemeralCardAction,
+  equip_artifact: EquipArtifactCardAction,
+  essence: EssenceCardAction,
+  fearsome: FearsomeCardAction,
+  flying: FlyingCardAction,
+  freeze: FreezeCardAction,
+  frenzy: FrenzyCardAction,
+  generate_card: GenerateCardCardAction,
+  give_gold: GiveGoldCardAction,
+  grow: GrowCardAction,
+  heal: HealCardAction,
+  infiltrate: InfiltrateCardAction,
+  play_card: PlayCardCardAction,
+  provoke: ProvokeCardAction,
+  ranged: RangedCardAction,
+  rebirth: RebirthCardAction,
+  remove_keyword: RemoveKeywordCardActon,
+  root: RootCardAction,
+  rush: RushCardAction,
+  send_card_to_graveyard: SendCardToGraveyardCardAction,
+  slay: SlayCardAction,
+  spawn: SpawnCardAction,
+  structure: StructureCardAction,
+  stun: StunCardAction,
+  summon_unit: SummonUnitCardAction,
+  swap_units: SwapUnitsCardAction,
+  teleport_unit: TeleportCardAction,
+  tough: ToughCardAction,
+  transform_unit: TransformUnitCardAction,
+  unequip_artifact: UnequipArtifactCardAction,
+  veil: VeilCardAction,
+  vulnerable: VulnerableCardAction,
+  wall: WallCardAction,
+  zeal: ZealCardAction
+};
+
 export const parseCardAction = (action: Action): ParsedActionResult => {
   return (ctx, event, eventName) => {
-    return match(action)
-      .with({ type: 'deal_damage' }, action => {
-        return new DealDamageCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'heal' }, action => {
-        return new HealCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'draw_cards' }, action => {
-        return new DrawCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'change_stats' }, action => {
-        return new ChangeStatsCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'change_damage_taken' }, action => {
-        return new ChangeDamageTakenAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'change_heal_received' }, action => {
-        return new ChangeHealReceivedAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'change_damage_dealt' }, action => {
-        return new ChangeDamageDealtAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'provoke' }, action => {
-        return new ProvokeCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'celerity' }, action => {
-        return new CelerityCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'ranged' }, action => {
-        return new RangedCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'backstab' }, action => {
-        return new BackstabCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'add_effect' }, action => {
-        return new AddEffectCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'zeal' }, action => {
-        return new ZealCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'destroy_unit' }, action => {
-        return new DestroyUnitCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'bounce_unit' }, action => {
-        return new BounceUnitCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'dispel_cell' }, action => {
-        return new DispelCellCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'activate_unit' }, action => {
-        return new ActivateUnitCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'change_card_cost' }, action => {
-        return new ChangeCardCostCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'generate_card' }, action => {
-        return new GenerateCardCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'teleport_unit' }, action => {
-        return new TeleportCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'swap_units' }, action => {
-        return new SwapUnitsCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'change_replaces_count' }, action => {
-        return new ChangeReplaceCountCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'rush' }, action => {
-        return new RushCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'airdrop' }, action => {
-        return new AirdropCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'flying' }, action => {
-        return new FlyingCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'play_card' }, action => {
-        return new PlayCardCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'frenzy' }, action => {
-        return new FrenzyCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'ephemeral' }, action => {
-        return new EphemeralCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'structure' }, action => {
-        return new StructureCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'spawn' }, action => {
-        return new SpawnCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'remove_keyword' }, action => {
-        return new RemoveKeywordCardActon(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'equip_artifact' }, action => {
-        return new EquipArtifactCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'summon_unit' }, action => {
-        return new SummonUnitCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'change_unit_owner' }, action => {
-        return new ChangeCardOwnerCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'blast' }, action => {
-        return new BlastCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'change_can_attack' }, action => {
-        return new ChangeCanAttackCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'change_can_be_attacked' }, action => {
-        return new ChangeCanBeAttackedCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'dispel_entity' }, action => {
-        return new DispelEntityCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'cleanse_entity' }, action => {
-        return new CleanseEntityCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'aura' }, action => {
-        return new AuraCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'unequip_artifact' }, action => {
-        return new UnequipArtifactCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'elusive' }, action => {
-        return new ElusiveCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'essence' }, action => {
-        return new EssenceCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'fearsome' }, action => {
-        return new FearsomeCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'create_tile' }, action => {
-        return new CreateTileCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'slay' }, action => {
-        return new SlayCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'give_gold' }, action => {
-        return new GiveGoldCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'transform_unit' }, action => {
-        return new TransformUnitCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'barrier' }, action => {
-        return new BarrierCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'grow' }, action => {
-        return new GrowCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'rebirth' }, action => {
-        return new RebirthCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'adapt' }, action => {
-        return new AdaptCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'tough' }, action => {
-        return new ToughCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'vulnerable' }, action => {
-        return new VulnerableCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'send_card_to_graveyard' }, action => {
-        return new SendCardToGraveyardCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'root' }, action => {
-        return new RootCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'change_can_retaliate' }, action => {
-        return new ChangeCanRetaliateCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'stun' }, action => {
-        return new StunCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'freeze' }, action => {
-        return new FreezeCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'veil' }, action => {
-        return new VeilCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'wall' }, action => {
-        return new WallCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'infiltrate' }, action => {
-        return new InfiltrateCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'battle_pet' }, action => {
-        return new BattlePetCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'discover' }, action => {
-        return new DiscoverCardAction(action, ctx, event, eventName).execute();
-      })
-      .with({ type: 'echo' }, action => {
-        return new EchoCardAction(action, ctx, event, eventName).execute();
-      })
-      .exhaustive();
+    const ctor = ACTION_DICTIONARY[action.type];
+    const instance = new ctor(action, ctx, event, eventName) as CardAction<any>;
+
+    return instance.execute();
   };
 };

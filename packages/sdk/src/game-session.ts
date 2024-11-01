@@ -147,6 +147,8 @@ export class GameSession extends TypedEventEmitter<GameEventMap> {
 
   currentTurn = 0;
 
+  isAISimulation = false;
+
   id: string;
 
   protected constructor(

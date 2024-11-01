@@ -51,7 +51,7 @@ export class AISessionScorer {
     if (this.canKillUnit(entity)) {
       score += BASE_SCORES.MINION_KILLING_BLOW;
     }
-    if (this.canKilleneral(entity)) {
+    if (this.canKillGeneral(entity)) {
       score += BASE_SCORES.GENERAL_KILLING_BLOW;
     }
 
@@ -85,7 +85,7 @@ export class AISessionScorer {
     );
   }
 
-  private canKilleneral(entity: Entity) {
+  private canKillGeneral(entity: Entity) {
     return (
       this.predictDamage(entity, entity.player.opponent.general) >=
       entity.player.opponent.general.hp

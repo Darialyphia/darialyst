@@ -1,9 +1,6 @@
-import { isDefined, randomInt, type Nullable } from '@game/shared';
 import type { SerializedAction } from '../action/action';
 import { GAME_PHASES } from '../game-session';
 import type { ServerSession } from '../server-session';
-import { Entity } from '../entity/entity';
-import { AIEntityAgent } from './entity-agent';
 import { AIPlayerAgent } from './player-agent';
 
 export class GameAI {
