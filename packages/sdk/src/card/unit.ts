@@ -3,7 +3,6 @@ import type { Point3D, Serializable } from '@game/shared';
 import { Entity, ENTITY_EVENTS } from '../entity/entity';
 import { Card, CARD_EVENTS, type CardBlueprintId, type SerializedCard } from './card';
 import { CARD_KINDS } from './card-enums';
-import { PlayCardAction } from '../action/play-card.action';
 import type { CardIndex, PlayerId } from '../player/player';
 import type { GameSession } from '../game-session';
 
@@ -29,6 +28,7 @@ export class Unit extends Card implements Serializable {
       });
     });
   }
+
   override get blueprint() {
     const blueprint = this.session.cardBlueprints[this.blueprintId];
     if (blueprint.kind !== CARD_KINDS.GENERAL && blueprint.kind !== CARD_KINDS.MINION) {

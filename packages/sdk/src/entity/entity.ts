@@ -590,7 +590,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
 
       if (mod.stackable) {
         mod.stacks -= stacksToRemove;
-        if (mod.stacks < 1) {
+        if (mod.stacks <= 0) {
           this._removeModifier(mod);
         }
       } else {

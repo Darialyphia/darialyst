@@ -125,9 +125,9 @@ const tag = computed(() => {
       text-decoration: none;
     }
 
-    &:hover &:active {
-      transform: scale(0.98);
-      transition: transform 0.2s;
+    &:hover:not(:disabled) {
+      color: var(--_ui-button-hover-color);
+      background-color: var(--_ui-button-hover-bg);
     }
 
     &:focus-visible {
@@ -147,13 +147,6 @@ const tag = computed(() => {
       flex-shrink: 0;
       aspect-ratio: 1;
       font-size: var(--font-size-4);
-    }
-
-    @media (--mouse) {
-      &:hover:not(:disabled) {
-        color: var(--_ui-button-hover-color);
-        background-color: var(--_ui-button-hover-bg);
-      }
     }
   }
 }

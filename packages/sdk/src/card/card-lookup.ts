@@ -278,6 +278,7 @@ import { f2Whiplash } from './cards/faction_2/whiplash';
 import { f5ScaleShaper } from './cards/faction_5/scaleshaper';
 import { f3ScionsReliquary } from './cards/faction_3/scions-reliquary';
 import { f2AncestralDivination } from './cards/faction_2/ancestral-divination';
+import { neutralNightWatcher } from './cards/neutral/night-watcher';
 
 const allCards: SerializedBlueprint<any>[] = [
   f1General,
@@ -562,7 +563,8 @@ const allCards: SerializedBlueprint<any>[] = [
   neutralGolemMetallurgist,
   neutralNebula,
   neutralWorldcoreGolem,
-  neutralWhistlingBlade
+  neutralWhistlingBlade,
+  neutralNightWatcher
 ];
 
 export const CARDS = keyBy(allCards, 'id') as Record<
