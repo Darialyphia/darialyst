@@ -13,7 +13,7 @@ export const f5AdamantiteClaws = defineSerializedBlueprint({
     {
       text: 'Your general has +4/+0.',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'change_stats',

@@ -10,7 +10,7 @@ const executionContext = computed({
   },
   set(val) {
     match(val)
-      .with('immediate', 'while_in_hand', 'while_on_board', () => {
+      .with('immediate', 'while_in_hand', 'while_on_board', 'while_equiped', () => {
         effect.value.executionContext = val;
         effect.value.actions = [];
         effect.value.triggers = undefined;
@@ -48,6 +48,10 @@ const executionContextOptions = computed(() => {
     },
     {
       value: 'while_equiped',
+      label: 'While this artifact is equiped...'
+    },
+    {
+      value: 'trigger_while_equiped',
       label: 'While this artifact is equiped, whenever...'
     },
     {

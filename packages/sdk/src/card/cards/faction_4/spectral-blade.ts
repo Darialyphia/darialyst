@@ -12,7 +12,7 @@ export const f4SpectralBlade = defineSerializedBlueprint({
     {
       text: 'Your general has +1/+0;',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'change_stats',
@@ -61,7 +61,7 @@ export const f4SpectralBlade = defineSerializedBlueprint({
     {
       text: 'Give your general "@Slay@: heal your general for 2."',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'add_effect',

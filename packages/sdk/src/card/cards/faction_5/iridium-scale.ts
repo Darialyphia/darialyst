@@ -13,7 +13,7 @@ export const f5IridiumScale = defineSerializedBlueprint({
     {
       text: 'Your general has @Tough(1)@.',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'add_effect',

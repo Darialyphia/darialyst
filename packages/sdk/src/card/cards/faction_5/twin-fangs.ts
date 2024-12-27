@@ -13,7 +13,7 @@ export const f5TwinFangs = defineSerializedBlueprint({
     {
       text: 'When an allied minion takes damage, give your general  +2/+0.',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'change_stats',

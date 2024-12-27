@@ -12,7 +12,7 @@ export const f3Hexblade = defineSerializedBlueprint({
     {
       text: 'Your general has +3/+0.',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'change_stats',

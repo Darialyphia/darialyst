@@ -62,7 +62,7 @@ export const f6Snowpiercer = defineSerializedBlueprint({
     {
       text: 'When your general attacks a minion, deal 1 damage to the enemy general.',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'deal_damage',

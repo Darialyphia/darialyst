@@ -18,7 +18,7 @@ export const f3StaffOfYkir = defineSerializedBlueprint({
     {
       text: 'Your general has +2/+0',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'change_stats',
@@ -57,7 +57,7 @@ export const f3StaffOfYkir = defineSerializedBlueprint({
     {
       text: 'When this is destroyed, shuffle a copy of it into your deck.',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'generate_card',

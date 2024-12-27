@@ -12,7 +12,7 @@ import { createEntityModifier, type EntityModifier } from '../modifier/entity-mo
 import { modifierCardInterceptorMixin } from '../modifier/mixins/card-interceptor.mixin';
 import { modifierEntityInterceptorMixin } from '../modifier/mixins/entity-interceptor.mixin';
 import { KEYWORDS, type Keyword } from '../utils/keywords';
-import { createCardModifier } from './card-modifier';
+import { createCardModifier, type CardModifier } from './card-modifier';
 import {
   modifierCardGameEventMixin,
   modifierGameEventMixin
@@ -1102,7 +1102,6 @@ export const slay = ({
 }) => {
   return createEntityModifier({
     source,
-    id: KEYWORDS.SLAY.id,
     stackable: false,
     visible: false,
     mixins: [

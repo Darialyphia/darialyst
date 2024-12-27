@@ -12,7 +12,7 @@ export const f4HornOfTheForsaken = defineSerializedBlueprint({
     {
       text: 'Whenever your general deals damage, summon a @Wraithling@ nearby your general.',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'add_effect',
