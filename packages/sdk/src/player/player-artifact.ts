@@ -1,7 +1,7 @@
 import type { GameSession } from '../game-session';
 import type { CardIndex, PlayerId } from './player';
 import { nanoid } from 'nanoid';
-import { Interceptable } from '../utils/helpers';
+import { Interceptable, type inferInterceptor } from '../utils/helpers';
 import { Artifact } from '../card/artifact';
 import type { Values } from '@game/shared';
 import { ENTITY_EVENTS } from '../entity/entity';
@@ -34,7 +34,7 @@ export type PLayerArtifactOptions = {
   playerId: PlayerId;
 };
 
-export type ArtifactInterceptor = PlayerArtifact['interceptors'];
+export type PlayerArtifactInterceptor = PlayerArtifact['interceptors'];
 
 export type PlayerArtifactId = string;
 
@@ -107,5 +107,22 @@ export class PlayerArtifact extends TypedEventEmitter<ArtifactEventMap> {
     if (this.durability === 0) {
       await this.destroy();
     }
+  }
+
+  addInterceptor<T extends keyof PlayerArtifactInterceptor>(
+    key: T,
+    interceptor: inferInterceptor<PlayerArtifactInterceptor[T]>,
+    priority?: number
+  ) {
+    this.interceptors[key].add(interceptor as any, priority);
+
+    return () => this.removeInterceptor(key, interceptor);
+  }
+
+  removeInterceptor<T extends keyof PlayerArtifactInterceptor>(
+    key: T,
+    interceptor: inferInterceptor<PlayerArtifactInterceptor[T]>
+  ) {
+    this.interceptors[key].remove(interceptor as any);
   }
 }

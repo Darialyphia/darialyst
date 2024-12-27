@@ -68,6 +68,7 @@ import { BattlePetCardAction } from './actions/battle-pet.card-action';
 import { DiscoverCardAction } from './actions/discover.card-action';
 import { EchoCardAction } from './actions/echo.card-action';
 import type { CardAction } from './actions/_card-action';
+import { TimelessCardAction } from './actions/timeless.card';
 
 export type ParsedActionResult = (
   ctx: EffectCtx,
@@ -154,7 +155,8 @@ const ACTION_DICTIONARY: {
   veil: VeilCardAction,
   vulnerable: VulnerableCardAction,
   wall: WallCardAction,
-  zeal: ZealCardAction
+  zeal: ZealCardAction,
+  timeless: TimelessCardAction
 };
 
 export const parseCardAction = (action: Action): ParsedActionResult => {

@@ -6,7 +6,7 @@ const { ui, dispatch } = useGame();
 const canSkip = computed(() => {
   const card = ui.selectedCard.value;
   if (!card) return false;
-
+  console.log(ui.cardTargets.value.length, card.targets);
   return ui.cardTargets.value.length <= (card.targets?.minTargetCount ?? 0);
 });
 

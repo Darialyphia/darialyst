@@ -737,6 +737,13 @@ export type Action<
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
         execute?: ExecutionDelay;
       };
+    }
+  | {
+      type: 'timeless';
+      params: {
+        filter?: Filter<GlobalCondition<T>>;
+        execute?: ExecutionDelay;
+      };
     };
 
 export type ActionParams<T extends Action['type']> = (Action & {

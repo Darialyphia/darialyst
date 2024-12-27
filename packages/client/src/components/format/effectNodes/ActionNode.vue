@@ -715,6 +715,10 @@ const actionDict: ActionDictionary = {
   echo: {
     label: 'Echo',
     params: { execute: null, filter: GlobalConditionNode }
+  },
+  timeless: {
+    label: 'Echo',
+    params: { execute: null, filter: GlobalConditionNode }
   }
 };
 
@@ -1183,6 +1187,10 @@ watch(
         };
       })
       .with({ type: 'echo' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+      })
+      .with({ type: 'timeless' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
       })

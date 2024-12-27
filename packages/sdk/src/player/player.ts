@@ -83,13 +83,6 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
   cards!: Card[];
   deck!: Deck;
   hand!: Card[];
-  runes = {
-    [FACTION_IDS.F1]: 0,
-    [FACTION_IDS.F2]: 0,
-    [FACTION_IDS.F3]: 0,
-    [FACTION_IDS.F4]: 0,
-    [FACTION_IDS.F5]: 0
-  };
 
   maxResourceActionsPerTurn = 1;
   resourceActionsTaken = 0;
