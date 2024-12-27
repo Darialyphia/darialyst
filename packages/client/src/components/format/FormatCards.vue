@@ -48,6 +48,7 @@ const filteredCards = computed(() =>
 );
 
 const existingCardsList = useVirtualList(filteredCards, { itemHeight: 82, overscan: 5 });
+const validator = useFormatValidator();
 </script>
 
 <template>
@@ -63,7 +64,10 @@ const existingCardsList = useVirtualList(filteredCards, { itemHeight: 82, oversc
           <UiButton
             type="button"
             class="ghost-button"
-            :class="card.id === selectedCardId && 'selected'"
+            :class="[
+              card.id === selectedCardId && 'selected',
+              !validator.isCardValid(card) && 'invalid'
+            ]"
             @click="selectedCardId = card.id"
           >
             <CardSprite :sprite-id="card.spriteId" class="sprite" />
@@ -117,7 +121,10 @@ const existingCardsList = useVirtualList(filteredCards, { itemHeight: 82, oversc
         <li v-for="card in editedCards" :key="card.id" class="flex gap-2">
           <UiButton
             class="ghost-button"
-            :class="card.id === selectedCardId && 'selected'"
+            :class="[
+              card.id === selectedCardId && 'selected',
+              !validator.isCardValid(card) && 'invalid'
+            ]"
             @click="selectedCardId = card.id"
           >
             <CardSprite :sprite-id="card.spriteId" class="sprite" />
@@ -228,6 +235,12 @@ section {
     --ui-button-border-color: var(--border);
     --ui-button-border-size: var(--border-size-1);
     --ui-button-bg: hsl(0 0 100% / 0.05);
+  }
+
+  .invalid {
+    --ui-button-border-color: var(--red-6);
+    --ui-button-border-size: var(--border-size-1);
+    --ui-button-bg: hsl(var(--red-3-hsl) / 0.05);
   }
 }
 

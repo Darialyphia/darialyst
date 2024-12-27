@@ -15,7 +15,6 @@ import {
 } from '@game/sdk';
 import { isDefined } from '@game/shared';
 import dedent from 'dedent';
-import { Howl } from 'howler';
 
 import { parseSerializeBlueprint } from '@game/sdk/src/card/card-parser';
 import { getKeywordById, type Keyword } from '@game/sdk/src/utils/keywords';
@@ -29,7 +28,6 @@ const { format } = defineProps<{
   };
   isCustomCard: boolean;
 }>();
-
 const blueprint = defineModel<GenericSerializedBlueprint>('card', { required: true });
 
 if (!blueprint.value.cellHighlights) {
@@ -39,13 +37,17 @@ if (!blueprint.value.cellHighlights) {
 useFormatProvider(computed(() => format));
 const card = ref<CardBlueprint>();
 const error = ref('');
+const { isCardValid } = useFormatValidator();
 watchEffect(() => {
   try {
     const result = parseSerializeBlueprint(blueprint.value, format, { noCache: true });
     card.value = result;
-    error.value = '';
+    error.value = isCardValid(result as any)
+      ? ''
+      : 'This card has missing informations : ';
   } catch (err) {
-    error.value = (err as Error).message;
+    console.log((err as Error).message);
+    error.value = "This card's effects have missing values.";
   }
 });
 
@@ -604,7 +606,16 @@ const soundsList = useVirtualList(soundOptions, { itemHeight: 32, overscan: 5 })
         }"
       />
 
-      <div v-if="error" class="error">{{ error }}</div>
+      <div v-if="error" class="error">
+        {{ error }}
+        <ul>
+          <li v-if="!isDefined(card?.spriteId)">Missing sprite</li>
+          <li v-if="!card?.name">Missing name</li>
+          <li v-if="!card?.rarity">Missing rarity</li>
+          <li v-if="!isDefined(card?.cost)">Missing cost</li>
+          <li v-if="!isDefined(card?.kind)">Missing card type</li>
+        </ul>
+      </div>
     </div>
   </div>
 </template>

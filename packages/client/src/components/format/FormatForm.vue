@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { type GameSessionConfig, type GenericSerializedBlueprint } from '@game/sdk';
+import { isDefined } from '@game/shared';
 
 const emit = defineEmits<{ submit: [typeof form] }>();
 const { initialValues } = defineProps<{
@@ -12,6 +13,7 @@ const { initialValues } = defineProps<{
 }>();
 const form = reactive(initialValues);
 const tab = useRouteQuery('tab', 'config');
+const validator = useFormatValidator();
 </script>
 
 <template>
@@ -35,6 +37,7 @@ const tab = useRouteQuery('tab', 'config');
       <UiButton
         v-model="form.description"
         class="primary-button"
+        :disabled="!validator.isFormatValid(form)"
         @click="emit('submit', form)"
       >
         Save
