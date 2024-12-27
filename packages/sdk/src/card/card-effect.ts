@@ -230,6 +230,7 @@ export type Action<
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        immediate?: boolean;
         execute?: ExecutionDelay;
       };
     }
