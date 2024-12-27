@@ -1227,7 +1227,7 @@ const id = useId();
         </p>
       </div>
 
-      <div v-else-if="key === 'imediate'" class="flex gap-2 items-center">
+      <div v-else-if="key === 'immediate'" class="flex gap-2 items-center">
         <UiSwitch v-model:checked="(action.params as any)[key]" />
         <p class="c-orange-5 text-0">
           Wether this effect is resolved immediately. If unchecked, it will resolve after
