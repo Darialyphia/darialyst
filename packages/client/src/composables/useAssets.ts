@@ -96,11 +96,7 @@ export const useAssetsProvider = () => {
   const loadNonCriticalResources = async () => {
     await Promise.all(
       ['tiles', 'obstacles', 'tilesets', 'hitboxes', 'modifiers'].map(bundle => {
-        return new Promise(resolve => {
-          window.requestIdleCallback(() => {
-            Assets.loadBundle(bundle).then(resolve);
-          });
-        });
+        return Assets.loadBundle(bundle);
       })
     );
     fullyLoaded.value = true;

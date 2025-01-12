@@ -13,7 +13,7 @@ import {
   type SerializedCard
 } from '../card/card';
 import { Interceptable, type inferInterceptor } from '../utils/helpers';
-import { CARD_KINDS, FACTION_IDS, type CardKind } from '../card/card-enums';
+import { CARD_KINDS, type CardKind } from '../card/card-enums';
 import type { CardModifier } from '../modifier/card-modifier';
 import { Deck, DECK_EVENTS } from '../card/deck';
 import { createCard } from '../card/cards/card-factory';
