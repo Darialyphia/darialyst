@@ -64,9 +64,7 @@ export class AIPlayerAgent implements AIAgent {
       invalid = true;
     });
 
-    const now = Date.now();
     await this.session.runSimulation(action, session);
-    console.log(`Simulation done in ${Date.now() - now}ms`);
     const scorer = new AISessionScorer(
       session,
       session.playerSystem.getPlayerById(this.player.id)!
