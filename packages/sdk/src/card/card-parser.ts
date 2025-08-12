@@ -942,6 +942,24 @@ export const parseSerializedBlueprintEffect = (
                 }
               });
             })
+            .with({ type: 'on_unit_after_play' }, trigger => {
+              return getEffectModifier({
+                actions,
+                vfx: effect.vfx,
+                frequency: trigger.params.frequency,
+                eventName: 'entity:after_created',
+                filter(ctx, [event], eventName) {
+                  return trigger.params.unit.candidates.length
+                    ? getUnits({
+                        ...ctx,
+                        conditions: trigger.params.unit,
+                        event,
+                        eventName
+                      }).some(entity => entity.equals(event))
+                    : true;
+                }
+              });
+            })
             .with({ type: 'on_before_unit_destroyed' }, trigger => {
               return getEffectModifier({
                 actions,

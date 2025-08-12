@@ -35,6 +35,7 @@ const triggerDict: Record<Trigger['type'], { label: string; params: string[] }> 
   },
 
   on_unit_play: { label: 'When a unit is played', params: ['unit', 'frequency'] },
+  on_unit_after_play: { label: 'After a unit is played', params: ['unit', 'frequency'] },
 
   on_before_unit_move: { label: 'Before a unit moves', params: ['unit', 'frequency'] },
   on_after_unit_move: { label: 'After a unit moves', params: ['unit', 'frequency'] },

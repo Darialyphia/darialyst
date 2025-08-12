@@ -129,6 +129,13 @@ export type Trigger =
       };
     }
   | {
+      type: 'on_unit_after_play';
+      params: {
+        frequency: TriggerFrequency;
+        unit: Filter<UnitConditionBase>;
+      };
+    }
+  | {
       type: 'on_before_unit_destroyed';
       params: {
         frequency: TriggerFrequency;

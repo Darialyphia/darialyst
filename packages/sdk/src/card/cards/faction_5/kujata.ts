@@ -51,7 +51,7 @@ export const f5Kujata = defineSerializedBlueprint({
         ],
         triggers: [
           {
-            type: 'on_unit_play',
+            type: 'on_unit_after_play',
             params: {
               frequency: { type: 'always' },
               unit: {
