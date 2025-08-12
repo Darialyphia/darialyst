@@ -225,7 +225,7 @@ export const getEffectModifier = <T extends GameEvent>({
           }),
           {
             onRemoved(session) {
-              session.once('scheduler:flushed', () => {
+              return session.actionSystem.schedule(async () => {
                 cleanups.forEach(cleanup => cleanup());
               });
             }
@@ -269,7 +269,7 @@ export const getEffectModifier = <T extends GameEvent>({
           }),
           {
             onRemoved(session) {
-              session.once('scheduler:flushed', () => {
+              return session.actionSystem.schedule(async () => {
                 cleanups.forEach(cleanup => cleanup());
               });
             }
@@ -309,9 +309,6 @@ export const parseSerializedBlueprintEffect = (
     .with({ executionContext: 'while_on_board' }, config => [
       {
         async onPlay(ctx: EffectCtx) {
-          if (effect.vfx) {
-            await playVFXSequence(effect.vfx, ctx);
-          }
           const cleanups: Array<() => void> = [];
           const entity = getEffectCtxEntity(ctx);
           whileOnBoard({
@@ -327,15 +324,59 @@ export const parseSerializedBlueprintEffect = (
               }
             },
             onRemoved() {
-              ctx.session.once('scheduler:flushed', () => {
-                cleanups.forEach(c => c());
+              ctx.session.actionSystem.schedule(async () => {
+                cleanups.forEach(cleanup => cleanup());
               });
             }
           });
 
           return () => {
-            ctx.session.once('scheduler:flushed', () => {
-              cleanups.forEach(c => c());
+            return ctx.session.actionSystem.schedule(async () => {
+              cleanups.forEach(cleanup => cleanup());
+            });
+          };
+        }
+      }
+    ])
+    .with({ executionContext: 'while_equiped' }, config => [
+      {
+        async onPlay(ctx: EffectCtx) {
+          if (effect.vfx) {
+            await playVFXSequence(effect.vfx, ctx);
+          }
+          const cleanups: Array<() => void> = [];
+
+          const modifier = createEntityModifier({
+            source: ctx.card,
+            stackable: false,
+            visible: false,
+            mixins: [
+              {
+                async onApplied() {
+                  const actions = config.actions.map(parseCardAction);
+                  if (effect.vfx) {
+                    await playVFXSequence(effect.vfx, ctx);
+                  }
+                  for (const action of actions) {
+                    cleanups.push(await action(ctx, {}));
+                  }
+                },
+                onRemoved() {
+                  ctx.session.actionSystem.schedule(async () => {
+                    cleanups.forEach(cleanup => cleanup());
+                  });
+                }
+              }
+            ]
+          });
+          whileEquipped({
+            artifact: ctx.artifact!,
+            modifier
+          });
+
+          return () => {
+            return ctx.session.actionSystem.schedule(async () => {
+              cleanups.forEach(cleanup => cleanup());
             });
           };
         }
@@ -364,15 +405,15 @@ export const parseSerializedBlueprintEffect = (
                         }
                       },
                       () => {
-                        session.once('scheduler:flushed', () => {
-                          cleanups.forEach(c => c());
+                        return session.actionSystem.schedule(async () => {
+                          cleanups.forEach(cleanup => cleanup());
                         });
                       }
                     );
                   },
                   onRemoved(session) {
-                    session.once('scheduler:flushed', () => {
-                      cleanups.forEach(c => c());
+                    session.actionSystem.schedule(async () => {
+                      cleanups.forEach(cleanup => cleanup());
                     });
                   }
                 }
@@ -386,7 +427,7 @@ export const parseSerializedBlueprintEffect = (
       { executionContext: 'while_in_deck' },
       { executionContext: 'while_in_graveyard' },
       { executionContext: 'trigger_while_in_hand' },
-      { executionContext: 'while_equiped' },
+      { executionContext: 'trigger_while_equiped' },
       { executionContext: 'trigger_while_on_board' },
       config => {
         const actions = (config.actions as Action[]).map(parseCardAction);
@@ -1273,14 +1314,14 @@ export const parseSerializeBlueprint = <T extends GenericCardEffect[]>(
                   attachedTo.addModifier(entityModifier);
                 },
                 onRemoved(session, attachedTo) {
-                  session.once('scheduler:flushed', () => {
+                  return session.actionSystem.schedule(async () => {
                     attachedTo.removeModifier(entityModifier.id);
                   });
                 }
               });
             }
           })
-          .with('while_equiped', () => {
+          .with('trigger_while_equiped', () => {
             effect.actions.forEach(action => {
               if (!action.getEntityModifier) return;
               const entityModifier = action.getEntityModifier(ctx);
@@ -1288,7 +1329,7 @@ export const parseSerializeBlueprint = <T extends GenericCardEffect[]>(
               whileEquipped({ artifact: ctx.artifact!, modifier: entityModifier });
             });
           })
-          .with('immediate', 'while_on_board', async () => {
+          .with('immediate', 'while_on_board', 'while_equiped', async () => {
             for (const action of effect.actions) {
               await action.onPlay?.(ctx);
             }

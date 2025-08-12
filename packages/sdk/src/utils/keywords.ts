@@ -257,6 +257,12 @@ export const KEYWORDS = {
     aliases: ['stun'],
     spriteId: 'stun'
   },
+  TIMELESS: {
+    id: 'timeless',
+    name: 'Timeless',
+    aliases: [],
+    description: 'This cannot lose durability during your turn.'
+  },
   TOUGH: {
     id: 'tough',
     name: 'Tough',

@@ -29,7 +29,7 @@
  ],
  "meta": {
   "app": "https://www.aseprite.org/",
-  "version": "1.3.5-x64",
+  "version": "1.3.10.1-x64",
   "image": "hovered-cell.png",
   "format": "RGBA8888",
   "size": { "w": 288, "h": 64 },

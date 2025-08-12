@@ -24,8 +24,6 @@ const editedCards = computed(() =>
 const isEdited = (card: GenericSerializedBlueprint) =>
   editedCards.value.some(c => c.id === card.id);
 
-const standardCards = computed(() => Object.values(CARDS));
-
 const isCardsModalOpened = ref(false);
 const selectedCardId = ref<Nullable<string>>(null);
 const selectedCard = computed(() => {
@@ -40,14 +38,9 @@ const addCard = (card: GenericSerializedBlueprint) => {
   selectedCardId.value = card.id;
 };
 
-const search = ref('');
-const filteredCards = computed(() =>
-  standardCards.value.filter(c =>
-    c.name.toLowerCase().includes(search.value.toLocaleLowerCase())
-  )
-);
-
-const existingCardsList = useVirtualList(filteredCards, { itemHeight: 82, overscan: 5 });
+const validator = useFormatValidator();
+const isCreateCardPopoverOened = ref(false);
+const isDuplicateCardModalOpened = ref(false);
 </script>
 
 <template>
@@ -63,7 +56,10 @@ const existingCardsList = useVirtualList(filteredCards, { itemHeight: 82, oversc
           <UiButton
             type="button"
             class="ghost-button"
-            :class="card.id === selectedCardId && 'selected'"
+            :class="[
+              card.id === selectedCardId && 'selected',
+              !validator.isCardValid(card) && 'invalid'
+            ]"
             @click="selectedCardId = card.id"
           >
             <CardSprite :sprite-id="card.spriteId" class="sprite" />
@@ -77,34 +73,82 @@ const existingCardsList = useVirtualList(filteredCards, { itemHeight: 82, oversc
         </li>
       </ul>
       <div class="flex items-center gap-2">
-        <UiButton
-          type="button"
-          class="primary-button"
-          is-inline
-          left-icon="material-symbols:add"
-          @click="
-            () => {
-              const id = nanoid(6);
-              format.cards[id] = {
-                id,
-                name: '',
-                collectable: true,
-                keywords: [],
-                relatedBlueprintIds: [],
-                tags: [],
-                kind: CARD_KINDS.MINION,
-                rarity: RARITIES.COMMON,
-                effects: [],
-                targets: { min: 0, targets: [] },
-                cellHighlights: [],
-                sounds: {}
-              } as any;
-              selectedCardId = id;
+        <PopoverRoot v-model:open="isCreateCardPopoverOened">
+          <InteractableSounds>
+            <PopoverTrigger as-child>
+              <UiButton
+                type="button"
+                class="primary-button"
+                is-inline
+                left-icon="material-symbols:add"
+                right-icon="tdesign:caret-down"
+                @click="isCreateCardPopoverOened = true"
+              >
+                Make New Card
+              </UiButton>
+            </PopoverTrigger>
+          </InteractableSounds>
+
+          <PopoverAnchor />
+
+          <PopoverPortal>
+            <PopoverContent as-child :collision-padding="20" :align-offset="20">
+              <div class="flex flex-col primary-button">
+                <UiButton
+                  class="rounded-0 w-full"
+                  @click="
+                    () => {
+                      isCreateCardPopoverOened = false;
+                      const id = nanoid(6);
+                      format.cards[id] = {
+                        id,
+                        name: '',
+                        collectable: true,
+                        keywords: [],
+                        relatedBlueprintIds: [],
+                        tags: [],
+                        kind: CARD_KINDS.MINION,
+                        rarity: RARITIES.COMMON,
+                        effects: [],
+                        targets: { min: 0, targets: [] },
+                        cellHighlights: [],
+                        sounds: {}
+                      } as any;
+                      selectedCardId = id;
+                    }
+                  "
+                >
+                  Empty card
+                </UiButton>
+                <UiButton
+                  class="rounded-0 w-full"
+                  @click="
+                    () => {
+                      isCreateCardPopoverOened = false;
+                      isDuplicateCardModalOpened = true;
+                    }
+                  "
+                >
+                  From existing card
+                </UiButton>
+              </div>
+            </PopoverContent>
+          </PopoverPortal>
+        </PopoverRoot>
+        <ExistingCardsModal
+          v-model:isOpened="isDuplicateCardModalOpened"
+          :is-card-disabled="card => isEdited(card)"
+          @select="
+            card => {
+              const clone = JSON.parse(JSON.stringify(card));
+              clone.id = nanoid(6);
+              clone.sounds ??= {};
+              clone.name += ' (copy)';
+              format.cards[clone.id] = clone;
+              selectedCardId = clone.id;
             }
           "
-        >
-          Make New Card
-        </UiButton>
+        />
       </div>
 
       <h3 class="mt-4">Edited Cards</h3>
@@ -117,7 +161,10 @@ const existingCardsList = useVirtualList(filteredCards, { itemHeight: 82, oversc
         <li v-for="card in editedCards" :key="card.id" class="flex gap-2">
           <UiButton
             class="ghost-button"
-            :class="card.id === selectedCardId && 'selected'"
+            :class="[
+              card.id === selectedCardId && 'selected',
+              !validator.isCardValid(card) && 'invalid'
+            ]"
             @click="selectedCardId = card.id"
           >
             <CardSprite :sprite-id="card.spriteId" class="sprite" />
@@ -141,45 +188,11 @@ const existingCardsList = useVirtualList(filteredCards, { itemHeight: 82, oversc
         Edit Card
       </UiButton>
 
-      <UiModal v-model:is-opened="isCardsModalOpened" title="Select a card">
-        <UiTextInput
-          id="card-search"
-          v-model="search"
-          placeholder="Search for a card"
-          left-icon="material-symbols:search"
-          class="mb-4"
-        />
-        <div class="overflow-hidden">
-          <div
-            class="existing-cards fancy-scrollbar"
-            v-bind="existingCardsList.containerProps"
-          >
-            <ul v-bind="existingCardsList.wrapperProps.value">
-              <li v-for="card in existingCardsList.list.value" :key="card.index">
-                <UiButton
-                  type="button"
-                  class="ghost-button"
-                  :disabled="isEdited(card.data)"
-                  @click="
-                    () => {
-                      addCard(card.data);
-                      isCardsModalOpened = false;
-                    }
-                  "
-                >
-                  <CardSprite :sprite-id="card.data.spriteId" class="sprite" />
-                  {{ card.data.name }}
-                </UiButton>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <footer class="flex justify-end">
-          <UiButton class="error-button" @click="isCardsModalOpened = false">
-            Cancel
-          </UiButton>
-        </footer>
-      </UiModal>
+      <ExistingCardsModal
+        v-model:isOpened="isCardsModalOpened"
+        :is-card-disabled="card => isEdited(card)"
+        @select="addCard"
+      />
     </section>
 
     <section>
@@ -229,13 +242,16 @@ section {
     --ui-button-border-size: var(--border-size-1);
     --ui-button-bg: hsl(0 0 100% / 0.05);
   }
+
+  .invalid {
+    --ui-button-border-color: var(--red-6);
+    --ui-button-border-size: var(--border-size-1);
+    --ui-button-bg: hsl(var(--red-3-hsl) / 0.05);
+  }
 }
 
 .sprite {
   aspect-ratio: 1;
   width: 64px;
-}
-.existing-cards {
-  height: 60dvh;
 }
 </style>

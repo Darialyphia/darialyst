@@ -13,7 +13,7 @@ import {
   type SerializedCard
 } from '../card/card';
 import { Interceptable, type inferInterceptor } from '../utils/helpers';
-import { CARD_KINDS, FACTION_IDS, type CardKind } from '../card/card-enums';
+import { CARD_KINDS, type CardKind } from '../card/card-enums';
 import type { CardModifier } from '../modifier/card-modifier';
 import { Deck, DECK_EVENTS } from '../card/deck';
 import { createCard } from '../card/cards/card-factory';
@@ -83,13 +83,6 @@ export class Player extends TypedEventEmitter<PlayerEventMap> implements Seriali
   cards!: Card[];
   deck!: Deck;
   hand!: Card[];
-  runes = {
-    [FACTION_IDS.F1]: 0,
-    [FACTION_IDS.F2]: 0,
-    [FACTION_IDS.F3]: 0,
-    [FACTION_IDS.F4]: 0,
-    [FACTION_IDS.F5]: 0
-  };
 
   maxResourceActionsPerTurn = 1;
   resourceActionsTaken = 0;

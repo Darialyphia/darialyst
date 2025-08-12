@@ -237,7 +237,12 @@ const actionDict: ActionDictionary = {
   },
   destroy_unit: {
     label: 'Destroy units',
-    params: { targets: UnitNode, execute: null, filter: GlobalConditionNode }
+    params: {
+      targets: UnitNode,
+      execute: null,
+      filter: GlobalConditionNode,
+      immediate: null
+    }
   },
   bounce_unit: {
     label: "Return units to their owner's hand",
@@ -710,6 +715,10 @@ const actionDict: ActionDictionary = {
   echo: {
     label: 'Echo',
     params: { execute: null, filter: GlobalConditionNode }
+  },
+  timeless: {
+    label: 'Echo',
+    params: { execute: null, filter: GlobalConditionNode }
   }
 };
 
@@ -808,7 +817,13 @@ watch(
           params.execute ??= 'now';
         }
       )
-      .with({ type: 'destroy_unit' }, { type: 'bounce_unit' }, ({ params }) => {
+      .with({ type: 'bounce_unit' }, ({ params }) => {
+        params.targets ??= { candidates: [[{ type: 'any_unit' }]], random: false };
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+      })
+      .with({ type: 'destroy_unit' }, ({ params }) => {
+        params.immediate ??= false;
         params.targets ??= { candidates: [[{ type: 'any_unit' }]], random: false };
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
@@ -1175,6 +1190,10 @@ watch(
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
       })
+      .with({ type: 'timeless' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.execute ??= 'now';
+      })
 
       .exhaustive();
   },
@@ -1213,6 +1232,14 @@ const id = useId();
         <UiSwitch v-model:checked="(action.params as any)[key]" />
         <p class="c-orange-5 text-0">
           Wether this cards disappears at the end of the turn or not.
+        </p>
+      </div>
+
+      <div v-else-if="key === 'immediate'" class="flex gap-2 items-center">
+        <UiSwitch v-model:checked="(action.params as any)[key]" />
+        <p class="c-orange-5 text-0">
+          Wether this effect is resolved immediately. If unchecked, it will resolve after
+          all the current planned effect have been applied.
         </p>
       </div>
 

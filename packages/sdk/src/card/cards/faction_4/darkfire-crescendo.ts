@@ -55,7 +55,7 @@ export const f4DarkfireCrescendo = defineSerializedBlueprint({
                 ],
                 triggers: [
                   {
-                    type: 'on_after_unit_destroyed',
+                    type: 'on_before_unit_destroyed',
                     params: {
                       unit: {
                         candidates: [[{ type: 'any_unit', params: {} }]],

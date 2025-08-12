@@ -12,7 +12,7 @@ export const f1SkywindGlaives = defineSerializedBlueprint({
     {
       text: 'Your general has +1/+0.',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'change_stats',
@@ -61,7 +61,7 @@ export const f1SkywindGlaives = defineSerializedBlueprint({
     {
       text: 'Allied minions nearby your general have +2/+0.',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'aura',

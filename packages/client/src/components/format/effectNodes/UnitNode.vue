@@ -119,6 +119,7 @@ const id = useId();
               { type: 'played_unit' },
               { type: 'is_on_own_side_of_board' },
               { type: 'is_on_opponent_side_of_board' },
+              { type: 'artifact_owner' },
               condition => {
                 condition.params = {
                   not: false

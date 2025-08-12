@@ -22,7 +22,8 @@ export class AIEntityAgent implements AIAgent {
 
   private async runSimulation(action: SerializedAction) {
     const session = this.session.clone();
-
+    session.isAISimulation = true;
+    const now = Date.now();
     await this.session.runSimulation(action, session);
 
     const scorer = new AISessionScorer(

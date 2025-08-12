@@ -19,6 +19,7 @@ import { matchNumericOperator } from '../card-action';
 import { getAmount, type Amount } from '../helpers/amount';
 import type { TagId } from '../../utils/tribes';
 import { getBlueprints, type BlueprintCondition } from './blueprint-conditions';
+import type { PlayerArtifact } from '../../player/player-artifact';
 
 export type UnitConditionBase =
   | { type: 'any_unit' }
@@ -86,7 +87,8 @@ export type UnitConditionBase =
   | { type: 'is_exhausted'; params: { not: boolean } }
   | { type: 'is_on_cell'; params: { cell: Filter<CellCondition>; not: boolean } }
   | { type: 'is_on_own_side_of_board'; params: { not: boolean } }
-  | { type: 'is_on_opponent_side_of_board'; params: { not: boolean } };
+  | { type: 'is_on_opponent_side_of_board'; params: { not: boolean } }
+  | { type: 'artifact_owner'; params: { not: boolean } };
 
 export type UnitConditionExtras =
   | { type: 'attack_target'; params: { not: boolean } }
@@ -107,7 +109,8 @@ export const getUnits = ({
   event,
   card,
   eventName,
-  playedPoint
+  playedPoint,
+  artifact
 }: {
   session: GameSession;
   entity?: Entity;
@@ -117,6 +120,7 @@ export const getUnits = ({
   event: AnyObject;
   eventName?: string;
   playedPoint?: Point3D;
+  artifact?: PlayerArtifact;
 }): Entity[] => {
   const results = session.entitySystem.getList().filter(e => {
     if (!conditions.candidates.length) return true;
@@ -481,6 +485,10 @@ export const getUnits = ({
           })
           .with({ type: 'is_on_own_side_of_board' }, condition => {
             return session.boardSystem.getCellAt(e.position)?.player?.equals(card.player);
+          })
+          .with({ type: 'artifact_owner' }, condition => {
+            if (!artifact) return false;
+            return e.equals(artifact?.player.general);
           })
           .exhaustive();
 

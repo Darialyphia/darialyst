@@ -71,7 +71,8 @@ export const [useUnitConditionsProvider, _useUnitConditions] = createInjectionSt
       is_on_opponent_side_of_board: {
         label: 'A unit on the enemy side of the battlefield',
         params: ['not']
-      }
+      },
+      artifact_owner: { label: 'The unit this artifact is equiped to', params: ['not'] }
     };
 
     return computed(() => ({ ...baseDict, ...extrasDict.value }));

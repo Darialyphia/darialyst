@@ -7,6 +7,7 @@ import {
 } from '../conditions/global-conditions';
 import type { Filter } from '../card-effect';
 import type { GameSession } from '../../game-session';
+import { nanoid } from 'nanoid';
 
 export const applyModifierConditionally = ({
   modifier,
@@ -25,7 +26,6 @@ export const applyModifierConditionally = ({
 }) => {
   const source = ctx.modifierRecipient ?? ctx.entity ?? ctx.card.player.general;
   let isDisabled = true;
-
   const tryToApply = () => {
     const shouldApply = checkGlobalConditions(conditions, ctx, event, eventName);
 

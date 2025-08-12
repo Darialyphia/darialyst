@@ -69,7 +69,8 @@ export class ClientSession extends GameSession {
         () => void 0,
         {
           format: this.format,
-          parsedBlueprints: this.cardBlueprints
+          parsedBlueprints: this.cardBlueprints,
+          isSimulation: true
         }
       )
     );

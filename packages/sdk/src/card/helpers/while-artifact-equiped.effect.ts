@@ -31,7 +31,7 @@ export const whileArtifactEquipedEffect = ({
   defineCardEffect({
     text,
     config: {
-      executionContext: 'while_equiped',
+      executionContext: 'trigger_while_equiped',
       triggers: [
         {
           type: 'on_artifact_equiped',

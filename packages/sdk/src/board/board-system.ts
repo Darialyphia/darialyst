@@ -111,6 +111,10 @@ export class BoardSystem {
   }
 
   getPathTo(entity: Entity, point: Point3D, maxDistance?: number) {
+    if (this.session.isAISimulation) {
+      return { distance: 1, path: [Vec3.fromPoint3D(point)] };
+    }
+
     const entityAtPoint = this.session.entitySystem.getEntityAt(point);
     if (entityAtPoint && entity.isEnemy(entityAtPoint.id)) return null;
 

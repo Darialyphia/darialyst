@@ -12,7 +12,7 @@ export const f4SoulGrimoire = defineSerializedBlueprint({
     {
       text: 'Your general has "@Deathwatch@: +2/+0".',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'change_stats',
@@ -48,7 +48,7 @@ export const f4SoulGrimoire = defineSerializedBlueprint({
         ],
         triggers: [
           {
-            type: 'on_after_unit_destroyed',
+            type: 'on_before_unit_destroyed',
             params: {
               unit: { candidates: [], random: false },
               frequency: { type: 'always' }

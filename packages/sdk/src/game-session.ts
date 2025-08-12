@@ -125,6 +125,8 @@ export class GameSession extends TypedEventEmitter<GameEventMap> {
     return validateLoadout(loadout, format);
   }
 
+  readonly isSimulation: boolean;
+
   phase: GamePhase = GAME_PHASES.MULLIGAN;
 
   format: GameFormat;
@@ -147,6 +149,8 @@ export class GameSession extends TypedEventEmitter<GameEventMap> {
 
   currentTurn = 0;
 
+  isAISimulation = false;
+
   id: string;
 
   protected constructor(
@@ -155,6 +159,7 @@ export class GameSession extends TypedEventEmitter<GameEventMap> {
     public fxSystem: IFxSystem,
     public logger: SessionLogger,
     options: {
+      isSimulation?: boolean;
       winnerId?: string;
       format: GameFormat;
       parsedBlueprints?: Record<CardBlueprintId, CardBlueprint>;
@@ -162,6 +167,7 @@ export class GameSession extends TypedEventEmitter<GameEventMap> {
   ) {
     super();
     this.id = nanoid(6);
+    this.isSimulation = !!options.isSimulation;
     this.format = options.format;
     this.config = options.format.config;
     this.cardBlueprints =

@@ -11,6 +11,18 @@ export const f5AdamantiteClaws = defineSerializedBlueprint({
   rarity: 'common',
   effects: [
     {
+      text: '@Timeless@',
+      config: {
+        executionContext: 'while_equiped',
+        actions: [
+          {
+            type: 'timeless',
+            params: {}
+          }
+        ]
+      }
+    },
+    {
       text: 'Your general has +4/+0.',
       config: {
         executionContext: 'while_equiped',
@@ -46,15 +58,6 @@ export const f5AdamantiteClaws = defineSerializedBlueprint({
               execute: 'now'
             }
           }
-        ],
-        triggers: [
-          {
-            type: 'on_artifact_equiped',
-            params: {
-              card: { candidates: [[{ type: 'self', params: {} }]], random: false },
-              frequency: { type: 'always' }
-            }
-          }
         ]
       },
       vfx: { tracks: [] }
@@ -80,8 +83,7 @@ export const f5AdamantiteClaws = defineSerializedBlueprint({
             }
           }
         ]
-      ],
-      []
+      ]
     ]
   },
   cellHighlights: [],

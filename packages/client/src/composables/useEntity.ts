@@ -10,6 +10,8 @@ export const useEntity = (entityId: EntityId) => {
       'entity:after_move',
       'entity:after_teleport',
       'scheduler:flushed',
+      'entity:after_take_damage',
+      'entity:after_heal',
       'entity:created'
     ]
   )(session);

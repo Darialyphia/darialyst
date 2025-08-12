@@ -17,7 +17,7 @@ export const f2CycloneMask = defineSerializedBlueprint({
     {
       text: 'Your general has ranged.',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'add_effect',

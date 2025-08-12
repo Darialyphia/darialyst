@@ -230,6 +230,7 @@ export type Action<
         targets: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;
+        immediate?: boolean;
         execute?: ExecutionDelay;
       };
     }
@@ -736,6 +737,13 @@ export type Action<
         duration?: 'always' | 'end_of_turn' | 'start_of_next_turn';
         execute?: ExecutionDelay;
       };
+    }
+  | {
+      type: 'timeless';
+      params: {
+        filter?: Filter<GlobalCondition<T>>;
+        execute?: ExecutionDelay;
+      };
     };
 
 export type ActionParams<T extends Action['type']> = (Action & {
@@ -784,7 +792,11 @@ export type OverridesFromTrigger<T extends Trigger[]> = {
 
 export type CardEffectConfig<T extends Trigger[]> =
   | {
-      executionContext: 'immediate' | 'while_on_board' | 'while_in_hand';
+      executionContext:
+        | 'immediate'
+        | 'while_on_board'
+        | 'while_in_hand'
+        | 'while_equiped';
       actions: Action[];
     }
   | {
@@ -792,7 +804,7 @@ export type CardEffectConfig<T extends Trigger[]> =
         | 'trigger_while_in_hand'
         | 'trigger_while_on_board'
         | 'while_in_deck'
-        | 'while_equiped'
+        | 'trigger_while_equiped'
         | 'while_in_graveyard';
       triggers: T;
       actions: Action<OverridesFromTrigger<T>>[];

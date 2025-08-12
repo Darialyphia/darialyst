@@ -13,7 +13,7 @@ export const f6Coldbiter = defineSerializedBlueprint({
     {
       text: 'At the end of your turn, deal 2 damage to nearby enemy minions.',
       config: {
-        executionContext: 'while_equiped',
+        executionContext: 'trigger_while_equiped',
         actions: [
           {
             type: 'deal_damage',

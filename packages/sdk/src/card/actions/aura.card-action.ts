@@ -9,7 +9,6 @@ export class AuraCardAction extends CardAction<'aura'> {
       text: '',
       config: this.action.params.effect
     }).flat();
-
     const cleanupsByEntity = new Map<Entity, Array<() => void>>();
 
     const modifier = aura({

@@ -332,6 +332,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
       void this.destroy(source);
     }
   }
+
   addInterceptor<T extends keyof EntityInterceptor>(
     key: T,
     interceptor: inferInterceptor<EntityInterceptor[T]>,
@@ -382,10 +383,11 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
     });
   }
 
-  async destroy(card?: Card) {
+  async destroy(card?: Card, immediate = false) {
     if (!this.isAlive) return;
     this.destroyedBy = card;
-    await this.session.actionSystem.schedule(async () => {
+
+    const doDestroy = async () => {
       await this.emitAsync(ENTITY_EVENTS.BEFORE_DESTROY, this);
       this.session.entitySystem.removeEntity(this);
       this.originalOwner.sendToGraveyard(this.card);
@@ -394,7 +396,22 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
       this.modifiers.forEach(modifier => {
         modifier.onRemoved(this.session, this, modifier);
       });
-    });
+    };
+
+    if (immediate) {
+      await doDestroy();
+    } else {
+      await this.session.actionSystem.schedule(async () => {
+        await this.emitAsync(ENTITY_EVENTS.BEFORE_DESTROY, this);
+        this.session.entitySystem.removeEntity(this);
+        this.originalOwner.sendToGraveyard(this.card);
+
+        await this.emitAsync(ENTITY_EVENTS.AFTER_DESTROY, this);
+        this.modifiers.forEach(modifier => {
+          modifier.onRemoved(this.session, this, modifier);
+        });
+      });
+    }
   }
 
   activate() {
@@ -590,7 +607,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
 
       if (mod.stackable) {
         mod.stacks -= stacksToRemove;
-        if (mod.stacks < 1) {
+        if (mod.stacks <= 0) {
           this._removeModifier(mod);
         }
       } else {

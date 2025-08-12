@@ -33,7 +33,7 @@ export abstract class CardAction<T extends Action['type']> {
   protected abstract executeImpl(): Promise<() => void>;
 
   protected generateModifierId() {
-    return nanoid(6);
+    return `${this.card.blueprintId}_${this.constructor.name}_${nanoid(6)}`;
   }
 
   protected get session() {

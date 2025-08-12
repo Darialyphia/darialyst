@@ -6,13 +6,13 @@ import {
   type Point3D
 } from '@game/shared';
 import { type Cell } from '../board/cell';
-import type { GameSession } from '../game-session';
+import { GAME_PHASES, type GameSession } from '../game-session';
 import { Entity, ENTITY_EVENTS, type EntityId } from '../entity/entity';
 import { createEntityModifier, type EntityModifier } from '../modifier/entity-modifier';
 import { modifierCardInterceptorMixin } from '../modifier/mixins/card-interceptor.mixin';
 import { modifierEntityInterceptorMixin } from '../modifier/mixins/entity-interceptor.mixin';
 import { KEYWORDS, type Keyword } from '../utils/keywords';
-import { createCardModifier } from './card-modifier';
+import { createCardModifier, type CardModifier } from './card-modifier';
 import {
   modifierCardGameEventMixin,
   modifierGameEventMixin
@@ -1102,7 +1102,6 @@ export const slay = ({
 }) => {
   return createEntityModifier({
     source,
-    id: KEYWORDS.SLAY.id,
     stackable: false,
     visible: false,
     mixins: [
@@ -1262,6 +1261,18 @@ export const discover = ({ choices }: { choices: CardBlueprint[] }) => {
     id: KEYWORDS.DISCOVER.id,
     stackable: false,
     mixins: [
+      {
+        onApplied(session, card) {
+          if (session.phase === GAME_PHASES.MULLIGAN) return;
+          card.meta.cardChoices =
+            choices.length > MAX_CHOICES
+              ? shuffleArray(choices, () => session.rngSystem.next()).slice(
+                  0,
+                  MAX_CHOICES
+                )
+              : choices;
+        }
+      },
       modifierCardGameEventMixin({
         eventName: 'player:turn_start',
         listener(_, ctx) {
@@ -1310,8 +1321,6 @@ export const discover = ({ choices }: { choices: CardBlueprint[] }) => {
 
 const IGNORE_ECHO_MODIFIER_ID = 'echoed';
 export const echo = () => {
-  let cleanup: any;
-
   return createCardModifier({
     id: KEYWORDS.ECHO.id,
     stackable: false,

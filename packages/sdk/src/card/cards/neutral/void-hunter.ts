@@ -36,7 +36,7 @@ export const neutralVoidHunter = defineSerializedBlueprint({
         ],
         triggers: [
           {
-            type: 'on_after_unit_destroyed',
+            type: 'on_before_unit_destroyed',
             params: {
               unit: { candidates: [], random: false },
               frequency: { type: 'always' }
