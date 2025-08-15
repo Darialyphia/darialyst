@@ -24,6 +24,13 @@ const {
 const selected = defineModel<TMultiple extends true ? TValue[] : TValue>({
   required: true
 });
+
+const filterFunction = (val: TValue[], term: string): any => {
+  return val.filter(item => {
+    const el = options.find(opt => opt.value === item);
+    return el && el.label.toLowerCase().includes(term.toLowerCase());
+  });
+};
 </script>
 
 <template>
@@ -33,6 +40,7 @@ const selected = defineModel<TMultiple extends true ? TValue[] : TValue>({
     :default-value="defaultValue as any"
     :display-value="displayValue"
     :multiple
+    :filter-function="filterFunction"
   >
     <ComboboxAnchor class="anchor">
       <ComboboxInput :placeholder />

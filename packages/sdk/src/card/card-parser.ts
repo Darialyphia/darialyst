@@ -1146,6 +1146,7 @@ export const parseSerializeBlueprint = <T extends GenericCardEffect[]>(
     return cache.get(cacheKey)!;
   }
   // first, parse the blueprint effects
+
   const effects = blueprint.effects.map(effect => ({
     ...effect,
     actions: parseSerializedBlueprintEffect(effect)

@@ -17,7 +17,7 @@ const format = defineModel<{
 const customCards = computed(() =>
   Object.values(format.value.cards).filter(card => !CARDS[card.id])
 );
-
+console.log(customCards.value);
 const editedCards = computed(() =>
   Object.values(format.value.cards).filter(card => !!CARDS[card.id])
 );

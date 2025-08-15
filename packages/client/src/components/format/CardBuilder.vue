@@ -29,7 +29,7 @@ const { format } = defineProps<{
   isCustomCard: boolean;
 }>();
 const blueprint = defineModel<GenericSerializedBlueprint>('card', { required: true });
-
+console.log(blueprint);
 if (!blueprint.value.cellHighlights) {
   blueprint.value.cellHighlights = [];
 }
@@ -734,8 +734,8 @@ h3 {
   height: 550px;
 
   .sprite {
-    width: 100%;
     aspect-ratio: 1;
+    width: 100%;
 
     &:hover {
       cursor: pointer;
