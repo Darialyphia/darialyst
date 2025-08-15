@@ -70,6 +70,7 @@ import { EchoCardAction } from './actions/echo.card-action';
 import type { CardAction } from './actions/_card-action';
 import { TimelessCardAction } from './actions/timeless.card';
 import { SetCounterCardAction } from './actions/set-counter.action';
+import { IncrementCounterCardAction } from './actions/increment-counter.action';
 
 export type ParsedActionResult = (
   ctx: EffectCtx,
@@ -158,7 +159,8 @@ const ACTION_DICTIONARY: {
   wall: WallCardAction,
   zeal: ZealCardAction,
   timeless: TimelessCardAction,
-  set_counter: SetCounterCardAction
+  set_counter: SetCounterCardAction,
+  increment_counter: IncrementCounterCardAction
 };
 
 export const parseCardAction = (action: Action): ParsedActionResult => {

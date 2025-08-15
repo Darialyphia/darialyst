@@ -752,6 +752,13 @@ export type Action<
         counterValue: Amount<T>;
         filter?: Filter<GlobalCondition<T>>;
       };
+    }
+  | {
+      type: 'increment_counter';
+      params: {
+        name: string;
+        filter?: Filter<GlobalCondition<T>>;
+      };
     };
 
 export type ActionParams<T extends Action['type']> = (Action & {
