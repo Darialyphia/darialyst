@@ -136,6 +136,8 @@ export class Unit extends Card implements Serializable {
       this.entity.retaliationsDone = this.entity.maxRetaliations;
     }
 
+    await this.entity.emitAsync(ENTITY_EVENTS.AFTER_CREATED, this.entity);
+
     return true;
   }
 

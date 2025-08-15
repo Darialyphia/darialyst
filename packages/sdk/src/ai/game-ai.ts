@@ -25,6 +25,7 @@ export class GameAI {
     if (this.session.winnerId) return;
 
     if (this.player.isActive || this.session.phase === GAME_PHASES.MULLIGAN) {
+      console.log('evaluate next action =================================');
       const nextAction = await this.evaluateNextAction();
       return nextAction;
     }

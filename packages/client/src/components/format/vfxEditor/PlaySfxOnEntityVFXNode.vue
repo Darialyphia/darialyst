@@ -55,6 +55,8 @@ const animationOptions = computed(() => {
     id: name
   }));
 });
+
+const selectedSprite = ref<string | null>(null);
 </script>
 
 <template>
@@ -78,6 +80,9 @@ const animationOptions = computed(() => {
     <br />
 
     <label>Sprite</label>
+    <div class="fancy-surface preview" v-if="step.params.resourceName || selectedSprite">
+      <FXSpritePreview :sprite-id="selectedSprite ?? step.params.resourceName" />
+    </div>
     <ListboxRoot v-model="step.params.resourceName" class="sprite-list fancy-scrollbar">
       <ListboxContent>
         <ListboxItem
@@ -90,19 +95,18 @@ const animationOptions = computed(() => {
             <ListboxItemIndicator>
               <Icon name="radix-icons:check" />
             </ListboxItemIndicator>
-            <UiTooltip :use-portal="false" side="left">
-              <template #trigger>
-                <div>{{ option.label }}</div>
-              </template>
 
-              <div class="fancy-surface">
-                <FXSpritePreview :sprite-id="option.value" />
-              </div>
-            </UiTooltip>
+            <div
+              @mouseenter="selectedSprite = option.value"
+              @mouseleave="selectedSprite = step.params.resourceName"
+            >
+              {{ option.label }}
+            </div>
           </div>
         </ListboxItem>
       </ListboxContent>
     </ListboxRoot>
+
     <br />
 
     <label>Animation</label>
@@ -158,5 +162,10 @@ legend {
 
 fieldset label {
   font-size: var(--font-size-1);
+}
+
+.preview {
+  position: absolute;
+  right: 100%;
 }
 </style>

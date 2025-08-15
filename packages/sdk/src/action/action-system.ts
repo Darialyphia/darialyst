@@ -47,9 +47,10 @@ export class ActionSystem implements Serializable {
   constructor(private session: GameSession) {}
 
   async setup(rawHistory: SerializedAction[]) {
-    for (const action of rawHistory) {
-      await this.schedule(() => this.handleAction(action));
-    }
+    this.scheduledActions.push(
+      ...rawHistory.map(action => () => this.handleAction(action))
+    );
+    await this.flushSchedule();
     this.isSilent = false;
   }
 

@@ -25,7 +25,6 @@ export class AIEntityAgent implements AIAgent {
     session.isAISimulation = true;
     const now = Date.now();
     await this.session.runSimulation(action, session);
-    console.log(`Simulation done in ${Date.now() - now}ms`);
 
     const scorer = new AISessionScorer(
       session,
