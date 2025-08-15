@@ -751,11 +751,13 @@ export type Action<
         name: string;
         counterValue: Amount<T>;
         filter?: Filter<GlobalCondition<T>>;
+        execute?: ExecutionDelay;
       };
     }
   | {
       type: 'increment_counter';
       params: {
+        execute?: ExecutionDelay;
         name: string;
         filter?: Filter<GlobalCondition<T>>;
       };

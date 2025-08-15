@@ -724,6 +724,7 @@ const actionDict: ActionDictionary = {
     label: 'Set internal counter',
     params: {
       name: null,
+      execute: null,
       counterValue: AmountNode,
       filter: GlobalConditionNode
     }
@@ -732,6 +733,7 @@ const actionDict: ActionDictionary = {
     label: 'Increment internal counter',
     params: {
       name: null,
+      execute: null,
       filter: GlobalConditionNode
     }
   }
@@ -1212,9 +1214,11 @@ watch(
       .with({ type: 'set_counter' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.name ??= 'my_counter';
+        params.execute ??= 'now';
         params.counterValue ??= { type: 'fixed', params: { value: 0 } };
       })
       .with({ type: 'increment_counter' }, ({ params }) => {
+        params.execute ??= 'now';
         params.filter ??= { candidates: [], random: false };
         params.name ??= 'my_counter';
       })
