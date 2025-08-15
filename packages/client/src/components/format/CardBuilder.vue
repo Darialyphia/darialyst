@@ -29,7 +29,7 @@ const { format } = defineProps<{
   isCustomCard: boolean;
 }>();
 const blueprint = defineModel<GenericSerializedBlueprint>('card', { required: true });
-console.log(blueprint);
+
 if (!blueprint.value.cellHighlights) {
   blueprint.value.cellHighlights = [];
 }

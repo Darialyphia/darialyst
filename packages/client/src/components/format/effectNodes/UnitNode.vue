@@ -52,7 +52,6 @@ const id = useId();
           const condition = groups.candidates[groupIndex][conditionIndex];
 
           condition.type = type;
-
           match(condition)
             .with(
               { type: 'is_in_front' },
@@ -128,7 +127,7 @@ const id = useId();
             )
             .with({ type: 'has_blueprint' }, condition => {
               condition.params = {
-                blueprint: undefined as any,
+                blueprint: { candidates: [] },
                 not: false
               };
             })
@@ -158,6 +157,7 @@ const id = useId();
               };
             })
             .exhaustive();
+          console.log(groups);
         }
       "
     />
