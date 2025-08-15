@@ -273,6 +273,14 @@ export const [useGlobalConditionsProvider, _useGlobalConditions] = createInjecti
         params: {
           player: PlayerNode
         }
+      },
+      counter_value: {
+        label: 'An internal counter has a specific value',
+        params: {
+          name: null,
+          operator: NumericOperatorNode,
+          amount: AmountNode
+        }
       }
     };
 

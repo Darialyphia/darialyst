@@ -744,6 +744,14 @@ export type Action<
         filter?: Filter<GlobalCondition<T>>;
         execute?: ExecutionDelay;
       };
+    }
+  | {
+      type: 'set_counter';
+      params: {
+        name: string;
+        counterValue: Amount<T>;
+        filter?: Filter<GlobalCondition<T>>;
+      };
     };
 
 export type ActionParams<T extends Action['type']> = (Action & {

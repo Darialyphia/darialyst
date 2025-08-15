@@ -67,6 +67,11 @@ watchEffect(() => {
         .with({ type: 'player_has_more_minions' }, ({ params }) => {
           params.player = { candidates: [[{ type: 'ally_player' }]] };
         })
+        .with({ type: 'counter_value' }, ({ params }) => {
+          params.name ??= 'my_counter';
+          params.operator ??= 'equals';
+          params.amount ??= { type: 'fixed', params: { value: 0 } };
+        })
         .exhaustive();
     });
   });
@@ -131,6 +136,13 @@ const id = useId();
                 player: { candidates: [[{ type: 'ally_player' }]] }
               };
             })
+            .with({ type: 'counter_value' }, () => {
+              condition.params = {
+                name: 'my_counter',
+                operator: 'equals',
+                amount: { type: 'fixed', params: { value: 0 } }
+              };
+            })
             .exhaustive();
         }
       "
@@ -175,6 +187,12 @@ const id = useId();
         </label>
       </fieldset>
 
+      <template v-else-if="key === 'name'">
+        <UiTextInput
+          id="counter-name"
+          v-model="(groups.candidates[groupIndex][conditionIndex].params as any)[key]"
+        />
+      </template>
       <template v-else-if="key === 'keyword'">
         <KeywordNode
           v-model="(groups.candidates[groupIndex][conditionIndex].params as any)[key]"

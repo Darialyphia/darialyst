@@ -69,6 +69,7 @@ import { DiscoverCardAction } from './actions/discover.card-action';
 import { EchoCardAction } from './actions/echo.card-action';
 import type { CardAction } from './actions/_card-action';
 import { TimelessCardAction } from './actions/timeless.card';
+import { SetCounterCardAction } from './actions/set-counter.action';
 
 export type ParsedActionResult = (
   ctx: EffectCtx,
@@ -156,7 +157,8 @@ const ACTION_DICTIONARY: {
   vulnerable: VulnerableCardAction,
   wall: WallCardAction,
   zeal: ZealCardAction,
-  timeless: TimelessCardAction
+  timeless: TimelessCardAction,
+  set_counter: SetCounterCardAction
 };
 
 export const parseCardAction = (action: Action): ParsedActionResult => {

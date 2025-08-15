@@ -719,6 +719,14 @@ const actionDict: ActionDictionary = {
   timeless: {
     label: 'Echo',
     params: { execute: null, filter: GlobalConditionNode }
+  },
+  set_counter: {
+    label: 'Set internal counter',
+    params: {
+      name: null,
+      counterValue: AmountNode,
+      filter: GlobalConditionNode
+    }
   }
 };
 
@@ -1194,6 +1202,11 @@ watch(
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
       })
+      .with({ type: 'set_counter' }, ({ params }) => {
+        params.filter ??= { candidates: [], random: false };
+        params.name ??= 'my_counter';
+        params.counterValue ??= { type: 'fixed', params: { value: 0 } };
+      })
 
       .exhaustive();
   },
@@ -1343,6 +1356,14 @@ const id = useId();
         <p class="color-orange-5 text-0">
           Keep at 0 if it can happens any number of times
         </p>
+      </div>
+
+      <div v-else-if="key === 'name'">
+        <UiTextInput
+          :id="`${id}-name`"
+          v-model="(action.params as any)[key]"
+          type="text"
+        />
       </div>
 
       <div

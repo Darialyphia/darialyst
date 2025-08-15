@@ -1,4 +1,4 @@
-import { isEmptyObject, type AnyObject } from '@game/shared';
+import { isDefined, isEmptyObject, type AnyObject } from '@game/shared';
 import type { ConditionOverrides, Filter, NumericOperator } from '../card-effect';
 import type { CardConditionExtras } from './card-conditions';
 import { getCells, type CellCondition } from './cell-conditions';
@@ -65,6 +65,14 @@ export type GlobalCondition<
       type: 'player_has_more_minions';
       params: {
         player: Filter<PlayerCondition>;
+      };
+    }
+  | {
+      type: 'counter_value';
+      params: {
+        operator: NumericOperator;
+        amount: Amount<T>;
+        name: string;
       };
     };
 
@@ -221,6 +229,20 @@ export const checkGlobalConditions = (
           });
 
           return player.entities.length > player.opponent.entities.length;
+        })
+        .with({ type: 'counter_value' }, condition => {
+          const ctx = { session, card, entity, targets, event, eventName };
+          const value = card.meta[condition.params.name];
+          if (!isDefined(value)) return false;
+
+          return matchNumericOperator(
+            value,
+            getAmount({
+              ...ctx,
+              amount: condition.params.amount
+            }),
+            condition.params.operator
+          );
         })
         .exhaustive();
     });
