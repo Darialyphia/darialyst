@@ -541,10 +541,10 @@ export const barrier = ({ source, duration }: { source: Card; duration?: number 
       }),
       modifierSelfEventMixin({
         eventName: 'after_take_damage',
-        once: true,
         duration,
         listener(event, { attachedTo }) {
           attachedTo.removeModifier(KEYWORDS.BARRIER.id);
+          console.log('Barrier removed from', attachedTo);
         }
       })
     ]

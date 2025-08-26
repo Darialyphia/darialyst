@@ -503,7 +503,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
 
   async takeDamage(power: number, source: Card, isBattleDamage = false) {
     const amount = this.getTakenDamage(power, source);
-    if (amount <= 0) return;
+    // if (amount <= 0) return;
     const payload = {
       entity: this,
       amount,

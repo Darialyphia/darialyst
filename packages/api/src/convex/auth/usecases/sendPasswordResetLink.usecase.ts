@@ -15,7 +15,6 @@ export const sendPasswordResetLinkUsecase = internalAction({
     const to = isDev ? (process.env.RESEND_ACCOUNT_EMAIL as string) : args.email;
 
     const link = `${process.env.CLIENT_URL}/reset-password?token=${args.token}`;
-    console.log(link);
     const { data, error } = await resend.emails.send({
       from: `Daria <${from}>`,
       to: [to],
