@@ -5,7 +5,8 @@ export class ToughCardAction extends CardAction<'tough'> {
   async executeImpl() {
     const modifier = tough({
       source: this.card,
-      stacks: this.getAmount(this.action.params.stacks)
+      stacks: this.getAmount(this.action.params.stacks),
+      target: this.entity
     });
 
     return this.applyModifierConditionally(modifier, this.action.params.activeWhen);

@@ -1361,11 +1361,13 @@ export const echo = () => {
 export const tough = ({
   duration,
   source,
-  stacks = 1
+  stacks = 1,
+  target
 }: {
   source: Card;
   duration?: number;
   stacks?: number;
+  target?: Entity;
 }) => {
   return createEntityModifier({
     id: KEYWORDS.TOUGH.id,
@@ -1381,7 +1383,8 @@ export const tough = ({
         },
         tickOn: 'start',
         duration,
-        keywords: [KEYWORDS.TOUGH]
+        keywords: [KEYWORDS.TOUGH],
+        entity: target
       })
     ]
   });
