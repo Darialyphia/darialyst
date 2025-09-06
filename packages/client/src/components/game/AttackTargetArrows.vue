@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { PTransitionGroup } from 'vue3-pixi';
 import { DropShadowFilter } from '@pixi/filter-drop-shadow';
+import { CELL_HEIGHT } from '@/utils/constants';
+import { toIso } from '@/utils/iso';
 
 const { ui, pathfinding, camera, session } = useGame();
 const entities = useGameSelector(session => session.entitySystem.getList());

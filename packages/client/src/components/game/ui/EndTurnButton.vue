@@ -2,6 +2,7 @@
 const { gameType, ui, dispatch } = useGame();
 const isActive = useIsActivePlayer();
 const { isMobile } = useResponsive();
+import { GAME_TYPES } from '@/composables/useGame';
 </script>
 
 <template>

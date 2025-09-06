@@ -3,7 +3,6 @@ import {
   type CSSObject,
   type DynamicMatcher,
   type RuleContext,
-  type CSSColorValue,
   escapeRegExp
 } from 'unocss';
 import { parseColor } from '@unocss/preset-mini';
@@ -40,15 +39,12 @@ export function hasParseableColor(color: string | undefined, theme: object) {
   return color != null && !!parseColor(color, theme)?.color;
 }
 
-export function colorOpacityToString(color: CSSColorValue) {
+export function colorOpacityToString(color: any) {
   const alpha = color.alpha ?? 1;
   return typeof alpha === 'string' && alphaPlaceholders.includes(alpha) ? 1 : alpha;
 }
 
-export function colorToString(
-  color: CSSColorValue | string,
-  alphaOverride?: string | number
-) {
+export function colorToString(color: any | string, alphaOverride?: string | number) {
   if (typeof color === 'string')
     return color.replace(alphaPlaceholdersRE, `${alphaOverride ?? 1}`);
 

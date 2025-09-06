@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { match } from 'ts-pattern';
-
+import { TARGETING_MODES } from '@/composables/useGameUi';
 const { ui, dispatch } = useGame();
 
 const canSkip = computed(() => {

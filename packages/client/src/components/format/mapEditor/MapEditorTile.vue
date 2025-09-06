@@ -2,7 +2,7 @@
 import { TILES } from '@game/sdk/src/tile/tile-lookup';
 import type { Nullable, Point3D } from '@game/shared';
 import type { FrameObject } from 'pixi.js';
-
+import { CELL_HEIGHT } from '@/utils/constants';
 const { tileId, position } = defineProps<{ tileId: string; position: Point3D }>();
 
 const { camera, assets, dimensions } = useMapEditor();

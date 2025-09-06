@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { match } from 'ts-pattern';
+import { GAME_TYPES } from '@/composables/useGame';
 
 const { dispatch, ui, gameType } = useGame();
 const { isMenuOpened } = useGameUi();

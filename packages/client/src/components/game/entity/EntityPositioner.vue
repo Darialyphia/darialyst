@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { KEYWORDS, type EntityId } from '@game/sdk';
 import { dist, type Point3D } from '@game/shared';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { entityId } = defineProps<{ entityId: EntityId }>();
 

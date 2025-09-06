@@ -3,6 +3,7 @@ import { type EntityId } from '@game/sdk';
 import { waitFor, type Point } from '@game/shared';
 import { BLEND_MODES } from 'pixi.js';
 import { PTransitionGroup } from 'vue3-pixi';
+import { radialGradient } from '@/utils/fx';
 
 const { entityId } = defineProps<{ entityId: EntityId }>();
 const entity = useEntity(entityId);

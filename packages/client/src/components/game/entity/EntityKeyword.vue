@@ -2,6 +2,7 @@
 import { PTransition } from 'vue3-pixi';
 import type { Keyword } from '@game/sdk';
 import type { FrameObject } from 'pixi.js';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { keyword } = defineProps<{
   keyword: Keyword;

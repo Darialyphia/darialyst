@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type { EntityId } from '@game/sdk';
 import { PTransition } from 'vue3-pixi';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { entityId } = defineProps<{ entityId: EntityId }>();
 

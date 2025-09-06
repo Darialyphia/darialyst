@@ -2,6 +2,7 @@
 import type { Nullable } from '@game/shared';
 import type { FrameObject } from 'pixi.js';
 import { PTransition } from 'vue3-pixi';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { cell } = defineProps<{ cell: CellViewModel }>();
 

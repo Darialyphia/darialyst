@@ -3,9 +3,9 @@ import type { FederatedPointerEvent } from 'pixi.js';
 import { match } from 'ts-pattern';
 import {
   DEFAULT_MOUSE_LIGHT_COLOR,
-  DEFAULT_MOUSE_LIGHT_STRENGTH
+  DEFAULT_MOUSE_LIGHT_STRENGTH,
+  TARGETING_MODES
 } from '@/composables/useGameUi';
-import { debounce } from 'lodash-es';
 
 const { cell } = defineProps<{ cell: CellViewModel }>();
 

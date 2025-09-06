@@ -4,6 +4,7 @@ import type { GameDetailsDto } from '@game/api/src/convex/game/game.mapper';
 import { ClientSession, type SerializedGameState } from '@game/sdk';
 import type { SerializedAction } from '@game/sdk/src/action/action';
 import { type Socket } from 'socket.io-client';
+import { GAME_TYPES } from '@/composables/useGame';
 
 const { game } = defineProps<{ game: GameDetailsDto }>();
 const route = useRoute();

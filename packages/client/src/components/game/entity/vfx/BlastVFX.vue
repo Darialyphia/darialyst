@@ -3,6 +3,7 @@ import { Entity, KEYWORDS, type EntityId } from '@game/sdk';
 import { isAxisAligned } from '@game/sdk/src/utils/targeting';
 import { rad2Deg, Vec3, waitFor } from '@game/shared';
 import { type FrameObject } from 'pixi.js';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { entityId } = defineProps<{ entityId: EntityId }>();
 

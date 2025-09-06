@@ -3,6 +3,7 @@ import type { EntityId } from '@game/sdk';
 import { TextStyle } from 'pixi.js';
 import { match } from 'ts-pattern';
 import { PTransition, EasePresets } from 'vue3-pixi';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { ui, assets, session } = useGame();
 const { entityId } = defineProps<{ entityId: EntityId }>();

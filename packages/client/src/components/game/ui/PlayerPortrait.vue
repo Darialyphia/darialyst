@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { match } from 'ts-pattern';
-
+import { GAME_TYPES } from '@/composables/useGame';
 const { playerId } = defineProps<{ playerId: string }>();
 const player = useGameSelector(session => session.playerSystem.getPlayerById(playerId)!);
 

@@ -9,6 +9,7 @@ import {
 } from '@game/sdk';
 import type { GameFormat } from '@game/sdk/src/game-session';
 import type { Nullable } from '@game/shared';
+import { GAME_TYPES } from '@/composables/useGame';
 
 const { data: me } = useConvexAuthedQuery(api.users.me, {});
 
@@ -137,6 +138,7 @@ const format: GameFormat = {
   cards: {},
   map: tutorialMap
 };
+const router = useRouter();
 until(state)
   .toBeTruthy()
   .then(state => {
@@ -170,7 +172,7 @@ until(state)
     @draw="dispatch('draw', $event)"
     @get-gold="dispatch('getGold', $event)"
     @add-rune="dispatch('addRune', $event)"
-    @surrender="$router.push({ name: 'ClientHome' })"
+    @surrender="router.push({ name: 'ClientHome' })"
   />
 
   <template v-if="isReady && !isFinished">

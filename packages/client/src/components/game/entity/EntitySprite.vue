@@ -7,6 +7,7 @@ import { ColorOverlayFilter } from '@pixi/filter-color-overlay';
 import { OutlineFilter } from '@pixi/filter-outline';
 import { COLOR_CODED_UNITS } from '~/utils/settings';
 import { waitFor, type Nullable } from '@game/shared';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { entityId, scaleX } = defineProps<{ entityId: EntityId; scaleX: number }>();
 

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { isDefined, type Nullable } from '@game/shared';
+import { GAME_TYPES } from '@/composables/useGame';
 
 const { draggedIndex } = defineProps<{ draggedIndex: Nullable<number> }>();
 const { gameType, ui, dispatch } = useGame();

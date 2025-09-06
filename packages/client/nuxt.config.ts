@@ -115,7 +115,6 @@ export default defineNuxtConfig({
 
   postcss: {
     plugins: {
-      autoprefixer: true,
       '@unocss/postcss': {
         configOrPath: join(currentDir, './uno.config.ts')
       },

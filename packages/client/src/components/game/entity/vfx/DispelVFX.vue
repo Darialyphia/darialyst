@@ -2,6 +2,7 @@
 import { type EntityId } from '@game/sdk';
 import { type FrameObject } from 'pixi.js';
 import { PTransition } from 'vue3-pixi';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { entityId } = defineProps<{ entityId: EntityId }>();
 const entity = useEntity(entityId);

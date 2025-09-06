@@ -3,6 +3,7 @@ import { type SimulationResult } from '@game/sdk';
 import { isDefined } from '@game/shared';
 import { type FrameObject } from 'pixi.js';
 import { match } from 'ts-pattern';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { assets, camera, ui, session, simulationResult } = useGame();
 

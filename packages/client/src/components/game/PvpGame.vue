@@ -9,6 +9,7 @@ import {
 import type { SerializedAction } from '@game/sdk/src/action/action';
 import type { Nullable } from '@game/shared';
 import { type Socket } from 'socket.io-client';
+import { GAME_TYPES } from '@/composables/useGame';
 
 const route = useRoute();
 

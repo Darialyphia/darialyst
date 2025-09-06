@@ -3,6 +3,7 @@ import type { EntityId } from '@game/sdk';
 import { AnimatedSprite, BlurFilter } from 'pixi.js';
 import { dist, mapRange } from '@game/shared';
 import { PTransition, useScreen } from 'vue3-pixi';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { entityId } = defineProps<{ entityId: EntityId }>();
 

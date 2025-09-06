@@ -3,16 +3,13 @@ import type { GameFormatDto } from '@game/api/src/convex/formats/format.mapper';
 import type { LoadoutDto } from '@game/api/src/convex/loadout/loadout.mapper';
 import {
   ClientSession,
-  GameAI,
   ServerSession,
   type SerializedGameState,
   type SimulationResult
 } from '@game/sdk';
-import type { SerializedAction } from '@game/sdk/src/action/action';
-import { GAME_PHASES } from '@game/sdk/src/game-session';
 import type { Nullable } from '@game/shared';
 import { nanoid } from 'nanoid';
-import AIWorker from '@/workers/ai-worker?worker';
+import { GAME_TYPES } from '@/composables/useGame';
 
 const { player1Loadout, player2Loadout, seed, format } = defineProps<{
   player1Loadout: LoadoutDto;

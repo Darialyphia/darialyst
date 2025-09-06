@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { cloneDeep } from 'lodash-es';
+import { COLOR_CODED_UNITS, DISPLAY_UNITS_STATS } from '@/utils/settings';
 
 const emit = defineEmits<{
   close: [];

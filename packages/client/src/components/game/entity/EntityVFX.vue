@@ -2,6 +2,7 @@
 import { type EntityId } from '@game/sdk';
 import { randomInt, waitFor, type Point } from '@game/shared';
 import { type FrameObject } from 'pixi.js';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { entityId } = defineProps<{ entityId: EntityId }>();
 

@@ -3,6 +3,7 @@ import { CARD_KINDS, type EntityId } from '@game/sdk';
 import { type Nullable } from '@game/shared';
 import { type FrameObject } from 'pixi.js';
 import { PTransition, EasePresets } from 'vue3-pixi';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { entityId } = defineProps<{ entityId: EntityId }>();
 

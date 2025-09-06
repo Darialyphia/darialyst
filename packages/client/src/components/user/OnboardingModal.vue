@@ -16,11 +16,13 @@ const isOpened = computed(() => {
 const { mutate: skipTutorial, isLoading: isSubmitting } = useConvexAuthedMutation(
   api.users.completeOnboarding
 );
+
+const route = useRoute();
 </script>
 
 <template>
   <UiModal
-    :is-opened="isOpened && $route.name !== 'Tutorial'"
+    :is-opened="isOpened && route.name !== 'Tutorial'"
     title="Welcome to Darialyst !"
     :closable="false"
   >

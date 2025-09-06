@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { type EntityId } from '@game/sdk';
 import { AnimatedSprite, type FrameObject } from 'pixi.js';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { entityId } = defineProps<{ entityId: EntityId }>();
 

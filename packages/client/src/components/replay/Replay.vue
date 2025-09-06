@@ -3,6 +3,7 @@ import { api } from '@game/api';
 import type { GameDetailsDto } from '@game/api/src/convex/game/game.mapper';
 import { ClientSession, ServerSession } from '@game/sdk';
 import { parse } from 'zipson';
+import { GAME_TYPES } from '@/composables/useGame';
 
 const { game, replay, initialState } = defineProps<{
   game: GameDetailsDto;

@@ -3,6 +3,7 @@ import { CARD_KINDS, type EntityId } from '@game/sdk';
 import { type Nullable } from '@game/shared';
 import { TextStyle, type FrameObject } from 'pixi.js';
 import { PTransition, EasePresets } from 'vue3-pixi';
+import { CELL_HEIGHT } from '@/utils/constants';
 
 const { entityId } = defineProps<{ entityId: EntityId }>();
 
@@ -39,7 +40,7 @@ const textStyle = new TextStyle({
     :enter="{ alpha: 1, y: -CELL_HEIGHT * 0.5, ease: EasePresets.easeOutCubic }"
     :leave="{ scale: 0, y: -CELL_HEIGHT, alpha: 0, ease: EasePresets.easeOutCubic }"
   >
-    <pixi-text :style="textStyle" v-if="isDisplayed" :x="-17" :scale="0.25">
+    <pixi-text v-if="isDisplayed" :style="textStyle" :x="-17" :scale="0.25">
       REPLACE
     </pixi-text>
   </PTransition>
