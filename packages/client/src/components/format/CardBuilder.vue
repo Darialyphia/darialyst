@@ -3,6 +3,7 @@ import { vIntersectionObserver } from '@vueuse/components';
 import { camelCase } from 'lodash-es';
 import { capitalize } from 'vue';
 import {
+  Card,
   CARD_KINDS,
   CARDS,
   FACTIONS,
@@ -20,6 +21,7 @@ import { parseSerializeBlueprint } from '@game/sdk/src/card/card-parser';
 import { getKeywordById, type Keyword } from '@game/sdk/src/utils/keywords';
 import { match } from 'ts-pattern';
 import { getTagById, TAGS, type Tag } from '@game/sdk/src/utils/tribes';
+import { ClassicCard, Card as DarialystCard } from '#components';
 
 const { format } = defineProps<{
   format: {
@@ -240,6 +242,10 @@ watchEffect(() => {
   }
 });
 const soundsList = useVirtualList(soundOptions, { itemHeight: 32, overscan: 5 });
+
+const classicMode = ref(false);
+
+const cardComponent = computed(() => (classicMode.value ? ClassicCard : DarialystCard));
 </script>
 
 <template>
@@ -587,7 +593,12 @@ const soundsList = useVirtualList(soundOptions, { itemHeight: 32, overscan: 5 })
     </div>
 
     <div class="preview">
-      <Card
+      <label>
+        <UiSwitch v-model:checked="classicMode" />
+        Classic Duelyst preview
+      </label>
+      <component
+        :is="cardComponent"
         v-if="card"
         :card="{
           blueprintId: card.id,
