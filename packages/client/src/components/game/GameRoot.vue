@@ -19,8 +19,7 @@ import cursorDisabledUrl from '../../assets/cursors/cursor_disabled.png';
 import cursorAttackUrl from '../../assets/cursors/cursor_attack.png';
 import cursorMoveUrl from '../../assets/cursors/cursor_move.png';
 import cursorSummonUrl from '../../assets/cursors/cursor_summon.png';
-import type { GameEmits, GameType } from '#imports';
-import { randomInt, type Nullable } from '@game/shared';
+import { randomInt, type AnyObject, type Nullable, type Point3D } from '@game/shared';
 
 const { gameSession, playerId, gameType, p1Emote, p2Emote, currentTutorialStep } =
   defineProps<{
@@ -35,6 +34,35 @@ const { gameSession, playerId, gameType, p1Emote, p2Emote, currentTutorialStep }
 const simulationResult = defineModel<Nullable<SimulationResult>>('simulationResult', {
   required: false
 });
+
+type GameEmits = {
+  move: [{ entityId: number; position: Point3D }];
+  attack: [{ targetId: number; entityId: number }];
+  endTurn: [];
+  playCard: [
+    {
+      cardIndex: number;
+      position?: Point3D;
+      targets: Point3D[];
+      choice: number;
+    }
+  ];
+  replace: [
+    {
+      cardIndex: number;
+    }
+  ];
+  surrender: [];
+  mulligan: [{ cardIndices: number[]; playerId: string }];
+  p1Emote: [string];
+  p2Emote: [string];
+  simulateAction: [
+    {
+      type: string;
+      payload: AnyObject;
+    }
+  ];
+};
 const emit = defineEmits<GameEmits & { ready: [] }>();
 
 const bgm = useBgm();
