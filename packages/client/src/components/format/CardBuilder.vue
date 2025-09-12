@@ -22,6 +22,7 @@ import { getKeywordById, type Keyword } from '@game/sdk/src/utils/keywords';
 import { match } from 'ts-pattern';
 import { getTagById, TAGS, type Tag } from '@game/sdk/src/utils/tribes';
 import { ClassicCard, Card as DarialystCard } from '#components';
+import type { UnresolvedAsset } from 'pixi.js';
 
 const { format } = defineProps<{
   format: {
@@ -123,23 +124,35 @@ watch(isSpriteModalOpened, opened => {
   });
 });
 
-const unitSprites = import.meta.glob('@/assets/units{m}/*.png', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-});
-const iconSprites = import.meta.glob('@/assets/icons{m}/*.png', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-});
-const sounds = import.meta.glob('@/assets/sfx{m}/*.m4a', {
-  eager: true,
-  query: '?url',
-  import: 'default'
-});
+const { manifest } = useAssets();
+const unitSprites = manifest!.bundles
+  .map(bundle => {
+    const assets = bundle.assets as UnresolvedAsset[];
+    return assets.find(asset => {
+      const [src] = asset.src as string[];
+      return src.startsWith('/assets/units') && src.endsWith('.png');
+    });
+  })
+  .filter(isDefined)
+  .map(asset => asset.alias![0] as string);
 
+const iconSprites = manifest!.bundles
+  .map(bundle => {
+    const assets = bundle.assets as UnresolvedAsset[];
+    return assets.find(asset => {
+      const [src] = asset.src as string[];
+      return src.startsWith('/assets/icons') && src.endsWith('.png');
+    });
+  })
+  .filter(isDefined)
+  .map(asset => asset.alias![0] as string);
+const sounds = (
+  manifest!.bundles.find(bundle => bundle.name === 'sfx')?.assets as UnresolvedAsset[]
+)
+  .map(asset => asset.alias![0] as string)
+  .filter(alias => alias.endsWith('.m4a'));
 const hideUsedSprites = ref(true);
+
 const spriteOptions = computed(() => {
   const allCards = [format.cards, ...Object.values(CARDS)];
 
@@ -147,23 +160,23 @@ const spriteOptions = computed(() => {
 
   return match(blueprint.value.kind)
     .with(CARD_KINDS.GENERAL, CARD_KINDS.MINION, () =>
-      Object.keys(unitSprites)
-        .map(k => k.replace('/assets/units{m}/', '').split('.')[0])
+      unitSprites
+        .map(k => k.replace('.png', ''))
         .filter(k => {
           return !usedSprites.includes(k);
         })
     )
     .with(CARD_KINDS.SPELL, () =>
-      Object.keys(iconSprites)
-        .map(k => `icon_${k.replace('/assets/icons{m}/', '').split('.')[0]}`)
+      iconSprites
+        .map(k => k.replace('.png', ''))
         .filter(id => !id.includes('artifact'))
         .filter(k => {
           return !usedSprites.includes(k);
         })
     )
     .with(CARD_KINDS.ARTIFACT, () =>
-      Object.keys(iconSprites)
-        .map(k => `icon_${k.replace('/assets/icons{m}/', '').split('.')[0]}`)
+      iconSprites
+        .map(k => k.replace('.png', ''))
         .filter(id => id.includes('artifact'))
         .filter(k => {
           return !usedSprites.includes(k);
@@ -173,12 +186,12 @@ const spriteOptions = computed(() => {
 });
 const soundSearch = ref('');
 const soundOptions = computed(() => {
-  return Object.keys(sounds)
+  return sounds
     .filter(sound =>
       sound.toLocaleLowerCase().includes(soundSearch.value.toLocaleLowerCase())
     )
     .map(k => {
-      const filename = k.replace('/assets/sfx{m}/', '');
+      const filename = k.replace('sfx/', '');
 
       return { value: filename, label: filename.split('.')[0] };
     });
@@ -393,9 +406,9 @@ const cardComponent = computed(() => (classicMode.value ? ClassicCard : Darialys
 
       <h3 class="mt-6">Sounds</h3>
       <div
-        class="flex gap-2 my-3 items-center"
         v-for="soundKey in soundKeys"
         :key="soundKey.key"
+        class="flex gap-2 my-3 items-center"
       >
         <UiButton
           class="ghost-button"
@@ -423,15 +436,15 @@ const cardComponent = computed(() => (classicMode.value ? ClassicCard : Darialys
       >
         <div class="overflow-hidden">
           <UiTextInput
-            v-model="soundSearch"
             id="sound-search"
+            v-model="soundSearch"
             left-icon="material-symbols:search"
             placeholder="Search a sound"
           />
           <div
-            class="sounds-list fancy-scrollbar"
             v-bind="soundsList.containerProps"
             :ref="soundsList.containerProps.ref"
+            class="sounds-list fancy-scrollbar"
           >
             <ul v-bind="soundsList.wrapperProps.value">
               <li v-for="sound in soundsList.list.value" :key="sound.index">
