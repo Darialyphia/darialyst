@@ -1,6 +1,6 @@
 import type { Id } from '../_generated/dataModel';
 import type { CardBlueprintId } from '@game/sdk/src/card/card';
-import type { MutationCtx, QueryCtx } from '../_generated/server';
+import type { QueryCtx } from '../_generated/server';
 
 export const GAME_ANALYTICS_EVENTS = {
   GAME_ENDED: 'game_ended'
