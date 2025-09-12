@@ -1,7 +1,8 @@
 import { v } from 'convex/values';
 import { authedMutation } from '../../auth/auth.utils';
 import { getGlobalStats } from '../../analytics/analytics.utils';
-import { CARDS, FACTIONS } from '@game/sdk';
+import { CARDS } from '@game/sdk/src/card/card-lookup';
+import { FACTIONS } from '@game/sdk/src/card/card-enums';
 
 export const completeOnboardingUsecase = authedMutation({
   args: {

@@ -1,7 +1,7 @@
 import { defineTable } from 'convex/server';
 import { v, type Validator } from 'convex/values';
 import { GAME_STATUS, type GameStatus } from './game.constants';
-import type { GameSessionConfig } from '@game/sdk';
+import type { GameSessionConfig } from '@game/sdk/src/config';
 
 export const gameSchemas = {
   games: defineTable({

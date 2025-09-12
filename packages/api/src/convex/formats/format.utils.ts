@@ -1,4 +1,5 @@
-import { defaultConfig, defaultMap } from '@game/sdk';
+import { defaultConfig } from '@game/sdk/src/config';
+import { defaultMap } from '@game/sdk/src';
 import type { GameFormat } from './format.entity';
 import { v } from 'convex/values';
 import type { Doc, Id } from '../_generated/dataModel';

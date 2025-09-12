@@ -1,4 +1,6 @@
-import { defaultMap, GameSession, type GenericSerializedBlueprint } from '@game/sdk';
+import { defaultMap } from '@game/sdk/src/board/maps';
+import { GameSession } from '@game/sdk/src/game-session';
+import type { GenericSerializedBlueprint } from '@game/sdk/src';
 import type { Id } from '../_generated/dataModel';
 import type { GameFormat } from '../formats/format.entity';
 import type { Loadout } from './loadout.entity';

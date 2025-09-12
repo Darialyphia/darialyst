@@ -1,4 +1,4 @@
-import type { GenericSerializedBlueprint } from '@game/sdk';
+import type { GenericSerializedBlueprint } from '@game/sdk/src/card/card-blueprint';
 import type { Id } from '../_generated/dataModel';
 import type { MutationCtx } from '../_generated/server';
 

@@ -1,4 +1,5 @@
-import { CARD_KINDS, CARDS } from '@game/sdk';
+import { CARD_KINDS } from '@game/sdk/src/card/card-enums';
+import { CARDS } from '@game/sdk/src';
 import type { Doc, Id } from '../_generated/dataModel';
 import type { MutationCtx, QueryCtx } from '../_generated/server';
 import type { CardBlueprintId } from '@game/sdk/src/card/card';

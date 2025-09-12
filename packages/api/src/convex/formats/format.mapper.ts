@@ -1,11 +1,9 @@
 import type { Id } from '../_generated/dataModel';
 import { toUserDto, type UserDto } from '../users/user.mapper';
 import type { User } from '../users/user.entity';
-import {
-  defaultMap,
-  type GameSessionConfig,
-  type GenericSerializedBlueprint
-} from '@game/sdk';
+import { defaultMap } from '@game/sdk/src/board/maps';
+import type { GameSessionConfig } from '@game/sdk/src/config';
+import { type GenericSerializedBlueprint } from '@game/sdk/src/card/card-blueprint';
 import type { GameFormat } from './format.entity';
 import type { BoardSystemOptions } from '@game/sdk/src/board/board-system';
 import { parse } from 'zipson';

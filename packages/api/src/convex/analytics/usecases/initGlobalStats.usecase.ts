@@ -1,6 +1,8 @@
 import { internalMutation } from '../../_generated/server';
 import { difference } from 'lodash-es';
-import { CARDS, FACTIONS } from '@game/sdk';
+import { FACTIONS } from '@game/sdk/src/card/card-enums';
+
+import { CARDS } from '@game/sdk/src/card/card-lookup';
 
 export const initGlobalStatsUsecase = internalMutation(async ctx => {
   const exists = await ctx.db.query('globalStats').first();

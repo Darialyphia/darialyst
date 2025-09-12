@@ -1,4 +1,4 @@
-import { CARDS } from '@game/sdk';
+import { CARDS } from '@game/sdk/src/card/card-lookup';
 import { internalMutation } from '../../_generated/server';
 import { grantCards } from '../collection.utils';
 import { v } from 'convex/values';

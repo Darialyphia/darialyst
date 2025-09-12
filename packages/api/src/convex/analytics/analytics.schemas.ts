@@ -1,6 +1,6 @@
 import { v } from 'convex/values';
 import { defineTable } from 'convex/server';
-import { FACTIONS } from '@game/sdk';
+import { FACTIONS } from '@game/sdk/src/card/card-enums';
 
 export const gameStatsSchema = {
   gamesByFaction: v.object({

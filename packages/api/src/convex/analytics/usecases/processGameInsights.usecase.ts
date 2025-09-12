@@ -6,7 +6,8 @@ import {
   type GameAnalyticsEvent
 } from '../analytics.utils';
 import { match } from 'ts-pattern';
-import { CARD_KINDS, CARDS } from '@game/sdk';
+import { CARDS } from '@game/sdk/src';
+import { CARD_KINDS } from '@game/sdk/src/card/card-enums';
 import { getGamePlayers } from '../../game/game.utils';
 import { isDefined } from '@game/shared';
 import { getFeatureFlag } from '../../featureFlags/featureFlags.utils';
