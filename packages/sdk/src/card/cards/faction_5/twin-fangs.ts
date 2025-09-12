@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f5TwinFangs = defineSerializedBlueprint({
   id: 'f5_twin_fangs',

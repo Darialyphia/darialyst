@@ -15,11 +15,11 @@ import type { Card } from '../card';
 import type { Filter, NumericOperator } from '../card-effect';
 import { getCells, type CellCondition } from './cell-conditions';
 import type { CardConditionExtras } from './card-conditions';
-import { matchNumericOperator } from '../card-action';
 import { getAmount, type Amount } from '../helpers/amount';
 import type { TagId } from '../../utils/tribes';
 import { getBlueprints, type BlueprintCondition } from './blueprint-conditions';
 import type { PlayerArtifact } from '../../player/player-artifact';
+import { matchNumericOperator } from './conditions-helpers';
 
 export type UnitConditionBase =
   | { type: 'any_unit' }

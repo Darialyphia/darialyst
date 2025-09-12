@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f6CrystalCloaker = defineSerializedBlueprint({
   id: 'f6_crystal_cloaker',

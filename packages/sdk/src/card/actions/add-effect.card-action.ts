@@ -1,4 +1,4 @@
-import { parseSerializedBlueprintEffect } from '../card-parser';
+import { parseSerializedBlueprintEffect } from '../effect-parser';
 import { CardAction } from './_card-action';
 
 export class AddEffectCardAction extends CardAction<'add_effect'> {

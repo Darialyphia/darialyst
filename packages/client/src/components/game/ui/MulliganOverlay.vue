@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { GAME_PHASES } from '@game/sdk/src/game-session';
 import { match } from 'ts-pattern';
 
 const phase = useGameSelector(session => session.phase);

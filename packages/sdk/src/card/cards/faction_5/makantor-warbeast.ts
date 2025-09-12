@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f5MakantorWarbeast = defineSerializedBlueprint({
   id: 'f5_makantor_warbeast',

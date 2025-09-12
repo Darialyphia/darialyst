@@ -1,5 +1,5 @@
 import { zeal } from '../../modifier/modifier-utils';
-import { parseSerializedBlueprintEffect } from '../card-parser';
+import { parseSerializedBlueprintEffect } from '../effect-parser';
 import { CardAction } from './_card-action';
 
 export class ZealCardAction extends CardAction<'zeal'> {

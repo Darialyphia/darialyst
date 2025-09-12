@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { f6FoxRavager } from './fox-ravager';
 
 export const f6AspectOfTheFox = defineSerializedBlueprint({

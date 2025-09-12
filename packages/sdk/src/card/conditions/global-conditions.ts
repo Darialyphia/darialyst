@@ -11,11 +11,11 @@ import {
 import type { EffectCtx } from '../card-parser';
 import { match } from 'ts-pattern';
 import type { Entity } from '../../entity/entity';
-import { matchNumericOperator } from '../card-action';
 import { getAmount, type Amount } from '../helpers/amount';
 import { getKeywordById, type KeywordId } from '../../utils/keywords';
 import { PlayCardAction } from '../../action/play-card.action';
 import { type TagId } from '../../utils/tribes';
+import { matchNumericOperator } from './conditions-helpers';
 
 export type GlobalCondition<
   T extends ConditionOverrides = {

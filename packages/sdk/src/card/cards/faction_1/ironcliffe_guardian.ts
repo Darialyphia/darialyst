@@ -1,5 +1,5 @@
 import { KEYWORDS } from '../../../utils/keywords';
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { CARD_KINDS, FACTION_IDS, RARITIES } from '../../card-enums';
 import { airdropEffect } from '../../helpers/airdrop.effect';
 import { provokeEffect } from '../../helpers/provoke.effect';

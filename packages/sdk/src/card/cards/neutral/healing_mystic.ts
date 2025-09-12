@@ -1,5 +1,5 @@
 import { KEYWORDS } from '../../../utils/keywords';
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { defineCardEffect } from '../../card-effect';
 import { manualTarget } from '../../helpers/targeting';
 

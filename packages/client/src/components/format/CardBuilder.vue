@@ -201,7 +201,7 @@ const spriteModalRoot = ref<HTMLElement>();
 const hoveredSprite = ref<string | null>(null);
 
 const copyCode = () => {
-  const content = `import { defineSerializedBlueprint } from '../../card-blueprint';
+  const content = `import { defineSerializedBlueprint } from '../../type-helpers';
 
   export const ${camelCase(`${blueprint.value.faction ?? 'neutral'}${blueprint.value.name}`)} = defineSerializedBlueprint(${JSON.stringify(blueprint.value)});
   `;

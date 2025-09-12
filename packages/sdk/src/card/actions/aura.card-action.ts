@@ -1,5 +1,5 @@
 import { aura } from '../../modifier/modifier-utils';
-import { parseSerializedBlueprintEffect } from '../card-parser';
+import { parseSerializedBlueprintEffect } from '../effect-parser';
 import { CardAction } from './_card-action';
 import type { Entity } from '../../entity/entity';
 

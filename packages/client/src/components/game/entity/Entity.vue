@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { Entity, type EntityId } from '@game/sdk';
-import { GAME_PHASES } from '@game/sdk/src/game-session';
+import { GAME_PHASES } from '@game/sdk/src/game.constants';
 import { Container } from 'pixi.js';
 import { PTransition } from 'vue3-pixi';
 

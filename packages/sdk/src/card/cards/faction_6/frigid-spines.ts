@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f6FrigidSpines = defineSerializedBlueprint({
   id: 'f6_frigid_spines',

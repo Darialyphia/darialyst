@@ -1,5 +1,5 @@
 import { KEYWORDS } from '../../../utils/keywords';
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const neutralPandoraGreen = defineSerializedBlueprint({
   id: 'neutral_pandora_green',

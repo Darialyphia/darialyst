@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f3InnerOasis = defineSerializedBlueprint({
   id: 'f3_inner_oasis',

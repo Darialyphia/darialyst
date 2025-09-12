@@ -1,6 +1,6 @@
 import { KEYWORDS } from '../../../utils/keywords';
 import { TAGS } from '../../../utils/tribes';
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { CARD_KINDS, FACTION_IDS, RARITIES } from '../../card-enums';
 import { f3WindDervish } from './wind-dervish';
 

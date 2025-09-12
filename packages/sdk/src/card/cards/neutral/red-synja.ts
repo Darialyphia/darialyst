@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { CARD_KINDS, RARITIES } from '../../card-enums';
 
 export const neutralRedSynja = defineSerializedBlueprint({

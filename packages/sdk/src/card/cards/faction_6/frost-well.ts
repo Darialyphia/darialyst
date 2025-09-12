@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f6FrostWell = defineSerializedBlueprint({
   id: 'f6_frost_well',

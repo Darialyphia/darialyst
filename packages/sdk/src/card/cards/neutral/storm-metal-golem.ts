@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const neutralStormMetalGolem = defineSerializedBlueprint({
   id: 'neutral_storm_metal_golem',

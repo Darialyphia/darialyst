@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f4RiteOfTheUndervault = defineSerializedBlueprint({
   id: 'f4_rite_of_the_undervault',

@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { f6SeismicElemental } from './seismic_elemental';
 
 export const f6AspectOfTheMountain = defineSerializedBlueprint({

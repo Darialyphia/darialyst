@@ -1,5 +1,5 @@
 import { KEYWORDS } from '../../../utils/keywords';
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { FACTION_IDS, RARITIES } from '../../card-enums';
 import { allyMinion } from '../../helpers/targeting';
 

@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f3FountainOfYouth = defineSerializedBlueprint({
   id: 'f3_fountain_of_youth',

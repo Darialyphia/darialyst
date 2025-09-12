@@ -1,5 +1,5 @@
 import { adapt, type AdaptChoice } from '../../modifier/modifier-utils';
-import { parseSerializedBlueprintEffect } from '../card-parser';
+import { parseSerializedBlueprintEffect } from '../effect-parser';
 import type { Unit } from '../unit';
 import { CardAction } from './_card-action';
 

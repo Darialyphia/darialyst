@@ -1,4 +1,4 @@
-import { GAME_PHASES } from '@game/sdk/src/game-session';
+import { GAME_PHASES } from '@game/sdk/src/game.constants';
 import type { ControlId } from '../utils/key-bindings';
 
 export const useGameControls = () => {

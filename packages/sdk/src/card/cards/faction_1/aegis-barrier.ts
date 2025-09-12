@@ -1,5 +1,5 @@
 import { KEYWORDS } from '../../../utils/keywords';
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f1AegisBarrier = defineSerializedBlueprint({
   id: 'f1_aegis_barrier',

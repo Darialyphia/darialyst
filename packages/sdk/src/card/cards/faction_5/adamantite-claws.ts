@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f5AdamantiteClaws = defineSerializedBlueprint({
   id: 'f5_adamantite_claws',

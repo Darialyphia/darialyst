@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f6AncientGrove = defineSerializedBlueprint({
   id: 'f6_ancient_grove',

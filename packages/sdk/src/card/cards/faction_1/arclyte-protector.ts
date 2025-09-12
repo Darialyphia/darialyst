@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f1ArclyteProtector = defineSerializedBlueprint({
   id: 'f1_arclyte_protector',

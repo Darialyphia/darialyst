@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f2OnyxBearSeal = defineSerializedBlueprint({
   id: 'f2_onyx_bear_seal',

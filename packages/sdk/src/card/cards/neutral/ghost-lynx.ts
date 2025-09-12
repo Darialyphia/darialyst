@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const neutralGhostLynx = defineSerializedBlueprint({
   id: 'neutral_ghost_lynx',

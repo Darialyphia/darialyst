@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f5PlasmaStorm = defineSerializedBlueprint({
   id: 'f5_plasma_storm',

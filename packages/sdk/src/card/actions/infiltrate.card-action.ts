@@ -1,7 +1,7 @@
-import { aura, infiltrate } from '../../modifier/modifier-utils';
-import { parseSerializedBlueprintEffect } from '../card-parser';
+import { infiltrate } from '../../modifier/modifier-utils';
 import { CardAction } from './_card-action';
 import type { Entity } from '../../entity/entity';
+import { parseSerializedBlueprintEffect } from '../effect-parser';
 
 export class InfiltrateCardAction extends CardAction<'infiltrate'> {
   async executeImpl() {
@@ -14,7 +14,7 @@ export class InfiltrateCardAction extends CardAction<'infiltrate'> {
 
     const modifier = infiltrate({
       source: this.card,
-      onApplied: async (entity, session) => {
+      onApplied: async entity => {
         if (!cleanupsByEntity.has(entity)) {
           cleanupsByEntity.set(entity, []);
         }

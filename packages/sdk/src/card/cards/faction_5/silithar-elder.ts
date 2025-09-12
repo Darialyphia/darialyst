@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { f5Egg } from './egg';
 
 export const f5SilitharElder = defineSerializedBlueprint({

@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f3EntropicDecay = defineSerializedBlueprint({
   id: 'f3_entropic_decay',

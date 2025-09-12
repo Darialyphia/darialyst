@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const neutralFlameAcolyte = defineSerializedBlueprint({
   id: 'neutral_flame_acolyte',

@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const neutralPandoraBlue = defineSerializedBlueprint({
   id: 'neutral_pandora_blue',

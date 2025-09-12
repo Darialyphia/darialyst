@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f6WhiteWyrm = defineSerializedBlueprint({
   id: 'f6_white_wyrm',

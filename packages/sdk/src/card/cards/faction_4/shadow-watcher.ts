@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f4ShadowWatcher = defineSerializedBlueprint({
   id: 'f4_shadow_watcher',

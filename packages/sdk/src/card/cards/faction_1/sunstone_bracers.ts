@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { FACTION_IDS, RARITIES } from '../../card-enums';
 import { allyGeneral } from '../../helpers/targeting';
 import { whileArtifactEquipedEffect } from '../../helpers/while-artifact-equiped.effect';

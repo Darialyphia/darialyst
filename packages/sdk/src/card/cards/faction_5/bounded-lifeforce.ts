@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f5BoundedLifeforce = defineSerializedBlueprint({
   id: 'f5_bounded_lifeforce',

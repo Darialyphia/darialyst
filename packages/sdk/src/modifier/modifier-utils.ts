@@ -34,6 +34,7 @@ import { BlastAttackPattern, type AttackPattern } from '../utils/attack-patterns
 import type { CardBlueprint } from '../card/card-blueprint';
 import { f5Egg } from '../card/cards/faction_5/egg';
 import { Spell } from '../card/spell';
+import type { GameSession } from '../game-session';
 
 export const dispelEntity = (entity: Entity) => {
   entity.dispel();

@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f1SkywindGlaives = defineSerializedBlueprint({
   id: 'f1_skywind_glaives',

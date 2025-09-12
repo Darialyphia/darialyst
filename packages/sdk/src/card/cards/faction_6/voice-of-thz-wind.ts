@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f6VoiceOfTheWind = defineSerializedBlueprint({
   id: 'f6_voice_of_the_wind',

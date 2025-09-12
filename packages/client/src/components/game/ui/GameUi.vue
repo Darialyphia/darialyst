@@ -2,7 +2,7 @@
 import { onTick } from 'vue3-pixi';
 import EndGameModal from './EndGameModal.vue';
 import Stats from 'stats.js';
-import { GAME_PHASES } from '@game/sdk/src/game-session';
+import { GAME_PHASES } from '@game/sdk/src/game.constants';
 
 const { ui, session } = useGame();
 

@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const neutralSkyrockGolem = defineSerializedBlueprint({
   id: 'neutral_skyrock_golem',

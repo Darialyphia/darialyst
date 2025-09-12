@@ -1,5 +1,5 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
 import { RARITIES, CARD_KINDS, FACTION_IDS } from '../../card-enums';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f1General = defineSerializedBlueprint({
   id: 'f1_general',

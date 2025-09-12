@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f6BoreanBear = defineSerializedBlueprint({
   id: 'f6_borean_bear',

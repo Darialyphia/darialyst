@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { defineCardEffect } from '../../card-effect';
 import { CARD_KINDS, FACTION_IDS, RARITIES } from '../../card-enums';
 import { allyMinion, manualTarget } from '../../helpers/targeting';

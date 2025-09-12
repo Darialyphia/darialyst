@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f4BreathOfTheUnborn = defineSerializedBlueprint({
   id: 'f4_breath_of_the_unborn',

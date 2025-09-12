@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const neutralWorldcoreGolem = defineSerializedBlueprint({
   id: 'neutral_worldcore_golem',

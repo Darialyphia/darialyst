@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { defineCardEffect } from '../../card-effect';
 
 export const f5PrimordialGazer = defineSerializedBlueprint({

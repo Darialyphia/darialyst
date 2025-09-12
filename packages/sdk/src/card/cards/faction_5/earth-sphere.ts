@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f5EarthSphere = defineSerializedBlueprint({
   id: 'f5_earth_sphere',

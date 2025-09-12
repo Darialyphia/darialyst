@@ -1,5 +1,5 @@
 import { essence } from '../../modifier/modifier-utils';
-import { parseSerializedBlueprintEffect } from '../card-parser';
+import { parseSerializedBlueprintEffect } from '../effect-parser';
 import { parseTargets } from '../card-targets';
 import { CardAction } from './_card-action';
 

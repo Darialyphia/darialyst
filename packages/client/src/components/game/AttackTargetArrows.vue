@@ -58,18 +58,6 @@ const hoveredCellIsoPosition = computed(() => {
     y: iso.isoY - iso.isoZ
   };
 });
-
-const filters = [
-  new DropShadowFilter({
-    alpha: 0.8,
-    color: 0xe93100,
-    quality: 3,
-    offset: {
-      x: 0,
-      y: 4
-    }
-  })
-];
 </script>
 
 <template>
@@ -86,7 +74,6 @@ const filters = [
       :z-order="9999"
       :y="-CELL_HEIGHT * 0.5"
       :alpha="0.75"
-      :filters="filters"
       @render="
         g => {
           if (!hoveredCellIsoPosition) return;

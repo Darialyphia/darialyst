@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 import { FACTION_IDS, RARITIES } from '../../card-enums';
 import { nTimesPerTurn } from '../../helpers/fequency';
 import { allyGeneral } from '../../helpers/targeting';

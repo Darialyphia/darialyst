@@ -1,5 +1,5 @@
 import { CARD_KINDS, type Animation, type EntityId } from '@game/sdk';
-import { GAME_PHASES } from '@game/sdk/src/game-session';
+import { GAME_PHASES } from '@game/sdk/src/game.constants';
 import { AnimatedSprite, Texture, type FrameObject } from 'pixi.js';
 
 export const useEntityTexture = (

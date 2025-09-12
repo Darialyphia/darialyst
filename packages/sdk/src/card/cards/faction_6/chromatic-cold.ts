@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f6ChromaticCold = defineSerializedBlueprint({
   id: 'f6_chromatic_cold',

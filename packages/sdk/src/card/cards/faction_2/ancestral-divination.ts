@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f2AncestralDivination = defineSerializedBlueprint({
   id: 'f2_ancestral_divination',

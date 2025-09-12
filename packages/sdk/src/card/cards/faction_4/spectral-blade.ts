@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f4SpectralBlade = defineSerializedBlueprint({
   id: 'f4_pectral_blade',

@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f2MaskOfShadows = defineSerializedBlueprint({
   id: 'f2_mask_of_shadows',

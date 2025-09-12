@@ -217,7 +217,3 @@ export type GenericSerializedBlueprint = SerializedBlueprint<any> & {
   maxHp?: number;
   effects: GenericCardEffect[];
 };
-
-export const defineSerializedBlueprint = <T extends GenericCardEffect[]>(
-  bp: SerializedBlueprint<T>
-) => bp;

@@ -1,4 +1,4 @@
-import { defineSerializedBlueprint } from '../../card-blueprint';
+import { defineSerializedBlueprint } from '../../type-helpers';
 
 export const f3CosmicFlesh = defineSerializedBlueprint({
   id: 'f3_cosmic_flesh',
