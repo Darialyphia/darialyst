@@ -5,7 +5,8 @@
   "devDependencies": {
     "@game/tsconfig": "*",
     "@types/eventemitter2": "^4.1.0",
-    "eslint-config-daria": "*"
+    "eslint-config-daria": "*",
+    "madge": "^8.0.0"
   },
   "dependencies": {
     "@game/shared": "*",
@@ -27,5 +28,12 @@
     "dev": "echo 1",
     "typecheck": "tsc --noEmit",
     "lint": "eslint . --ext .ts,.tsx --fix --ignore-path .gitignore"
+  },
+  "madge": {
+    "detectiveOptions": {
+      "tsx": {
+        "skipTypeImports": true
+      }
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { GAME_PHASES, GameSession } from '../game-session';
+import type { GameSession } from '../game-session';
 import {
   shuffleArray,
   type JSONObject,
@@ -27,6 +27,7 @@ import { TypedEventEmitter } from '../utils/typed-emitter';
 import type { Unit } from '../card/unit';
 import type { Artifact } from '../card/artifact';
 import type { Tag } from '../utils/tribes';
+import { GAME_PHASES } from '../game.constants';
 
 export type PlayerId = string;
 export type CardIndex = number;

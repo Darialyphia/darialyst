@@ -12,7 +12,6 @@ import { getLatestGamesWithReplaysUsecase } from './game/usecases/getLatestGames
 import { createGameReplayUsecase } from './game/usecases/createGameReplay.usecase';
 import { getGameReplayUsecase } from './game/usecases/getGameReplay.usecase';
 import { getGameByRoomIdUsecase } from './game/usecases/getGameByRoomId.usecase';
-import { internalMutation, internalQuery } from './_generated/server';
 import { getCurrentDetailedGameUsecase } from './game/usecases/getCurrentDetailedGame.usecase';
 
 export const getCurrent = getCurrentGameUsecase;

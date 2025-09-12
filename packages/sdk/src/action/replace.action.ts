@@ -1,6 +1,7 @@
 import { z } from 'zod';
-import { GameAction, defaultActionSchema } from './action';
-import { GAME_PHASES } from '../game-session';
+import { GameAction } from './action';
+import { GAME_PHASES } from '../game.constants';
+import { defaultActionSchema } from './action.constants';
 
 const schema = defaultActionSchema.extend({
   cardIndex: z.number().nonnegative()

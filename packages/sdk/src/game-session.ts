@@ -38,6 +38,7 @@ import { parseSerializeBlueprint } from './card/card-parser';
 import { TypedEventEmitter } from './utils/typed-emitter';
 import { nanoid } from 'nanoid';
 import { validateLoadout } from './utils/loader-validator';
+import { GAME_PHASES, type GamePhase } from './game.constants';
 
 export type SerializedGameState = {
   entities: Array<SerializedEntity>;
@@ -97,13 +98,6 @@ export type GameEvent = keyof GameEventMap;
 export type GameEventPayload<T extends GameEvent> = GameEventMap[T];
 
 export type SessionLogger = (message?: any, ...optionalParams: any[]) => void;
-
-export const GAME_PHASES = {
-  MULLIGAN: 'MULLIGAN',
-  BATTLE: 'BATTLE'
-} as const;
-
-export type GamePhase = Values<typeof GAME_PHASES>;
 
 export type SimulationResult = {
   damageTaken: Record<EntityId, number>;

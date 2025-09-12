@@ -1,5 +1,5 @@
 import type { SerializedAction } from '../action/action';
-import { GAME_PHASES } from '../game-session';
+import { GAME_PHASES } from '../game.constants';
 import type { ServerSession } from '../server-session';
 import { AIPlayerAgent } from './player-agent';
 

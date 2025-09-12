@@ -1,5 +1,5 @@
-import { completeSignupUsecase } from './users/usecases/completeSignup.usecase';
 import { getMeUsecase } from './users/usecases/getMe.usecase';
+import { completeSignupUsecase } from './users/usecases/completeSignup.usecase';
 import { completeOnboardingUsecase } from './users/usecases/completeOnboarding.usecase';
 import { getAllUsersUsecase } from './users/usecases/getAllUsers.usecase';
 import { getMySettingsUecase } from './users/usecases/getMySettings.usecase';

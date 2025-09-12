@@ -1,5 +1,6 @@
 import { CARD_EVENTS } from '../card/card';
-import { GAME_PHASES, GameSession } from '../game-session';
+import { type GameSession } from '../game-session';
+import { GAME_PHASES } from '../game.constants';
 import { type PlayerId, Player, type SerializedPlayer, PLAYER_EVENTS } from './player';
 
 export class PlayerSystem {

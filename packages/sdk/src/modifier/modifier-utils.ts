@@ -6,13 +6,13 @@ import {
   type Point3D
 } from '@game/shared';
 import { type Cell } from '../board/cell';
-import { GAME_PHASES, type GameSession } from '../game-session';
+import { GAME_PHASES } from '../game.constants';
 import { Entity, ENTITY_EVENTS, type EntityId } from '../entity/entity';
 import { createEntityModifier, type EntityModifier } from '../modifier/entity-modifier';
 import { modifierCardInterceptorMixin } from '../modifier/mixins/card-interceptor.mixin';
 import { modifierEntityInterceptorMixin } from '../modifier/mixins/entity-interceptor.mixin';
 import { KEYWORDS, type Keyword } from '../utils/keywords';
-import { createCardModifier, type CardModifier } from './card-modifier';
+import { createCardModifier } from './card-modifier';
 import {
   modifierCardGameEventMixin,
   modifierGameEventMixin

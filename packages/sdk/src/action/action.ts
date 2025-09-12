@@ -1,11 +1,8 @@
 import { z } from 'zod';
 import type { JSONValue, Serializable } from '@game/shared';
-import { GameSession, type GamePhase } from '../game-session';
-
-export const defaultActionSchema = z.object({
-  playerId: z.string()
-});
-export type DefaultSchema = typeof defaultActionSchema;
+import { GameSession } from '../game-session';
+import type { DefaultSchema } from './action.constants';
+import type { GamePhase } from '../game.constants';
 
 export type SerializedAction = {
   type: string;

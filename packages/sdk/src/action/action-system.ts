@@ -1,4 +1,4 @@
-import { GameAction, type DefaultSchema, type SerializedAction } from './action';
+import { GameAction, type SerializedAction } from './action';
 import { GameSession } from '../game-session';
 import type { Constructor, Nullable, Serializable, Values } from '@game/shared';
 import { AttackAction } from './attack.action';
@@ -8,6 +8,7 @@ import { PlayCardAction } from './play-card.action';
 import { SurrenderAction } from './surrender.action';
 import { ReplaceCardAction } from './replace.action';
 import { MulliganAction } from './mulligan.action';
+import type { DefaultSchema } from './action.constants';
 
 type GenericActionMap = Record<string, Constructor<GameAction<DefaultSchema>>>;
 

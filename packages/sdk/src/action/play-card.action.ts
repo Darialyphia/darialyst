@@ -1,7 +1,8 @@
 import { z } from 'zod';
-import { GameAction, defaultActionSchema } from './action';
+import { GameAction } from './action';
+import { defaultActionSchema } from './action.constants';
 import type { Card } from '../card/card';
-import { GAME_PHASES } from '../game-session';
+import { GAME_PHASES } from '../game.constants';
 import { CARD_KINDS } from '../card/card-enums';
 
 const schema = defaultActionSchema.extend({
@@ -20,7 +21,6 @@ const schema = defaultActionSchema.extend({
     .array(),
   choice: z.number()
 });
-
 export class PlayCardAction extends GameAction<typeof schema> {
   readonly name = 'playCard';
   readonly phase = GAME_PHASES.BATTLE;

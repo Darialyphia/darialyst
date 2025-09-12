@@ -5,7 +5,7 @@ import type { SerializedAction } from '../action/action';
 import { AISessionScorer } from './session-scorer';
 import { AIEntityAgent } from './entity-agent';
 import { isDefined } from '@game/shared';
-import { GAME_PHASES } from '../game-session';
+import { GAME_PHASES } from '../game.constants';
 
 export class AIPlayerAgent implements AIAgent {
   constructor(

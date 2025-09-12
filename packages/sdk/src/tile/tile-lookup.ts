@@ -3,7 +3,6 @@ import { keyBy } from 'lodash-es';
 import type { GameSession } from '../game-session';
 import type { Entity } from '../entity/entity';
 import type { Tile } from './tile';
-import { barrier, burn } from '../modifier/modifier-utils';
 import { PLAYER_EVENTS } from '../player/player';
 
 export type TileblueprintId = string;
@@ -34,40 +33,6 @@ const allTiles: TileBlueprint[] = [
       return;
     }
   },
-  // {
-  //   id: 'sanctuary',
-  //   name: 'Sanctuary',
-  //   description: 'Start of turn: give @@Barrier@@ to the minion on this tile.',
-  //   spriteId: 'sanctuary',
-  //   onCreated(session, entity, tile) {
-  //     tile.meta.listener = () => {
-  //       if (tile.occupant && !tile.occupant?.isGeneral) {
-  //         tile.occupant.addModifier(barrier({ source: tile.occupant.card, duration: 1 }));
-  //       }
-  //     };
-  //     session.on('player:turn_start', tile.meta.listener);
-  //   },
-  //   onDestroyed(session, entity, tile) {
-  //     session.off('player:turn_start', tile.meta.listener);
-  //   }
-  // },
-  // {
-  //   id: 'burning_ground',
-  //   name: 'Burning Ground',
-  //   description: 'End of turn: give @@Burn(1)@@ to the minion on this tile.',
-  //   spriteId: 'burning-ground',
-  //   onCreated(session, entity, tile) {
-  //     tile.meta.listener = () => {
-  //       if (tile.occupant) {
-  //         tile.occupant.addModifier(burn({ source: tile.occupant.card, duration: 1 }));
-  //       }
-  //     };
-  //     session.on('player:turn_end', tile.meta.listener);
-  //   },
-  //   onDestroyed(session, entity, tile) {
-  //     session.off('player:turn_start', tile.meta.listener);
-  //   }
-  // },
   {
     id: 'shadow_creep',
     name: 'Shadow Creep',
