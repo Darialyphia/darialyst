@@ -133,7 +133,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
 
   private isScheduledForDeletion = false;
 
-  private currentHp = 0;
+  private damageTaken = 0;
   public attackPattern: AttackPattern;
 
   private interceptors = {
@@ -173,7 +173,6 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
     this.originalOwner = this.card.player;
 
     this.position = Vec3.fromPoint3D(options.position);
-    this.currentHp = options.hp ?? this.maxHp;
     this.attackPattern = new DefaultAttackPattern(this.session, this);
   }
 
@@ -202,11 +201,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
   }
 
   get hp() {
-    return this.interceptors.maxHp.getValue(this.currentHp, this);
-  }
-
-  private set hp(val: number) {
-    this.currentHp = Math.min(val, this.maxHp);
+    return this.maxHp - this.damageTaken;
   }
 
   get maxHp(): number {
@@ -328,7 +323,6 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
 
   private checkHpForDeletion(source?: Card) {
     if (this.isScheduledForDeletion) return;
-
     if (this.hp <= 0) {
       this.isScheduledForDeletion = true;
       void this.destroy(source);
@@ -512,7 +506,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
     };
     await this.emitAsync(ENTITY_EVENTS.BEFORE_TAKE_DAMAGE, payload);
 
-    this.hp = this.currentHp - amount;
+    this.damageTaken += amount;
     this.checkHpForDeletion(source);
 
     await this.emitAsync(ENTITY_EVENTS.AFTER_TAKE_DAMAGE, payload);
@@ -552,7 +546,7 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
     };
     await this.emitAsync(ENTITY_EVENTS.BEFORE_HEAL, payload);
 
-    this.hp += amount;
+    this.damageTaken -= amount;
     this.checkHpForDeletion(source);
 
     await this.emitAsync(ENTITY_EVENTS.AFTER_HEAL, payload);
@@ -724,6 +718,6 @@ export class Entity extends TypedEventEmitter<EntityEventMap> {
     this.clearKeywords();
     this.clearModifiers();
     await this.card.transform(blueprintId);
-    this.hp = this.maxHp;
+    this.damageTaken = 0;
   }
 }

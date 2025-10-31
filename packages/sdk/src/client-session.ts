@@ -48,7 +48,6 @@ export class ClientSession extends GameSession {
     meta: { rngValues: number[] } = { rngValues: [] }
   ) {
     try {
-      console.log(action, meta);
       this.rngSystem.values.push(...meta.rngValues);
 
       return super.dispatch(action);
