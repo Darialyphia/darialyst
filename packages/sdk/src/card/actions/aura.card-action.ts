@@ -13,6 +13,7 @@ export class AuraCardAction extends CardAction<'aura'> {
 
     const modifier = aura({
       source: this.card,
+      canApplyToSelf: this.action.params.canApplyToSelf ?? false,
       isElligible: target => {
         return this.getUnits(this.action.params.isElligible).some(unit =>
           unit.equals(target)

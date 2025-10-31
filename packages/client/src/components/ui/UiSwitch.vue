@@ -5,7 +5,7 @@ const switchState = defineModel<boolean | undefined>('checked', { required: true
 </script>
 
 <template>
-  <SwitchRoot v-model:checked="switchState" class="ui-switch">
+  <SwitchRoot v-model="switchState" class="ui-switch">
     <SwitchThumb class="ui-switch-thumb" />
   </SwitchRoot>
 </template>

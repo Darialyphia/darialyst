@@ -553,6 +553,7 @@ const actionDict: ActionDictionary = {
       isElligible: UnitNode,
       effect: EffectNode,
       activeWhen: GlobalConditionNode,
+      canApplyToSelf: null,
       execute: null,
       filter: GlobalConditionNode
     }
@@ -1082,6 +1083,7 @@ watch(
       .with({ type: 'aura' }, ({ params }) => {
         params.filter ??= { candidates: [], random: false };
         params.execute ??= 'now';
+        params.canApplyToSelf ??= false;
         params.isElligible ??= {
           candidates: [[{ type: undefined as any }]],
           random: false
@@ -1256,6 +1258,13 @@ const id = useId();
         v-model:checked="(action.params as any)[key]"
       />
 
+      <div v-else-if="key === 'canApplyToSelf'" class="flex gap-2 items-center">
+        <UiSwitch v-model:checked="(action.params as any)[key]" />
+        <p class="c-orange-5 text-0">
+          Wether the aura can apply to the unit granting it.
+        </p>
+      </div>
+
       <div v-else-if="key === 'ephemeral'" class="flex gap-2 items-center">
         <UiSwitch v-model:checked="(action.params as any)[key]" />
         <p class="c-orange-5 text-0">
@@ -1394,9 +1403,9 @@ const id = useId();
 
       <div v-else-if="key === 'choices'">
         <div
-          class="flex gap-2 items-start mt-2"
           v-for="(choice, choiceIndex) in (action.params as any)[key]"
           :key="choiceIndex"
+          class="flex gap-2 items-start mt-2"
         >
           <UiIconButton
             name="material-symbols:delete-outline"
@@ -1406,8 +1415,8 @@ const id = useId();
           />
           <div>
             <UiTextInput
-              v-model="(action.params as any)[key][choiceIndex].text"
               :id="`card-choide-${choiceIndex}`"
+              v-model="(action.params as any)[key][choiceIndex].text"
             />
             <EffectNode v-model="(action.params as any)[key][choiceIndex].effect" />
           </div>

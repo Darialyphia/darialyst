@@ -41,7 +41,12 @@ const initialValues = computed(() => {
   <div v-else-if="format" class="page">
     <FormatForm
       :initial-values="initialValues"
-      @submit="updateFormat({ id: format._id, ...$event })"
+      @submit="
+        $event => {
+          console.log($event);
+          updateFormat({ id: format._id, ...$event });
+        }
+      "
     />
   </div>
 </template>

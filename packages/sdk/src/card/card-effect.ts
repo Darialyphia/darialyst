@@ -591,6 +591,7 @@ export type Action<
       type: 'aura';
       params: {
         effect: CardEffectConfig<Trigger[]>;
+        canApplyToSelf?: boolean;
         isElligible: Filter<
           UnitConditionBase | Extract<UnitConditionExtras, { type: T['unit'] }>
         >;

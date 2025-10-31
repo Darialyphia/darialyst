@@ -559,7 +559,8 @@ export const aura = ({
   id,
   keywords = [],
   isElligible = (target, source) => isWithinCells(source.position, target.position, 1),
-  origin
+  origin,
+  canApplyToSelf = false
 }: {
   source: Card;
   id?: string;
@@ -568,6 +569,7 @@ export const aura = ({
   keywords?: Keyword[];
   isElligible?: (target: Entity, source: Entity, session: GameSession) => boolean;
   origin?: Entity;
+  canApplyToSelf?: boolean;
 }) => {
   const affectedEntitiesIds = new Set<EntityId>();
   // we need to track this variable because of how the event emitter works
@@ -580,7 +582,7 @@ export const aura = ({
   const checkAura = (session: GameSession, attachedTo: Entity) => {
     if (!isApplied) return;
     session.entitySystem.getList().forEach(entity => {
-      if (entity.equals(attachedTo)) return;
+      if (!canApplyToSelf && entity.equals(attachedTo)) return;
       const shouldGetAura = isElligible(entity, attachedTo, session);
 
       const hasAura = affectedEntitiesIds.has(entity.id);
