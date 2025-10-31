@@ -19,6 +19,7 @@ export class ClientSession extends GameSession {
     state: SerializedGameState,
     options: { format: GameFormat; winnerId?: string }
   ) {
+    console.log(state);
     const rngSystem = new ClientRngSystem();
     rngSystem.values = state.rng.values;
 
@@ -48,6 +49,7 @@ export class ClientSession extends GameSession {
     meta: { rngValues: number[] } = { rngValues: [] }
   ) {
     try {
+      console.log(action, meta);
       this.rngSystem.values.push(...meta.rngValues);
 
       return super.dispatch(action);

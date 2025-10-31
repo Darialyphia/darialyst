@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T">
-import { CheckboxIndicator, CheckboxRoot, type CheckboxRootProps } from 'radix-vue';
+import { CheckboxIndicator, CheckboxRoot, type CheckboxRootProps } from 'reka-ui';
 import { Icon } from '@iconify/vue';
 
 const checked = defineModel<boolean>('checked', { required: true });

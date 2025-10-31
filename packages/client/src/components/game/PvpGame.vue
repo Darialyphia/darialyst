@@ -30,20 +30,20 @@ const simulateAction = async (event: any) => {
   if (simulationsCache.has(key)) {
     simulationResult.value = simulationsCache.get(key);
   }
-  try {
-    const result = await gameSession.value.simulateAction({
-      type: event.type,
-      payload: {
-        ...event.payload,
-        playerId: gameSession.value.playerSystem.activePlayer.id
-      }
-    });
-    simulationsCache.set(key, result);
-    simulationResult.value = result;
-  } catch (err) {
-    console.error(err);
-    socket.value?.emit('game:simulation', event);
-  }
+  socket.value?.emit('game:simulation', event);
+  // try {
+  //   const result = await gameSession.value.simulateAction({
+  //     type: event.type,
+  //     payload: {
+  //       ...event.payload,
+  //       playerId: gameSession.value.playerSystem.activePlayer.id
+  //     }
+  //   });
+  //   simulationsCache.set(key, result);
+  //   simulationResult.value = result;
+  // } catch (err) {
+  //   console.error(err);
+  // }
 };
 
 const dispatch = (type: Parameters<GameSession['dispatch']>[0]['type'], payload: any) => {

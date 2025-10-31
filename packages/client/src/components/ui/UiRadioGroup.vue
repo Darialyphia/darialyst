@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends string | undefined">
-import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from 'radix-vue';
+import { RadioGroupIndicator, RadioGroupItem, RadioGroupRoot } from 'reka-ui';
 
 const { options } = defineProps<{
   options: { label: string; value: T; id: string }[];

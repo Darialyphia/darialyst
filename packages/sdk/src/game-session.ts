@@ -210,7 +210,7 @@ export class GameSession extends TypedEventEmitter<GameEventMap> {
     this.entitySystem.setup(this.initialState.entities);
     await this.actionSystem.setup(this.initialState.history);
 
-    this.rngSystem.values = [];
+    // this.rngSystem.values = [];
 
     this.on('entity:after_destroy', e => {
       if (!e.player.general) {

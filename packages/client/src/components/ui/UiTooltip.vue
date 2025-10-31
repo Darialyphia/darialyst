@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TooltipContentProps } from 'radix-vue';
+import type { TooltipContentProps } from 'reka-ui';
 
 export type UITooltipProps = {
   sideOffset?: number;

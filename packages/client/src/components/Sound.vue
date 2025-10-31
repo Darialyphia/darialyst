@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { type Nullable, isFunction, isString } from '@game/shared';
-import { Slot as RadixSlot } from 'radix-vue';
+import { Slot as RadixSlot } from 'reka-ui';
 import { nanoid } from 'nanoid';
 
 const {

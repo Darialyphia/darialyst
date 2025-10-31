@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends string, TItem">
-import type { SelectPortalProps } from 'radix-vue';
+import type { SelectPortalProps } from 'reka-ui';
 const {
   options,
   placeholder = 'Select a value',

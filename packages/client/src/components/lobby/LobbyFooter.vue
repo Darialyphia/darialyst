@@ -37,9 +37,9 @@ const isReady = computed(() => {
 });
 
 const readySound = useSoundEffect('tab_in.m4a');
-watchEffect(() => {
+watch(isReady, ready => {
   if (!isOwner.value) return;
-  if (isReady.value) {
+  if (ready) {
     readySound.value?.play();
   }
 });

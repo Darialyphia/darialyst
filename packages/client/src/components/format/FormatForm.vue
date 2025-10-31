@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { type GameSessionConfig, type GenericSerializedBlueprint } from '@game/sdk';
-import { isDefined } from '@game/shared';
 
 const emit = defineEmits<{ submit: [typeof form] }>();
 const { initialValues } = defineProps<{
@@ -115,7 +114,7 @@ fieldset {
 
 .form {
   /*
-    necessary because of a rendering bug caused by radix-vue's Switch that has a hiddn input with position absolute
+    necessary because of a rendering bug caused by reka-ui's Switch that has a hiddn input with position absolute
     that causes some invisible overflow on the whole form.
   */
   position: relative;

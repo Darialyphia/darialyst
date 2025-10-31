@@ -24,7 +24,7 @@ export default defineNuxtConfig({
 
   modules: [
     '@vee-validate/nuxt',
-    'radix-vue/nuxt',
+    'reka-ui/nuxt',
     '@vueuse/nuxt',
     '@unocss/nuxt',
     'dayjs-nuxt',
