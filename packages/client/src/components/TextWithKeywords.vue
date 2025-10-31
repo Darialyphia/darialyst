@@ -10,17 +10,22 @@ const { text, highlighted = true } = defineProps<{
 }>();
 
 const KEYWORD_DELIMITER = '@';
+const COMMENT_SYMBOL = '#';
 const CARD_NAMES = new Set(Object.values(CARDS).map(c => c.name));
 
 type Token =
   | { type: 'text'; text: string }
   | { type: 'keyword'; text: string; keyword: Keyword }
   | { type: 'card'; card: CardBlueprint; text: string }
-  | { type: 'tag'; text: string };
+  | { type: 'tag'; text: string }
+  | { type: 'comment'; text: string };
 const tokens = computed<Token[]>(() => {
   if (!text.includes(KEYWORD_DELIMITER)) return [{ type: 'text', text }];
 
   return text.split(KEYWORD_DELIMITER).map(part => {
+    if (part.startsWith(COMMENT_SYMBOL)) {
+      return { type: 'comment', text: '' };
+    }
     const keyword = Object.values(KEYWORDS).find(keyword => {
       return (
         part.toLowerCase().match(keyword.name.toLowerCase()) ||
@@ -104,6 +109,9 @@ const tokens = computed<Token[]>(() => {
   color: var(--cyan-2);
 }
 
+.keyword-comment {
+  display: none;
+}
 .token-tag {
   color: var(--green-3);
 }
