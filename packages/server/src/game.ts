@@ -50,7 +50,7 @@ export class Game {
   }
 
   private onGameError(err: Error) {
-    console.log(err);
+    console.log('Game error:', err);
     this.io.in(this.game._id).emit('error', err.message);
     this.convexClient.action(api.games.cancel, { roomId: this.roomId });
   }
