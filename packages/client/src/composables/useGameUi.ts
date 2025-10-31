@@ -212,6 +212,7 @@ export const useGameUiProvider = (session: GameSession) => {
       return session.playerSystem.activePlayer.getCardFromHand(selectedCardIndex.value);
     }),
     selectCardAtIndex(index) {
+      console.trace(index);
       selectedCardIndex.value = index;
       selectedEntityId.value = null;
       match(api.selectedCard.value!.kind)
@@ -223,6 +224,7 @@ export const useGameUiProvider = (session: GameSession) => {
         });
     },
     unselectCard() {
+      console.trace('unselect card');
       selectedCardIndex.value = null;
       cardTargets.value = [];
       this.cardChoice.value = null;

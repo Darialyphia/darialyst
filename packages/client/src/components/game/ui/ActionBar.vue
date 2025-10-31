@@ -172,7 +172,6 @@ const { isMobile } = useResponsive();
   display: grid;
   align-self: start;
   justify-self: center;
-
   @screen lt-lg {
     transform: scale(0.8) translateX(var(--size-9));
   }
@@ -184,10 +183,10 @@ const { isMobile } = useResponsive();
   --base-offset: calc((var(--hand-size) / 2) * var(--offset-step) * -1);
   --offset-y: 0;
   --scale: 0.85;
-
   pointer-events: all;
   cursor: pointer;
-
+  min-width: 286px;
+  min-height: 420px;
   position: relative;
   z-index: var(--index);
   transform-origin: center 120%;

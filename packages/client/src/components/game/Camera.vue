@@ -115,6 +115,7 @@ const onMousemove = throttle((e: FederatedPointerEvent) => {
     @pointerup="
       (e: FederatedPointerEvent) => {
         if (e.target === camera.viewport.value) {
+          console.log('unselecting');
           ui.unselectCard();
           ui.unselectEntity();
         }

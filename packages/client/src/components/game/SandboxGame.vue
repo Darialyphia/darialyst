@@ -61,6 +61,10 @@ const serverSession = ServerSession.create(state, {
   format: toRaw(format)
 });
 
+// @ts-expect-error
+window.__debugGame = () => {
+  console.log(serverSession);
+};
 // const aiWorker = new AIWorker();
 // aiWorker.postMessage({
 //   type: 'init',
