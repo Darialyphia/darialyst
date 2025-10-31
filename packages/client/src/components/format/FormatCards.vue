@@ -17,9 +17,24 @@ const format = defineModel<{
 const customCards = computed(() =>
   Object.values(format.value.cards).filter(card => !CARDS[card.id])
 );
+const customCardsFilter = ref('');
+const filteredCustomCards = computed(() => {
+  if (!customCardsFilter.value) return customCards.value;
+  return customCards.value.filter(card =>
+    card.name.toLowerCase().includes(customCardsFilter.value.toLowerCase())
+  );
+});
+
 const editedCards = computed(() =>
   Object.values(format.value.cards).filter(card => !!CARDS[card.id])
 );
+const editedCardsFilter = ref('');
+const filteredEditedCards = computed(() => {
+  if (!editedCardsFilter.value) return editedCards.value;
+  return editedCards.value.filter(card =>
+    card.name.toLowerCase().includes(editedCardsFilter.value.toLowerCase())
+  );
+});
 const isEdited = (card: GenericSerializedBlueprint) =>
   editedCards.value.some(c => c.id === card.id);
 
@@ -47,11 +62,17 @@ const isDuplicateCardModalOpened = ref(false);
     <section class="sidebar fancy-scrollbar">
       <h3>Custom Cards</h3>
       <p>These are your brand new cards.</p>
+      <UiTextInput
+        id="custom-card-search"
+        v-model="customCardsFilter"
+        class="w-full mb-2"
+        placeholder="Filter cards..."
+      />
       <p v-if="!customCards.length" class="my-2 italic">
         This format doesn't have any custom card
       </p>
       <ul v-else class="card-list fancy-scrollbar">
-        <li v-for="card in customCards" :key="card.id" class="flex gap-3">
+        <li v-for="card in filteredCustomCards" :key="card.id" class="flex gap-3">
           <UiButton
             type="button"
             class="ghost-button"
@@ -135,7 +156,7 @@ const isDuplicateCardModalOpened = ref(false);
           </PopoverPortal>
         </PopoverRoot>
         <ExistingCardsModal
-          v-model:isOpened="isDuplicateCardModalOpened"
+          v-model:is-opened="isDuplicateCardModalOpened"
           :is-card-disabled="card => isEdited(card)"
           @select="
             card => {
@@ -152,12 +173,18 @@ const isDuplicateCardModalOpened = ref(false);
 
       <h3 class="mt-4">Edited Cards</h3>
       <p>These are altered version of standard cards</p>
+      <UiTextInput
+        id="edited-card-search"
+        v-model="editedCardsFilter"
+        class="w-full mb-2"
+        placeholder="Filter cards..."
+      />
       <p v-if="!editedCards.length" class="my-2 italic">
         This format doesn't have any edited card
       </p>
 
       <ul v-else class="card-list fancy-scrollbar">
-        <li v-for="card in editedCards" :key="card.id" class="flex gap-2">
+        <li v-for="card in filteredEditedCards" :key="card.id" class="flex gap-2">
           <UiButton
             class="ghost-button"
             :class="[
@@ -188,7 +215,7 @@ const isDuplicateCardModalOpened = ref(false);
       </UiButton>
 
       <ExistingCardsModal
-        v-model:isOpened="isCardsModalOpened"
+        v-model:is-opened="isCardsModalOpened"
         :is-card-disabled="card => isEdited(card)"
         @select="addCard"
       />

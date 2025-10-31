@@ -19,7 +19,6 @@ export class ClientSession extends GameSession {
     state: SerializedGameState,
     options: { format: GameFormat; winnerId?: string }
   ) {
-    console.log(state);
     const rngSystem = new ClientRngSystem();
     rngSystem.values = state.rng.values;
 
