@@ -3,7 +3,7 @@
   lang="ts"
   generic="
     TMultiple extends boolean,
-    TValue extends string | number | boolean | Record<string, any>,
+    TValue extends string | number | Record<string, any>,
     TItem,
     TDefault extends TMultiple extends true ? TValue[] : TValue
   "
