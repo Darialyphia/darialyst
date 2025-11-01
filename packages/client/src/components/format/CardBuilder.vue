@@ -209,6 +209,11 @@ const copyCode = () => {
   copy(dedent(content));
 };
 
+const copyJSON = () => {
+  const content = JSON.stringify(blueprint.value, null, 2);
+  copy(content);
+};
+
 watchEffect(() => {
   if (!blueprint.value.targets) {
     blueprint.value.targets = {
@@ -602,6 +607,13 @@ const cardComponent = computed(() => (classicMode.value ? ClassicCard : Darialys
         @click="copyCode"
       >
         Copy generated code to clipboard
+      </UiButton>
+      <UiButton
+        left-icon="material-symbols:content-copy-outline"
+        class="ghost-button"
+        @click="copyJSON"
+      >
+        Copy JSON to clipboard
       </UiButton>
     </div>
 

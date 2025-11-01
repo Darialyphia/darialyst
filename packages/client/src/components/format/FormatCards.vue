@@ -55,6 +55,8 @@ const addCard = (card: GenericSerializedBlueprint) => {
 const validator = useFormatValidator();
 const isCreateCardPopoverOened = ref(false);
 const isDuplicateCardModalOpened = ref(false);
+const isJSONModalOpened = ref(false);
+const jsonModalContent = ref('');
 </script>
 
 <template>
@@ -151,6 +153,56 @@ const isDuplicateCardModalOpened = ref(false);
                 >
                   From existing card
                 </UiButton>
+                <UiButton class="rounded-0 w-full" @click="isJSONModalOpened = true">
+                  From JSON
+                </UiButton>
+                <UiModal
+                  v-model:is-opened="isJSONModalOpened"
+                  title="Import Card from JSON"
+                >
+                  <div class="flex flex-col gap-4">
+                    <textarea
+                      v-model="jsonModalContent"
+                      class="w-full"
+                      rows="10"
+                      placeholder="Paste your card JSON here..."
+                    />
+                    <div class="flex justify-end gap-2">
+                      <UiButton
+                        class="ghost-button"
+                        @click="
+                          () => {
+                            isJSONModalOpened = false;
+                            jsonModalContent = '';
+                          }
+                        "
+                      >
+                        Cancel
+                      </UiButton>
+                      <UiButton
+                        class="primary-button"
+                        @click="
+                          () => {
+                            try {
+                              const card = JSON.parse(jsonModalContent);
+                              if (!card.id) {
+                                card.id = nanoid(6);
+                              }
+                              format.cards[card.id] = card;
+                              selectedCardId = card.id;
+                              isJSONModalOpened = false;
+                              jsonModalContent = '';
+                            } catch (e) {
+                              console.error('Failed to import card from JSON', e);
+                            }
+                          }
+                        "
+                      >
+                        Import
+                      </UiButton>
+                    </div>
+                  </div>
+                </UiModal>
               </div>
             </PopoverContent>
           </PopoverPortal>
