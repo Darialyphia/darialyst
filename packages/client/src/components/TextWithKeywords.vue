@@ -3,10 +3,14 @@ import type { GameFormatDto } from '@game/api/src/convex/formats/format.mapper';
 import { CARDS, KEYWORDS, TAGS, type CardBlueprint, type Keyword } from '@game/sdk';
 import { parseSerializeBlueprint } from '@game/sdk/src/card/card-parser';
 import { isString } from '@game/shared';
-const { text, highlighted = true } = defineProps<{
+const {
+  text,
+  highlighted = true,
+  format
+} = defineProps<{
   text: string;
   highlighted?: boolean;
-  format?: GameFormatDto;
+  format?: Pick<GameFormatDto, 'config'>;
 }>();
 
 const KEYWORD_DELIMITER = '@';
@@ -44,7 +48,8 @@ const tokens = computed<Token[]>(() => {
         text: part,
         card: parseSerializeBlueprint(card)
       };
-    const isTag = Object.values(TAGS).some(
+
+    const isTag = [...Object.values(TAGS), ...(format?.config.tags ?? [])].some(
       tag =>
         part === tag.name || tag.aliases.some(alias => alias === part.toLocaleLowerCase())
     );

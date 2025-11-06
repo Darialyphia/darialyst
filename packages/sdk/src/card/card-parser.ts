@@ -141,7 +141,9 @@ export const parseSerializeBlueprint = <T extends GenericCardEffect[]>(
     cost: blueprint.cost,
     relatedBlueprintIds: blueprint.relatedBlueprintIds,
     keywords: blueprint.keywords.map(getKeywordById).filter(isDefined),
-    tags: blueprint.tags.map(getTagById).filter(isDefined),
+    tags: blueprint.tags
+      .map(t => getTagById(t, format.config.tags ?? []))
+      .filter(isDefined),
     sounds: blueprint.sounds,
     modifiers: cardModifiers,
     targets: blueprint.targets ? parseTargets(blueprint.targets) : undefined,

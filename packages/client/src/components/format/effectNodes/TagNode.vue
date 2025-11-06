@@ -3,8 +3,9 @@ import { TAGS } from '@game/sdk';
 
 const tagId = defineModel<string>({ required: true });
 
+const format = useFormat();
 const options = computed(() =>
-  Object.values(TAGS)
+  [...Object.values(TAGS), ...(format.value.config.tags ?? [])]
     .map(value => ({
       label: value.name,
       value: value.id

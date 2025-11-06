@@ -170,8 +170,7 @@ p {
 }
 
 .tab {
-  padding: var(--size-4);
-  padding-bottom: 0;
+  padding: 0 var(--size-4);
 }
 
 .config-tab {

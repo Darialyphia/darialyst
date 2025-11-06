@@ -49,7 +49,7 @@ watchEffect(() => {
       ? ''
       : 'This card has missing informations : ';
   } catch (err) {
-    console.log((err as Error).message);
+    console.log(err as Error);
     error.value = "This card's effects have missing values.";
   }
 });
@@ -83,9 +83,11 @@ type UnitBlueprint = GenericSerializedBlueprint & {
   kind: Extract<CardKind, 'MINION' | 'GENERAL'>;
 };
 
-const tags = computed(() => blueprint.value.tags.map(getTagById).filter(isDefined));
+const tags = computed(() =>
+  blueprint.value.tags.map(tag => getTagById(tag, format.config.tags)).filter(isDefined)
+);
 const tagsOptions = computed(() =>
-  Object.values(TAGS)
+  [...Object.values(TAGS), ...(format.config.tags ?? [])]
     .map(tag => ({
       value: tag.id,
       label: capitalize(tag.name),
@@ -575,7 +577,11 @@ const cardComponent = computed(() => (classicMode.value ? ClassicCard : Darialys
               Delete
             </UiIconButton>
             <AccordionTrigger>
-              <TextWithKeywords :text="effect.text" :highlighted="false" />
+              <TextWithKeywords
+                :text="effect.text"
+                :highlighted="false"
+                :format="format"
+              />
               <Icon name="mdi:chevron-down" class="chevron" />
             </AccordionTrigger>
           </AccordionHeader>

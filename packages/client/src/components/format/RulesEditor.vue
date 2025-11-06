@@ -11,6 +11,19 @@ const roundNumberField = ($event: FocusEvent) => {
   const target = $event.target as HTMLInputElement;
   target.value = `${parseInt(target.value)}`;
 };
+
+if (!form.value.config.tags) {
+  form.value.config.tags = [];
+}
+
+function createRandomString(length: number): string {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
+}
 </script>
 
 <template>
@@ -188,69 +201,133 @@ const roundNumberField = ($event: FocusEvent) => {
       @blur="roundNumberField"
     />
   </fieldset>
+
+  <fieldset class="tags mb-8">
+    <legend>Tags</legend>
+    <p>Define custom tags that can be used on cards in this format.</p>
+    <p v-if="!form.config.tags?.length" class="block mt-3 italic">
+      You haven't added any custom tag yet
+    </p>
+    <UiButton
+      class="primary-button"
+      left-icon="material-symbols:add"
+      @click="
+        form.config.tags!.push({ id: createRandomString(8), name: '', aliases: [] })
+      "
+    >
+      New Tag
+    </UiButton>
+    <ul class="mt-4">
+      <li
+        v-for="(tag, index) in form.config.tags!"
+        :key="tag.id"
+        class="flex flex-col gap-2 mb-2"
+      >
+        <UiTextInput
+          :id="`tag-${tag.id}-name`"
+          v-model="tag.name"
+          placeholder="Tag Name"
+        />
+        <UiTextInput
+          :id="`tag-${tag.id}-aliases`"
+          placeholder="Aliases"
+          :model-value="tag.aliases.join(',')"
+          @update:model-value="
+            e => {
+              tag.aliases = (e as string).split(',').map(s => s.trim());
+            }
+          "
+        />
+        <p>
+          A comma separated list of aliases (for exemple: Frozen instead of Freeze). These
+          will be used to to automaticallyt highlight the tags in the card description
+        </p>
+        <UiButton
+          variant="danger"
+          size="small"
+          @click="form.config.tags!.splice(index, 1)"
+        >
+          Remove
+        </UiButton>
+        <p class="c-red-6">
+          If you remove a tag, make sure you are not using in some card effects since they
+          will not work anymore
+        </p>
+      </li>
+    </ul>
+  </fieldset>
 </template>
 
 <style scoped lang="postcss">
-textarea {
-  resize: none;
+@layer components {
+  textarea {
+    resize: none;
 
-  width: 100%;
+    width: 100%;
 
-  background-color: var(--surface-1);
-  border: solid 1px var(--border-dimmed);
-  border-radius: var(--radius-1);
-}
-
-fieldset {
-  position: relative;
-
-  display: grid;
-  grid-template-columns: 7fr 4fr;
-  column-gap: var(--size-2);
-
-  margin-top: var(--size-5);
-  &::after {
-    content: '';
-
-    position: absolute;
-    top: calc(-1 * var(--size-8));
-    left: 50%;
-    transform: translateX(-50%);
-
-    width: var(--size-12);
-    height: 3px;
-
-    background: linear-gradient(to right, var(--border), var(--primary), var(--border));
+    background-color: var(--surface-1);
+    border: solid 1px var(--border-dimmed);
+    border-radius: var(--radius-1);
   }
 
-  legend {
-    grid-column: 1 / -1;
-  }
+  fieldset:not(.tags) {
+    position: relative;
 
-  label {
-    display: flex;
-    gap: var(--size-3);
-    align-items: center;
-    & + *:not(p) {
-      margin-bottom: var(--size-3);
+    display: grid;
+    grid-template-columns: 7fr 4fr;
+    column-gap: var(--size-2);
+
+    margin-top: var(--size-5);
+    &::after {
+      content: '';
+
+      position: absolute;
+      top: calc(-1 * var(--size-8));
+      left: 50%;
+      transform: translateX(-50%);
+
+      width: var(--size-12);
+      height: 3px;
+
+      background: linear-gradient(to right, var(--border), var(--primary), var(--border));
+    }
+
+    legend {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      display: flex;
+      gap: var(--size-3);
+      align-items: center;
+      & + *:not(p) {
+        margin-bottom: var(--size-3);
+      }
+    }
+
+    p {
+      margin-top: calc(-1 * var(--size-2));
+      font-size: var(--font-size-0);
+      color: var(--orange-5);
     }
   }
 
-  p {
-    margin-top: calc(-1 * var(--size-2));
-    font-size: var(--font-size-0);
-    color: var(--orange-5);
+  div > label,
+  legend {
+    display: block;
+    font-size: var(--font-size-4);
+    font-weight: var(--font-weight-5);
   }
-}
 
-div > label,
-legend {
-  display: block;
-  font-size: var(--font-size-4);
-  font-weight: var(--font-weight-5);
-}
+  p {
+    grid-column: 1 / -1;
+  }
 
-p {
-  grid-column: 1 / -1;
+  .tags {
+    p {
+      font-size: var(--font-size-0);
+      color: var(--orange-5);
+    }
+  }
 }
 </style>

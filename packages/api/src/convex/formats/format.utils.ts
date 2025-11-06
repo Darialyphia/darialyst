@@ -40,7 +40,16 @@ export const formatConfigValidator = v.object({
   CAN_WALK_THROUGH_ALLIES: v.boolean(),
   CAN_MOVE_AFTER_ATTACK: v.boolean(),
   ARTIFACT_DURABILITY: v.number(),
-  DRAW_AT_END_OF_TURN: v.boolean()
+  DRAW_AT_END_OF_TURN: v.boolean(),
+  tags: v.optional(
+    v.array(
+      v.object({
+        id: v.string(),
+        name: v.string(),
+        aliases: v.array(v.string())
+      })
+    )
+  )
 });
 
 export const getFormatWithAuthor = async (db: QueryCtx['db'], format: Doc<'formats'>) => {

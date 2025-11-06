@@ -18,6 +18,11 @@ export type GameSessionConfig = {
   CAN_MOVE_AFTER_ATTACK: boolean;
   ARTIFACT_DURABILITY: number;
   DRAW_AT_END_OF_TURN: boolean;
+  tags?: Array<{
+    id: string;
+    name: string;
+    aliases: string[];
+  }>;
 };
 
 export const VERSION = '0.1.2';

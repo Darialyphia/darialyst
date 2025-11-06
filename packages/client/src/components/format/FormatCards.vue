@@ -64,37 +64,14 @@ const jsonModalContent = ref('');
     <section class="sidebar fancy-scrollbar">
       <h3>Custom Cards</h3>
       <p>These are your brand new cards.</p>
-      <UiTextInput
-        id="custom-card-search"
-        v-model="customCardsFilter"
-        class="w-full mb-2"
-        placeholder="Filter cards..."
-      />
-      <p v-if="!customCards.length" class="my-2 italic">
-        This format doesn't have any custom card
-      </p>
-      <ul v-else class="card-list fancy-scrollbar">
-        <li v-for="card in filteredCustomCards" :key="card.id" class="flex gap-3">
-          <UiButton
-            type="button"
-            class="ghost-button"
-            :class="[
-              card.id === selectedCardId && 'selected',
-              !validator.isCardValid(card) && 'invalid'
-            ]"
-            @click="selectedCardId = card.id"
-          >
-            <CardSprite :sprite-id="card.spriteId" class="sprite" />
-            {{ card.name }}
-          </UiButton>
-          <UiIconButton
-            name="material-symbols:delete-outline"
-            class="ghost-error-button shrink-0"
-            @click="delete format.cards[card.id]"
-          />
-        </li>
-      </ul>
-      <div class="flex items-center gap-2">
+      <div class="flex gap-3 items-center mb-2">
+        <UiTextInput
+          id="custom-card-search"
+          v-model="customCardsFilter"
+          class="w-full"
+          placeholder="Filter cards..."
+        />
+
         <PopoverRoot v-model:open="isCreateCardPopoverOened">
           <InteractableSounds>
             <PopoverTrigger as-child>
@@ -106,7 +83,7 @@ const jsonModalContent = ref('');
                 right-icon="tdesign:caret-down"
                 @click="isCreateCardPopoverOened = true"
               >
-                Make New Card
+                New Card
               </UiButton>
             </PopoverTrigger>
           </InteractableSounds>
@@ -222,15 +199,56 @@ const jsonModalContent = ref('');
           "
         />
       </div>
+      <p v-if="!customCards.length" class="my-2 italic">
+        This format doesn't have any custom card
+      </p>
+      <ul v-else class="card-list fancy-scrollbar">
+        <li v-for="card in filteredCustomCards" :key="card.id" class="flex gap-3">
+          <UiIconButton
+            name="material-symbols:delete-outline"
+            class="ghost-error-button shrink-0"
+            @click="delete format.cards[card.id]"
+          />
+          <UiButton
+            type="button"
+            class="ghost-button"
+            :class="[
+              card.id === selectedCardId && 'selected',
+              !validator.isCardValid(card) && 'invalid'
+            ]"
+            @click="selectedCardId = card.id"
+          >
+            <CardSprite :sprite-id="card.spriteId" class="sprite" />
+            {{ card.name }}
+          </UiButton>
+        </li>
+      </ul>
 
       <h3 class="mt-4">Edited Cards</h3>
       <p>These are altered version of standard cards</p>
-      <UiTextInput
-        id="edited-card-search"
-        v-model="editedCardsFilter"
-        class="w-full mb-2"
-        placeholder="Filter cards..."
-      />
+      <div class="flex gap-3 items-center mb-2">
+        <UiTextInput
+          id="edited-card-search"
+          v-model="editedCardsFilter"
+          class="w-full mb-2"
+          placeholder="Filter cards..."
+        />
+        <UiButton
+          type="button"
+          class="primary-button"
+          is-inline
+          left-icon="material-symbols:add"
+          @click="isCardsModalOpened = true"
+        >
+          Edit Card
+        </UiButton>
+
+        <ExistingCardsModal
+          v-model:is-opened="isCardsModalOpened"
+          :is-card-disabled="card => isEdited(card)"
+          @select="addCard"
+        />
+      </div>
       <p v-if="!editedCards.length" class="my-2 italic">
         This format doesn't have any edited card
       </p>
@@ -256,21 +274,6 @@ const jsonModalContent = ref('');
           />
         </li>
       </ul>
-      <UiButton
-        type="button"
-        class="primary-button"
-        is-inline
-        left-icon="material-symbols:add"
-        @click="isCardsModalOpened = true"
-      >
-        Edit Card
-      </UiButton>
-
-      <ExistingCardsModal
-        v-model:is-opened="isCardsModalOpened"
-        :is-card-disabled="card => isEdited(card)"
-        @select="addCard"
-      />
     </section>
 
     <section>
@@ -306,7 +309,7 @@ section {
 }
 
 .sidebar {
-  overflow-y: auto;
+  overflow-y: hidden;
   padding-bottom: var(--size-11);
 }
 
@@ -314,7 +317,9 @@ section {
   display: grid;
   gap: var(--size-2);
   padding: var(--size-2);
-
+  max-height: 250px;
+  overflow-y: auto;
+  overflow-x: hidden;
   .selected {
     --ui-button-border-color: var(--border);
     --ui-button-border-size: var(--border-size-1);
