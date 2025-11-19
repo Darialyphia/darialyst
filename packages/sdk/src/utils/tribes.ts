@@ -37,6 +37,5 @@ export const TAGS = {
 export type TagId = Values<typeof TAGS>['id'];
 
 export const getTagById = (id: TagId, additionalTags?: Tag[]) => {
-  console.log(additionalTags);
   return [...Object.values(TAGS), ...(additionalTags ?? [])].find(t => t.id === id);
 };

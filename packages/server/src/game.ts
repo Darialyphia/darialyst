@@ -31,7 +31,6 @@ export class Game {
   private startDate!: number;
   private initialStateSendStatus: Record<string, boolean> = {};
 
-  private initialSnapshot: SerializedGameState | null = null;
   constructor(
     private io: GameServer,
     private convexClient: ConvexHttpClient,
@@ -45,12 +44,11 @@ export class Game {
     this.session.on('game:error', this.onGameError.bind(this));
     this.session.onUpdate(this.onGameAction.bind(this));
     this.session.once('game:ready', async () => {
-      this.initialSnapshot = this.session.serialize();
       const sockets = await io.in(this.roomId).fetchSockets();
+      const snapshot = this.session.serialize();
       sockets.forEach(socket => {
         if (!this.initialStateSendStatus[socket.id]) {
-          // @ts-expect-error
-          this.sendInitialState(socket);
+          this.sendInitialState(socket, snapshot);
         }
       });
     });
@@ -160,16 +158,18 @@ export class Game {
     this.onTurnStart(this.session.playerSystem.activePlayer);
   }
 
-  sendInitialState(socket: GameSocket) {
-    socket.emit('game:init', this.initialSnapshot);
+  sendInitialState(
+    socket: Pick<GameSocket, 'emit' | 'id'>,
+    snapshot: SerializedGameState
+  ) {
+    socket.emit('game:init', snapshot);
     this.initialStateSendStatus[socket.id] = true;
   }
 
   join(socket: GameSocket) {
     socket.join(this.game._id);
-    if (this.initialSnapshot) {
-      socket.emit('game:init', this.initialSnapshot);
-    }
+
+    this.sendInitialState(socket, this.session.serialize());
 
     socket.on('game:action', (arg: { type: any; payload: any }) => {
       this.onPlayerInput(socket, arg);
